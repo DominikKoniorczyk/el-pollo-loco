@@ -1,5 +1,5 @@
 let canvasRev;
-let character = new Image();
+let character = new MovableObject();
 let ctx;
 
 function initGame(){
