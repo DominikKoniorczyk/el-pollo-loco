@@ -18,6 +18,6 @@ class MovableObject {
     }
 
     moveLeft(){
-
+        
     }
 }
