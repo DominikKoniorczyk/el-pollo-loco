@@ -116,8 +116,23 @@ class ImageHub {
             'img/4_enemie_boss_chicken/5_dead/G26.png'
         ]
     };
-    static clouds = [
+    static backgrounds = {
+        layer_one: [
+            'img/5_background/layers/1_first_layer/1.png',
+            'img/5_background/layers/1_first_layer/2.png'
+        ],
+        layer_two: [
+            'img/5_background/layers/2_second_layer/1.png',
+            'img/5_background/layers/2_second_layer/2.png'
+        ],
+        layer_three: [
+            'img/5_background/layers/3_third_layer/1.png',
+            'img/5_background/layers/3_third_layer/2.png'
+        ],
+        clouds: [
         'img/5_background/layers/4_clouds/1.png',
         'img/5_background/layers/4_clouds/2.png'
-    ];
+        ],
+        air: 'img/5_background/layers/air.png',        
+    };
 }

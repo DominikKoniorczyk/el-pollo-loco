@@ -6,6 +6,13 @@ class World {
         new Chicken()
     ];
     clouds = [new Cloud()] ;
+    backgroundObjects = [
+        new BackgroundObject(ImageHub.backgrounds.air),
+        new BackgroundObject(ImageHub.backgrounds.layer_three[0]),
+        new BackgroundObject(ImageHub.backgrounds.layer_two[0]),
+        new BackgroundObject(ImageHub.backgrounds.layer_one[0])
+    ];
+
     canvas;
     ctx;
 
@@ -17,17 +24,20 @@ class World {
  
     draw(){ 
         this.ctx.clearRect(0, 0, 720, 480);
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-        
-        this.clouds.forEach(cloud => {
-            this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
-        });
-
+        this.addObjectsToViewport(this.backgroundObjects);
+        this.addObjectsToViewport(this.clouds);
+        this.addToViewport(this.character);
+        this.addObjectsToViewport(this.enemies);
         requestAnimationFrame(() => this.draw());
     }
 
+    addObjectsToViewport(objects){
+        objects.forEach(object => {
+            this.addToViewport(object);
+        });
+    }
 
+    addToViewport(mo){
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    }
 }
