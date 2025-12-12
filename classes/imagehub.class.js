@@ -130,8 +130,8 @@ class ImageHub {
             'img/5_background/layers/3_third_layer/2.png'
         ],
         clouds: [
-        'img/5_background/layers/4_clouds/1.png',
-        'img/5_background/layers/4_clouds/2.png'
+            'img/5_background/layers/4_clouds/1.png',
+            'img/5_background/layers/4_clouds/2.png'
         ],
         air: 'img/5_background/layers/air.png',        
     };
