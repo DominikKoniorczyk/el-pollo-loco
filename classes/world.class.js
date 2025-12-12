@@ -13,15 +13,21 @@ class World {
         new BackgroundObject(ImageHub.backgrounds.layer_two[0]),
         new BackgroundObject(ImageHub.backgrounds.layer_one[0])
     ];
-
     canvas;
     ctx;
+    keyboard;
 
-    constructor(_canvas){
+    constructor(_canvas, _keyboard){
         this.ctx = _canvas.getContext('2d');
         this.canvas = _canvas;
+        this.keyboard = _keyboard;
         this.initWorld();
         this.draw();
+        this.setWorld();
+    }
+
+    setWorld(){
+        this.character.world = this;
     }
 
     initWorld(){
@@ -52,6 +58,20 @@ class World {
     }
 
     addToViewport(mo){
+        if(mo.otherDirection){
+            this.flipImage(mo);
+        }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        if(mo.otherDirection){
+            mo.x = mo.x * -1;
+            this.ctx.restore();
+        }
+    }
+
+    flipImage(mo){
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
     }
 }

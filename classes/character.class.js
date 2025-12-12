@@ -2,6 +2,8 @@ class Character extends MovableObject {
     width = 122;
     height = 240;
     y = 190;
+    world;
+    speed = 10;
 
     constructor(){
         super();
@@ -15,11 +17,24 @@ class Character extends MovableObject {
     }
 
     animate(){
+
         setInterval(() => {
-            const i = this.currentImageIndex % ImageHub.character.walk.length;
-            const path = ImageHub.character.walk[i];
-            this.img = this.imageCache[path];
-            this.currentImageIndex++;
-        }, 1000 / 10);
+            if(this.world.keyboard.RIGHT){
+                this.x += this.speed;
+                this.otherDirection = false;
+            } else if(this.world.keyboard.LEFT){
+                this.x -= this.speed;
+                this.otherDirection = true;
+            }
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+                const i = this.currentImageIndex % ImageHub.character.walk.length;
+                const path = ImageHub.character.walk[i];
+                this.img = this.imageCache[path];
+                this.currentImageIndex++;
+            }
+        }, 50);
     }
 }

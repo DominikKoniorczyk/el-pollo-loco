@@ -8,6 +8,7 @@ class MovableObject {
     currentImageIndex = 0;
     speed = 0.15;
     animation_interval = 1000 / 5;
+    otherDirection = false;
 
     constructor(){
     }
@@ -38,7 +39,7 @@ class MovableObject {
 
     checkIfOffScreen(){
         if(this.x + this.width < -20){
-            this.x = 720 * World.world_tiles;            
+            this.x = (720 * 3);                      
         }        
     }
 }
