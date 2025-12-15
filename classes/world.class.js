@@ -15,6 +15,7 @@ class World {
         this.initWorld();
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld(){
@@ -94,5 +95,14 @@ class World {
     flipImageBack(mo){
         this.ctx.restore();
         mo.x = mo.x * -1;
+    }
+
+    checkCollisions(){
+        setInterval(() => {
+            this.level.enemies.forEach(enemy => {
+                if(this.character.isColliding(enemy)){
+                    this.character.applyDamage(enemy.damage_per_attack);
+                }});           
+        }, 200);
     }
 }

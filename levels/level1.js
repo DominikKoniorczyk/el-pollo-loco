@@ -1,1 +1,1 @@
-const level1 = new Level(6, 12, {width: 343, height: 400});
+const level1 = new Level(1, 12, {width: 343, height: 400});

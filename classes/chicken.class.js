@@ -3,6 +3,7 @@ class Chicken extends MovableObject {
     height = 60;
     y = 363;
     standingGroundY = 363;
+    offset = { top: 5, bottom: 10, left: 5, right: 10 };
 
     constructor(){
         super();
@@ -22,7 +23,7 @@ class Chicken extends MovableObject {
         setInterval(() => { 
             this.moveLeft();
         }, 1000 / 60);
-        
+
         setInterval(() => {
             this.playAnimation(ImageHub.chicken.walk);
         }, this.animation_interval);

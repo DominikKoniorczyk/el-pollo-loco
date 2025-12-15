@@ -4,6 +4,7 @@ class MovableObject {
     img;
     height = 150;
     width = 100;
+    offset = { top: 0, bottom: 0, left: 0, right: 0 };
     imageCache = {};
     currentImageIndex = 0;
     speed = 0.15;
@@ -14,6 +15,8 @@ class MovableObject {
     acceleration = 1;
     standing_ground_y;
     jump_height = 20;
+    health = 100;
+    damage_per_attack = 20;
 
     constructor(){
     }
@@ -83,7 +86,23 @@ class MovableObject {
             ctx.beginPath();
             ctx.linewidth = "10";
             ctx.strokeStyle = "blue";
-            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
             ctx.stroke();
     }}
+
+    isColliding(mo){               
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+               this.y + this.height - this.offset.bottom + this.offset.top > mo.y + mo.offset.top &&
+               this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+               this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+    }
+
+    applyDamage(damage){
+        this.health -= damage;
+        if(this.health < 0) this.health = 0;       
+    }
+
+    checkIsDead(){
+        return this.health == 0;
+    }
 }
