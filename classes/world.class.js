@@ -1,5 +1,4 @@
 class World {
-    world_tiles = 12;
     character = new Character();
     level;
     canvas;
@@ -19,10 +18,11 @@ class World {
 
     setWorld(){
         this.character.world = this;
+        this.addWorldToEnemies();
     }
 
     initWorld(){
-        for(let i = 0; i < this.world_tiles; i++){
+        for(let i = 0; i < this.level.world_tiles; i++){
             this.addDynamicClouds(i);
             this.addDynamicBackgrounds(i);
         }
@@ -44,8 +44,8 @@ class World {
 
     addDynamicClouds(actualIndex){
         if(actualIndex % 2 == 0)
-            this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * 720, this.world_tiles));
-        else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * 720, this.world_tiles));
+            this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * 720, this.level.world_tiles));
+        else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * 720, this.level.world_tiles));
     }
  
     draw(){ 
@@ -62,6 +62,12 @@ class World {
     addObjectsToViewport(objects){
         objects.forEach(object => {
             this.addToViewport(object);
+        });
+    }
+
+    addWorldToEnemies(){
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
         });
     }
 

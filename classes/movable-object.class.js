@@ -7,6 +7,7 @@ class MovableObject {
     imageCache = {};
     currentImageIndex = 0;
     speed = 0.15;
+    world;
     world_tiles;
     otherDirection = false;
 
@@ -41,5 +42,12 @@ class MovableObject {
         if(this.x + this.width < 0){
             this.x = (720 * (this.world_tiles - 1));                      
         }        
+    }
+
+    playAnimation(images){
+        const i = this.currentImageIndex % images.length;
+        const path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImageIndex++;
     }
 }

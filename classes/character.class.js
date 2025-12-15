@@ -2,7 +2,6 @@ class Character extends MovableObject {
     width = 122;
     height = 240;
     y = 190;
-    world;
     speed = 10;
 
     constructor(){
@@ -31,10 +30,7 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-                const i = this.currentImageIndex % ImageHub.character.walk.length;
-                const path = ImageHub.character.walk[i];
-                this.img = this.imageCache[path];
-                this.currentImageIndex++;
+                this.playAnimation(ImageHub.character.walk);
             }
         }, 50);
     }
