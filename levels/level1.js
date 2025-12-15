@@ -1,4 +1,1 @@
-const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Endboss()],
-    12
-);
+const level1 = new Level(6, 12, {width: 343, height: 400});

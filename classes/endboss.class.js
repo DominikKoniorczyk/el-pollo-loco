@@ -1,13 +1,13 @@
 class Endboss extends MovableObject {
     height = 400;
-    width = 250;
+    width = 343;
     y = 60;
 
-    constructor(){
+    constructor(world_tiles, size){
         super();
-        this.x = (this.world.level.world_tiles * 720) - 1020;
-        console.log(this.x);
-        
+        this.x = (world_tiles * 720) - 720;
+        this.height = size.height;
+        this.width = size.width;
         super.loadImage(ImageHub.endboss.alert[0]);
         super.loadImages(ImageHub.endboss.alert);
         this.animate();
