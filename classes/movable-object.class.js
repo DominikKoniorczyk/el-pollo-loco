@@ -73,4 +73,17 @@ class MovableObject {
     jump(){
         this.speedY = this.jump_height;
     }
+
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+    
+    drawCollisionFrames(ctx){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+            ctx.beginPath();
+            ctx.linewidth = "10";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+    }}
 }
