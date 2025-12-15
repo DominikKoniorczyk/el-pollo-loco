@@ -11,6 +11,7 @@ class World {
         this.canvas = _canvas;
         this.keyboard = _keyboard;
         this.level = _level;
+        this.level.canvas = this.canvas;
         this.initWorld();
         this.draw();
         this.setWorld();
@@ -22,34 +23,35 @@ class World {
     }
 
     initWorld(){
+        this.level.initLevel();
         for(let i = 0; i < this.level.world_tiles; i++){
             this.addDynamicClouds(i);
             this.addDynamicBackgrounds(i);
         }
     }
 
-    addDynamicBackgrounds(actualIndex){
+    addDynamicBackgrounds(actualIndex){        
         if(actualIndex % 2 == 0){
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * 720));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[0], actualIndex * 720));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[0], actualIndex * 720));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[0], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * this.canvas.width));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[0], actualIndex * this.canvas.width));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[0], actualIndex * this.canvas.width));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[0], actualIndex * this.canvas.width));
         } else {
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * 720));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[1], actualIndex * 720));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[1], actualIndex * 720));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[1], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * this.canvas.width));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[1], actualIndex * this.canvas.width));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[1], actualIndex * this.canvas.width));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[1], actualIndex * this.canvas.width));
         } 
     }
 
     addDynamicClouds(actualIndex){
         if(actualIndex % 2 == 0)
-            this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * 720, this.level.world_tiles));
-        else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * 720, this.level.world_tiles));
+            this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * this.canvas.width, this.level.world_tiles));
+        else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * this.canvas.width, this.level.world_tiles));
     }
  
     draw(){ 
-        this.ctx.clearRect(0, 0, 720, 480);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToViewport(this.level.backgroundObjects);
         this.addObjectsToViewport(this.level.clouds);
