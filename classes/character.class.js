@@ -12,6 +12,7 @@ class Character extends MovableObject {
         this.loadImage(ImageHub.character.idle[0]);
         this.loadImages(ImageHub.character.walk);
         this.loadImages(ImageHub.character.jump);
+        this.loadImages(ImageHub.character.hurt);
         this.loadImages(ImageHub.character.death);
     }
 
@@ -29,12 +30,13 @@ class Character extends MovableObject {
         this.world.camera_x = -this.x + 100;
     }
 
-    interval10ms(){
-        super.interval10ms();
-        if(this.ms_counter % 50 === 0){
+    interval10ms(globalIntervalCounter){
+        super.interval10ms(globalIntervalCounter);
+        if(globalIntervalCounter % 50 === 0){
             this.walking();       
             this.jumpAnimation();
             this.checkLifeState();
+            this.hurtAnimation();            
         }
     }
 
@@ -47,6 +49,12 @@ class Character extends MovableObject {
     jumpAnimation(){
         if(this.isInAir() || this.speedY > 0 && !this.checkIsDead()){
             this.playAnimation(ImageHub.character.jump);
+        }
+    }
+
+    hurtAnimation(){
+        if(this.isHurt()){
+            this.playAnimation(ImageHub.character.hurt);
         }
     }
 

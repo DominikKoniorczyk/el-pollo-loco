@@ -16,8 +16,9 @@ class MovableObject {
     standing_ground_y;
     jump_height = 20;
     health = 100;
-    damage_per_attack = 20;
-    ms_counter = 0;
+    damagePerAttack = 20;
+    msCounter = 0;
+    lastHit = 0;
 
     constructor(){
     }
@@ -27,11 +28,8 @@ class MovableObject {
         this.applyGravity();
     }
 
-    interval10ms(){
-        this.ms_counter += 10;
-        if(this.ms_counter >= 1000){
-            this.ms_counter = 0;
-        }
+    interval10ms(globalIntervalCounter){
+        this.msCounter == globalIntervalCounter;
     }
 
     loadImage(path){
@@ -107,10 +105,19 @@ class MovableObject {
 
     applyDamage(damage){
         this.health -= damage;
-        if(this.health < 0) this.health = 0;       
+        if(this.health < 0) {
+            this.health = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }       
     }
 
     checkIsDead(){
         return this.health == 0;
+    }
+
+    isHurt(){
+        let timePassed = new Date().getTime() - this.lastHit;
+        return timePassed < 200; 
     }
 }

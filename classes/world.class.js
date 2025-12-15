@@ -123,7 +123,7 @@ class World {
         if(globalIntervalCounter % 200 === 0){
             this.level.enemies.forEach(enemy => {
                 if(this.character.isColliding(enemy)){
-                    this.character.applyDamage(enemy.damage_per_attack);
+                    this.character.applyDamage(enemy.damagePerAttack);
                 }});  
         }   
     }

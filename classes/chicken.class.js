@@ -9,23 +9,26 @@ class Chicken extends MovableObject {
         super();
         super.loadImage(ImageHub.chicken.walk[0]);
         super.loadImages(ImageHub.chicken.walk);
-        this.calculateSpeeds();
-        this.animate();      
+        this.calculateSpeeds();  
     }
 
     calculateSpeeds(){
         this.x = 200 + Math.random() * 500;
         this.speed = 0.5 + Math.random() * 0.5; 
-        this.animation_interval = 1000 / (this.speed * 10); 
+    }
+
+    interval60FPS(){
+        super.interval60FPS();
+        this.moveLeft();
+    }
+
+    interval10ms(globalIntervalCounter){
+        if(globalIntervalCounter % 110 === 0){
+            this.animate();
+        }
     }
 
     animate(){
-        setInterval(() => { 
-            this.moveLeft();
-        }, 1000 / 60);
-
-        setInterval(() => {
-            this.playAnimation(ImageHub.chicken.walk);
-        }, this.animation_interval);
+        this.playAnimation(ImageHub.chicken.walk);   
     }
 }
