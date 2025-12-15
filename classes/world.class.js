@@ -1,11 +1,7 @@
 class World {
     world_tiles = 12;
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ];
+    enemies = [];
     clouds = [] ;
     backgroundObjects = [];
     canvas;
@@ -13,10 +9,12 @@ class World {
     keyboard;
     camera_x = 0;
 
-    constructor(_canvas, _keyboard){
+    constructor(_canvas, _keyboard, _enemies, _world_tiles){
         this.ctx = _canvas.getContext('2d');
         this.canvas = _canvas;
         this.keyboard = _keyboard;
+        this.enemies = _enemies;
+        this.world_tiles = _world_tiles;
         this.initWorld();
         this.draw();
         this.setWorld();
