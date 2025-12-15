@@ -32,12 +32,14 @@ class MovableObject {
     }
 
     moveRight(){
-
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
     moveLeft(){
-        setInterval(() => {
-            this.x -= this.speed;    
+        this.x -= this.speed;  
+        this.otherDirection = true; 
+        setInterval(() => { 
             if(this instanceof Cloud) this.checkIfOffScreen();
         }, 1000 / 60);
     }
@@ -66,5 +68,9 @@ class MovableObject {
 
     isInAir(){
         return this.y < this.standing_ground_y;
+    }
+
+    jump(){
+        this.speedY = this.jump_height;
     }
 }

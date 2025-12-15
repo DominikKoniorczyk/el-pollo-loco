@@ -74,11 +74,11 @@ class World {
     }
 
     addToViewport(mo){
-        if(mo.otherDirection){
+        if(mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
             this.flipImage(mo);
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        if(mo.otherDirection){
+        if(mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
             mo.x = mo.x * -1;
             this.ctx.restore();
         }
