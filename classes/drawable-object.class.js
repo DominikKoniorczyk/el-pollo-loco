@@ -1,0 +1,36 @@
+class DrawableObject {
+    x = 120;
+    y = 275;
+    height = 150;
+    width = 100;
+    img;
+    imageCache = {};
+    currentImageIndex = 0;
+    otherDirection = false;
+    
+    loadImage(path){
+        this.img = new Image();
+        this.img.src = path;
+    }
+
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    loadImages(arr){
+        arr.forEach(path => {
+            let img = new Image();  
+            img.src = path;
+            this.imageCache[path] = img;
+        });
+    }
+    
+    drawCollisionFrames(ctx){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+            ctx.beginPath();
+            ctx.linewidth = "10";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
+            ctx.stroke();
+    }}
+}

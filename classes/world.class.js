@@ -5,6 +5,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    healthBar = new StatusBar(20, 0, ImageHub.statBars.health, true);
+    coinBar = new StatusBar(20, 100, ImageHub.statBars.coin, false);
+    bottleBar = new StatusBar(20, 50, ImageHub.statBars.bottle, false);
 
     constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
@@ -81,6 +84,9 @@ class World {
         this.addToViewport(this.character);
         this.addObjectsToViewport(this.level.enemies);        
         this.ctx.translate(-this.camera_x, 0);
+        this.addToViewport(this.healthBar);
+        this.addToViewport(this.bottleBar);
+        this.addToViewport(this.coinBar);
         //requestAnimationFrame(() => this.draw());
     }
 
@@ -124,6 +130,7 @@ class World {
             this.level.enemies.forEach(enemy => {
                 if(this.character.isColliding(enemy)){
                     this.character.applyDamage(enemy.damagePerAttack);
+                    this.healthBar.setPercentage(this.character.health);
                 }});  
         }   
     }
