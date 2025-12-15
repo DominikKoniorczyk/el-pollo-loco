@@ -10,6 +10,10 @@ class MovableObject {
     world;
     world_tiles;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 1;
+    standing_ground_y;
+    jump_height = 20;
 
     constructor(){
     }
@@ -49,5 +53,18 @@ class MovableObject {
         const path = images[i];
         this.img = this.imageCache[path];
         this.currentImageIndex++;
+    }
+
+    applyGravity(){
+        setInterval(() => {
+            if(this.isInAir() || this.speedY > 0){
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000/60);
+    }
+
+    isInAir(){
+        return this.y < this.standing_ground_y;
     }
 }
