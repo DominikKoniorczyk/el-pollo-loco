@@ -31,6 +31,28 @@ class World {
         }
     }
 
+    interval10ms(globalIntervalCounter){
+        this.character.interval10ms(globalIntervalCounter);
+        this.level.enemies.forEach(enemy => {
+            enemy.interval10ms(globalIntervalCounter);
+        });
+        this.level.clouds.forEach(cloud => {
+            cloud.interval10ms(globalIntervalCounter);
+        });
+        this.checkCollisions(globalIntervalCounter);
+    }
+
+    interval60FPS(){
+        this.character.interval60FPS();
+        this.draw();
+        this.level.enemies.forEach(enemy => {
+            enemy.interval60FPS();
+        });        
+        this.level.clouds.forEach(cloud => {
+            cloud.interval60FPS();
+        });
+    }
+
     addDynamicBackgrounds(actualIndex){        
         if(actualIndex % 2 == 0){
             this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * this.canvas.width));
@@ -59,7 +81,7 @@ class World {
         this.addToViewport(this.character);
         this.addObjectsToViewport(this.level.enemies);        
         this.ctx.translate(-this.camera_x, 0);
-        requestAnimationFrame(() => this.draw());
+        //requestAnimationFrame(() => this.draw());
     }
 
     addObjectsToViewport(objects){
@@ -97,12 +119,12 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    checkCollisions(){
-        setInterval(() => {
+    checkCollisions(globalIntervalCounter) {
+        if(globalIntervalCounter % 200 === 0){
             this.level.enemies.forEach(enemy => {
                 if(this.character.isColliding(enemy)){
                     this.character.applyDamage(enemy.damage_per_attack);
-                }});           
-        }, 200);
+                }});  
+        }   
     }
 }

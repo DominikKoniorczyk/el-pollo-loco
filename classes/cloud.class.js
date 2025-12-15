@@ -7,14 +7,12 @@ class Cloud extends MovableObject {
         super();
         super.loadImage(imagePath);
         this.x = xPos;
-        this.animate();
         this.world_tiles = tiles;
     }
-
-    animate(){
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+    
+    interval60FPS(){
+        super.interval60FPS();
+        this.moveLeft();
     }
 
     moveLeft(){

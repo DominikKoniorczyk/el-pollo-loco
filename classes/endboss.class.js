@@ -13,9 +13,14 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    interval10ms(){
+        super.interval10ms();
+        if(this.ms_counter % 200 === 0){
+            this.animate();
+        }
+    }
+    
     animate(){
-        setInterval(() => {
-            this.playAnimation(ImageHub.endboss.alert);
-        }, 200);
+        this.playAnimation(ImageHub.endboss.alert);
     }
 }

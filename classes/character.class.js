@@ -13,27 +13,29 @@ class Character extends MovableObject {
         this.loadImages(ImageHub.character.walk);
         this.loadImages(ImageHub.character.jump);
         this.loadImages(ImageHub.character.death);
-        this.animate();
     }
 
-    animate(){
+    interval60FPS(){
+        super.interval60FPS();
 
-        setInterval(() => {
-            if(this.world.keyboard.RIGHT && (this.x < this.world.level.level_end_x - 720)){
+        if(this.world.keyboard.RIGHT && (this.x < this.world.level.level_end_x - 720)){
                 this.moveRight();
             } else if(this.world.keyboard.LEFT && this.x > 100){
                 this.moveLeft();
             }
-            if(this.world.keyboard.SPACE && !this.isInAir()){
-                this.jump();
-            }
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-        setInterval(() => {
+        if(this.world.keyboard.SPACE && !this.isInAir()){
+            this.jump();
+        }
+        this.world.camera_x = -this.x + 100;
+    }
+
+    interval10ms(){
+        super.interval10ms();
+        if(this.ms_counter % 50 === 0){
             this.walking();       
             this.jumpAnimation();
             this.checkLifeState();
-        }, 50); 
+        }
     }
 
     walking(){

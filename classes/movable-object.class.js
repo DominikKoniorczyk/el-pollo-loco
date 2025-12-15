@@ -17,8 +17,21 @@ class MovableObject {
     jump_height = 20;
     health = 100;
     damage_per_attack = 20;
+    ms_counter = 0;
 
     constructor(){
+    }
+
+    interval60FPS(){
+        this.checkIfOffScreen();
+        this.applyGravity();
+    }
+
+    interval10ms(){
+        this.ms_counter += 10;
+        if(this.ms_counter >= 1000){
+            this.ms_counter = 0;
+        }
     }
 
     loadImage(path){
@@ -42,15 +55,12 @@ class MovableObject {
     moveLeft(){
         this.x -= this.speed;  
         this.otherDirection = true; 
-        setInterval(() => { 
-            if(this instanceof Cloud) this.checkIfOffScreen();
-        }, 1000 / 60);
     }
 
-    checkIfOffScreen(){
+    checkIfOffScreen = () =>{
         if(this.x + this.width < 0){
             this.x = (720 * (this.world_tiles - 1));                      
-        }        
+        }    
     }
 
     playAnimation(images){
@@ -61,12 +71,10 @@ class MovableObject {
     }
 
     applyGravity(){
-        setInterval(() => {
-            if(this.isInAir() || this.speedY > 0){
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            }
-        }, 1000/60);
+        if(this.isInAir() || this.speedY > 0){
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        }
     }
 
     isInAir(){
