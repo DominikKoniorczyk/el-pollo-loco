@@ -4,7 +4,7 @@ let keyboard = new Keyboard();
 
 function initGame(){
     canvasRev = document.getElementById("canvas");
-    world = new World(canvasRev, keyboard, level1.enemies, level1.world_tiles);
+    world = new World(canvasRev, keyboard, level1);
     addEventListeners();
 }
 

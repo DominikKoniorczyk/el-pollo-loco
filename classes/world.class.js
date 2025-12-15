@@ -1,20 +1,17 @@
 class World {
     world_tiles = 12;
     character = new Character();
-    enemies = [];
-    clouds = [] ;
-    backgroundObjects = [];
+    level;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
 
-    constructor(_canvas, _keyboard, _enemies, _world_tiles){
+    constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
         this.canvas = _canvas;
         this.keyboard = _keyboard;
-        this.enemies = _enemies;
-        this.world_tiles = _world_tiles;
+        this.level = _level;
         this.initWorld();
         this.draw();
         this.setWorld();
@@ -33,31 +30,31 @@ class World {
 
     addDynamicBackgrounds(actualIndex){
         if(actualIndex % 2 == 0){
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * 720));
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[0], actualIndex * 720));
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[0], actualIndex * 720));
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[0], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[0], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[0], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[0], actualIndex * 720));
         } else {
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * 720));
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[1], actualIndex * 720));
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[1], actualIndex * 720));
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[1], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[1], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[1], actualIndex * 720));
+            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[1], actualIndex * 720));
         } 
     }
 
     addDynamicClouds(actualIndex){
         if(actualIndex % 2 == 0)
-            this.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * 720, this.world_tiles));
-        else this.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * 720, this.world_tiles));
+            this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * 720, this.world_tiles));
+        else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * 720, this.world_tiles));
     }
  
     draw(){ 
         this.ctx.clearRect(0, 0, 720, 480);
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToViewport(this.backgroundObjects);
-        this.addObjectsToViewport(this.clouds);
+        this.addObjectsToViewport(this.level.backgroundObjects);
+        this.addObjectsToViewport(this.level.clouds);
         this.addToViewport(this.character);
-        this.addObjectsToViewport(this.enemies);        
+        this.addObjectsToViewport(this.level.enemies);        
         this.ctx.translate(-this.camera_x, 0);
         requestAnimationFrame(() => this.draw());
     }
