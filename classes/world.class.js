@@ -1,4 +1,13 @@
-class World {
+import { Character } from "./character.class.js";
+import { StatusBar } from "./status-bar.class.js";
+import { ImageHub } from "./imagehub.class.js";
+import { Cloud } from "./cloud.class.js";
+import { BackgroundObject } from "./background-object.class.js";
+import { Chicken } from "./chicken.class.js";
+import { Endboss } from "./endboss.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
+
+export class World {
     character = new Character();
     level;
     canvas;

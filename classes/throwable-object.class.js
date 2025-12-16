@@ -1,4 +1,7 @@
-class ThrowableObject extends MovableObject {
+import { MovableObject } from "./movable-object.class.js";
+import { ImageHub } from "./imagehub.class.js";
+
+export class ThrowableObject extends MovableObject {
     width = 50;
     height = 60;
     speedY = 20;

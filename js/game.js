@@ -1,7 +1,14 @@
+import { World } from '../classes/world.class.js';
+import { Keyboard } from '../classes/keyboard.class.js';
+import { IntervalHub } from '../classes/interavalhub.class.js';
+import { level1 } from '../levels/level1.js';
+
 let canvasRev;
 let world;
 let keyboard = new Keyboard();
 let globalIntervalCounter = 0;
+
+window.addEventListener('load', initGame);
 
 function initGame(){
     canvasRev = document.getElementById("canvas");

@@ -1,4 +1,7 @@
-class Level {
+import { Chicken } from "./chicken.class.js";
+import { Endboss } from "./endboss.class.js";
+
+export class Level {
     enemies = [];
     clouds = [];
     backgroundObjects = [];

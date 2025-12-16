@@ -1,8 +1,13 @@
-class Endboss extends MovableObject {
+import { ImageHub } from "./imagehub.class.js";
+import { MovableObject } from "./movable-object.class.js";
+
+export class Endboss extends MovableObject {
     height = 400;
     width = 343;
     y = 60;
     otherDirection = true;
+    offset = { top: 80, bottom: 150, left: 25, right: 70 };
+    shouldDrawCollisionFrame = true;
 
     constructor(world_tiles, size){
         super();

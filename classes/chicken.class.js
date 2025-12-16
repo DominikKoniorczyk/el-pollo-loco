@@ -1,9 +1,13 @@
-class Chicken extends MovableObject {
+import { MovableObject } from "./movable-object.class.js";
+import { ImageHub } from "./imagehub.class.js";
+
+export class Chicken extends MovableObject {
     width = 60;
     height = 60;
     y = 363;
     standingGroundY = 363;
     offset = { top: 5, bottom: 10, left: 5, right: 10 };
+    shouldDrawCollisionFrame = true;
 
     constructor(){
         super();

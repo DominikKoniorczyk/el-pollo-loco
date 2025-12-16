@@ -1,4 +1,4 @@
-class DrawableObject {
+export class DrawableObject {
     x = 120;
     y = 275;
     height = 150;
@@ -7,6 +7,8 @@ class DrawableObject {
     imageCache = {};
     currentImageIndex = 0;
     otherDirection = false;
+    offset = { top: 0, bottom: 0, left: 0, right: 0 };
+    shouldDrawCollisionFrame = false;
     
     loadImage(path){
         this.img = new Image();
@@ -26,11 +28,12 @@ class DrawableObject {
     }
     
     drawCollisionFrames(ctx){
-        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+        if(this.shouldDrawCollisionFrame){
             ctx.beginPath();
             ctx.linewidth = "10";
             ctx.strokeStyle = "blue";
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
             ctx.stroke();
-    }}
+        }
+    }
 }

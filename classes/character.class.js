@@ -1,4 +1,7 @@
-class Character extends MovableObject {
+import { MovableObject } from "./movable-object.class.js";
+import { ImageHub } from "./imagehub.class.js";
+
+export class Character extends MovableObject {
     width = 122;
     height = 240;
     y = 190;
@@ -7,6 +10,7 @@ class Character extends MovableObject {
     offset = { top: 95, bottom: 105, left: 30, right: 60 };
     bottleCount = 5;
     throwObject = false;
+    shouldDrawCollisionFrame = true;
 
     constructor(){
         super();
