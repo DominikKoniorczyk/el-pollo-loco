@@ -4,10 +4,13 @@ class ThrowableObject extends MovableObject {
     speedY = 20;
     standing_ground_y = 360;
     world;
+    currentSplashIndex = 0;
 
     constructor(world, x, y){
         super();
         this.loadImage(ImageHub.bottle.rotation[0]);
+        this.loadImages(ImageHub.bottle.rotation);
+        this.loadImages(ImageHub.bottle.splash);
         this.world = world; 
         this.x = x;
         this.y = y;       
@@ -24,8 +27,13 @@ class ThrowableObject extends MovableObject {
         super.interval60FPS();        
     }
 
+    playRotationAnim(){
+        this.playAnimation(ImageHub.bottle.rotation);
+    }
+
     fly(){
         if(this.y < this.standing_ground_y){
+            this.playRotationAnim();
             this.x += 30;
         } else {
             this.splash();
@@ -33,6 +41,13 @@ class ThrowableObject extends MovableObject {
     }
 
     splash(){
-
+        if(this.currentSplashIndex < ImageHub.bottle.splash.length){
+            const path = ImageHub.bottle.splash[this.currentSplashIndex];
+            this.img = this.imageCache[path];
+            this.currentSplashIndex++;
+        } else {
+            const index = this.world.throwableObjects.indexOf(this);
+            if(index !== -1) this.world.throwableObjects.splice(index, 1);
+        }
     }
 }
