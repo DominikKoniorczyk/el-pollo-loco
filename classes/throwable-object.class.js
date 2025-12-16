@@ -5,16 +5,12 @@ class ThrowableObject extends MovableObject {
     standing_ground_y = 360;
     world;
 
-    constructor(world){
+    constructor(world, x, y){
         super();
         this.loadImage(ImageHub.bottle.rotation[0]);
-        this.throw(100, 330); 
-        this.world = world;       
-    }
-
-    throw(x, y){
+        this.world = world; 
         this.x = x;
-        this.y = y;
+        this.y = y;       
     }
 
     interval10ms(globalIntervalCounter){

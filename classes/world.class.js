@@ -8,7 +8,7 @@ class World {
     healthBar = new StatusBar(20, 0, ImageHub.statBars.health, true);
     coinBar = new StatusBar(20, 100, ImageHub.statBars.coin, false);
     bottleBar = new StatusBar(20, 50, ImageHub.statBars.bottle, false);
-    throwableObjects = [new ThrowableObject(this)];
+    throwableObjects = [];
 
     constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
@@ -47,6 +47,7 @@ class World {
             to.interval10ms(globalIntervalCounter);
         });
         this.checkCollisions(globalIntervalCounter);
+        this.checkThrowObjects(globalIntervalCounter);
     }
 
     interval60FPS(){
@@ -141,5 +142,12 @@ class World {
                     this.healthBar.setPercentage(this.character.health);
                 }});  
         }   
+    }
+
+    checkThrowObjects(globalIntervalCounter){
+        if(this.keyboard.THROW){
+            const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(newBottle);
+        }
     }
 }
