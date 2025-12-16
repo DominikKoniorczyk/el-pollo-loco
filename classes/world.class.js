@@ -8,6 +8,7 @@ class World {
     healthBar = new StatusBar(20, 0, ImageHub.statBars.health, true);
     coinBar = new StatusBar(20, 100, ImageHub.statBars.coin, false);
     bottleBar = new StatusBar(20, 50, ImageHub.statBars.bottle, false);
+    throwableObjects = [new ThrowableObject(this)];
 
     constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
@@ -42,6 +43,9 @@ class World {
         this.level.clouds.forEach(cloud => {
             cloud.interval10ms(globalIntervalCounter);
         });
+        this.throwableObjects.forEach(to => {
+            to.interval10ms(globalIntervalCounter);
+        });
         this.checkCollisions(globalIntervalCounter);
     }
 
@@ -53,6 +57,9 @@ class World {
         });        
         this.level.clouds.forEach(cloud => {
             cloud.interval60FPS();
+        });
+        this.throwableObjects.forEach(to => {
+            to.interval60FPS();
         });
     }
 
@@ -82,7 +89,8 @@ class World {
         this.addObjectsToViewport(this.level.backgroundObjects);
         this.addObjectsToViewport(this.level.clouds);
         this.addToViewport(this.character);
-        this.addObjectsToViewport(this.level.enemies);        
+        this.addObjectsToViewport(this.level.enemies);  
+        this.addObjectsToViewport(this.throwableObjects);      
         this.ctx.translate(-this.camera_x, 0);
         this.addToViewport(this.healthBar);
         this.addToViewport(this.bottleBar);
@@ -103,12 +111,12 @@ class World {
     }
 
     addToViewport(mo){
-        if(mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
+        if((mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss)) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
         mo.drawCollisionFrames(this.ctx);
-        if(mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
+        if((mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss)) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
             this.flipImageBack(mo);
         }
     }

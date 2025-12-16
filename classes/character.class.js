@@ -8,7 +8,6 @@ class Character extends MovableObject {
 
     constructor(){
         super();
-        this.applyGravity();
         this.loadImage(ImageHub.character.idle[0]);
         this.loadImages(ImageHub.character.walk);
         this.loadImages(ImageHub.character.jump);
@@ -18,7 +17,6 @@ class Character extends MovableObject {
 
     interval60FPS(){
         super.interval60FPS();
-
         if(this.world.keyboard.RIGHT && (this.x < this.world.level.level_end_x - 720)){
                 this.moveRight();
             } else if(this.world.keyboard.LEFT && this.x > 100){

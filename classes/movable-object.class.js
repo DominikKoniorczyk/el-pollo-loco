@@ -5,7 +5,7 @@ class MovableObject extends DrawableObject {
     world_tiles;
     speedY = 0;
     acceleration = 1;
-    standing_ground_y;
+    standing_ground_y = 0;
     jump_height = 20;
     health = 100;
     damagePerAttack = 20;
@@ -14,7 +14,7 @@ class MovableObject extends DrawableObject {
 
     interval60FPS(){
         this.checkIfOffScreen();
-        this.applyGravity();
+        this.applyGravity();        
     }
 
     interval10ms(globalIntervalCounter){

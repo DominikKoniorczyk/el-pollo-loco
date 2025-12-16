@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 343;
     y = 60;
+    otherDirection = true;
 
     constructor(world_tiles, size){
         super();
@@ -13,9 +14,9 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
-    interval10ms(){
-        super.interval10ms();
-        if(this.ms_counter % 200 === 0){
+    interval10ms(globalIntervalCounter){
+        super.interval10ms(globalIntervalCounter);
+        if(globalIntervalCounter % 200 === 0){
             this.animate();
         }
     }
