@@ -99,13 +99,13 @@ export class World {
         this.addObjectsToViewport(this.level.backgroundObjects);
         this.addObjectsToViewport(this.level.clouds);
         this.addToViewport(this.character);
-        this.addObjectsToViewport(this.level.enemies);  
+        this.addObjectsToViewport(this.level.enemies); 
+        this.addObjectsToViewport(this.level.collectableObjects);
         this.addObjectsToViewport(this.throwableObjects);      
         this.ctx.translate(-this.camera_x, 0);
         this.addToViewport(this.healthBar);
         this.addToViewport(this.bottleBar);
         this.addToViewport(this.coinBar);
-        //requestAnimationFrame(() => this.draw());
     }
 
     addObjectsToViewport(objects){

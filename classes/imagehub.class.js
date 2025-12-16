@@ -175,6 +175,11 @@ export class ImageHub {
             'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
             'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
             'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+        ],
+        onGround: [
+            'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+            'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
         ]
     }
+    static coin = 'img/8_coin/coin_1.png';    
 }
