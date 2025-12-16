@@ -5,6 +5,8 @@ class Character extends MovableObject {
     speed = 10;
     standing_ground_y = 190;
     offset = { top: 95, bottom: 105, left: 30, right: 60 };
+    bottleCount = 5;
+    throwObject = false;
 
     constructor(){
         super();
@@ -34,7 +36,8 @@ class Character extends MovableObject {
             this.walking();       
             this.jumpAnimation();
             this.checkLifeState();
-            this.hurtAnimation();            
+            this.hurtAnimation();
+            this.checkThrowKeyUp();            
         }
     }
 
@@ -47,6 +50,12 @@ class Character extends MovableObject {
     jumpAnimation(){
         if(this.isInAir() || this.speedY > 0 && !this.checkIsDead()){
             this.playAnimation(ImageHub.character.jump);
+        }
+    }
+
+    checkThrowKeyUp(){
+        if(this.throwObject && !this.world.keyboard.THROW){
+            this.throwObject = false;
         }
     }
 
@@ -64,5 +73,10 @@ class Character extends MovableObject {
                 this.jump();
             }
         }
+    }
+
+    throwAnObject(){
+        this.bottleCount--;
+        this.throwObject = true;
     }
 }

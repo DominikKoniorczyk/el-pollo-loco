@@ -47,7 +47,7 @@ class World {
             to.interval10ms(globalIntervalCounter);
         });
         this.checkCollisions(globalIntervalCounter);
-        this.checkThrowObjects(globalIntervalCounter);
+        this.checkThrowObjects();
     }
 
     interval60FPS(){
@@ -144,10 +144,12 @@ class World {
         }   
     }
 
-    checkThrowObjects(globalIntervalCounter){
-        if(this.keyboard.THROW){
+    checkThrowObjects(){
+        if(this.keyboard.THROW && !this.character.throwObject && this.character.bottleCount != 0){
             const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(newBottle);
+            this.lastThrowObjectTime = new Date().getTime();
+            this.character.throwAnObject();
         }
     }
 }
