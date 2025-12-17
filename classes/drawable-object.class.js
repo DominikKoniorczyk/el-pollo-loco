@@ -11,6 +11,7 @@ export class DrawableObject {
     shouldDrawCollisionFrame = false;
     minPositionX = 400;
     deathTime = 0;
+    isDead = false;
     
     loadImage(path){
         this.img = new Image();
