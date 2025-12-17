@@ -54,10 +54,10 @@ export class Chicken extends MovableObject {
 
     animate(){
         if(!this.isDead) this.playAnimation(ImageHub.chicken.walk);   
-        else if(this.isDead && deathTime == 0){
+        else if(this.isDead && this.deathTime == 0){
             this.playAnimation(ImageHub.chicken.death)
-            deathTime = new Date().getTime();
-        } else if(new Date().getTime() - deathTime < 2000){
+            this.deathTime = new Date().getTime();
+        } else if(new Date().getTime() - this.deathTime < 2000){
             this.playAnimation(ImageHub.chicken.death)
         } else {
             this.removeFromWorld(this.world.level.enemies, this.world.level.enemies);
