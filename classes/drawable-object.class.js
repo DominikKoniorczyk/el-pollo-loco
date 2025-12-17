@@ -39,7 +39,7 @@ export class DrawableObject {
     }
     
     getRandomX(world_tiles){
-        const maxX = world_tiles * 720;
+        const maxX = (world_tiles - 1) * 720;
         const difference = maxX - this.minPositionX;
         let randomX = Math.floor(Math.random() * difference);
         randomX += this.minPositionX;

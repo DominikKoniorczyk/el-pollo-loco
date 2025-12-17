@@ -6,24 +6,41 @@ export class Chicken extends MovableObject {
     height = 60;
     y = 363;
     standingGroundY = 363;
+    minPositionX = 200;
     offset = { top: 5, bottom: 10, left: 5, right: 10 };
     shouldDrawCollisionFrame = true;
+    wasOffScreen = false;
 
-    constructor(){
+    constructor(world_tiles){
         super();
         super.loadImage(ImageHub.chicken.walk[0]);
         super.loadImages(ImageHub.chicken.walk);
-        this.calculateSpeeds();  
+        this.world_tiles = world_tiles;  
+        this.calculateSpeeds();
     }
 
     calculateSpeeds(){
-        this.x = 200 + Math.random() * 500;
-        this.speed = 0.5 + Math.random() * 0.5; 
+        this.x = this.getRandomX(this.world_tiles);
+        this.speed = 0.5 + Math.random() * 0.5;      
     }
 
     interval60FPS(){
         super.interval60FPS();
-        this.moveLeft();
+        this.move();
+    }
+
+    move(){
+        if(!this.checkIfOffScreen() && !this.wasOffScreen){
+            super.moveLeft();    
+        } else if(this.checkIfOffScreen) { 
+            this.wasOffScreen = true;  
+            super.moveRight();     
+        } else if(this.x < (this.world_tiles - 1) *720 && this.wasOffScreen){
+            super.moveRight();
+        } else {
+            this.wasOffScreen = false;
+            super.moveLeft();
+        }
     }
 
     interval10ms(globalIntervalCounter){

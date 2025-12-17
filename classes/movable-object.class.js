@@ -32,10 +32,8 @@ export class MovableObject extends DrawableObject {
         this.otherDirection = true; 
     }
 
-    checkIfOffScreen = () =>{
-        if(this.x + this.width < 0){
-            this.x = (720 * (this.world_tiles - 1));                      
-        }    
+    checkIfOffScreen(){
+       return this.x + this.width < 0;
     }
 
     playAnimation(images){

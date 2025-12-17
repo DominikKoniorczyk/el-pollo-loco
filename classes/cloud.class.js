@@ -19,6 +19,9 @@ export class Cloud extends MovableObject {
 
     moveLeft(){
         super.moveLeft();
+        if(this.checkIfOffScreen()){            
+            this.x = (720 * (this.world_tiles - 1));   
+        }
         this.checkIfOffScreen();
     }
 }
