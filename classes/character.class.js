@@ -108,9 +108,13 @@ export class Character extends MovableObject {
     checkEnemyCollision(enemies){
         enemies.forEach(enemy => {
             if(this.isColliding(enemy) && !enemy.isDead){
-                this.applyDamage(enemy.damagePerAttack);
-                this.world.healthBar.setPercentage(this.health);
-            }});
+                if(!(this.isInAir() && this.speedY < 0)){
+                    this.applyDamage(enemy.damagePerAttack);
+                    this.world.healthBar.setPercentage(this.health);
+                } else {
+                    enemy.applyDamage();
+                }           
+        }});
     }
 
     checkBottleCollision(bottles){
