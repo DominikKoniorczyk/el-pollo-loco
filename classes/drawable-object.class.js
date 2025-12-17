@@ -55,10 +55,8 @@ export class DrawableObject {
                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
-    removeFromWorld(arr, mainArr){
+    removeFromWorld(arr){
         const index = arr.indexOf(this);
-        const mainIndex = mainArr.indexOf(this);
         if(index !== -1) arr.splice(index, 1);
-        if(mainIndex !== -1) mainArr.splice(mainIndex, 1);
     }
 }

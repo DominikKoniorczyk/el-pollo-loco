@@ -126,9 +126,7 @@ export class Character extends MovableObject {
         coins.forEach(coin => {
             if(this.isColliding(coin)){
                 if(this.coinCount + 1 < 10) {
-                    this.coinCount++;
-                    this.world.coinBar.setPercentage((this.coinCount + 1) *10);
-                    coin.removeFromWorld(this.world.level.coins, this.world.level.collectableObjects);
+                    this.addCoin(coin);
                 }
                 else {
                     this.coinCount = 0;
@@ -138,6 +136,12 @@ export class Character extends MovableObject {
                 }
             }            
         })
+    }
+
+    addCoin(coin){        
+        this.coinCount++;
+        this.world.coinBar.setPercentage((this.coinCount + 1) *10);
+        coin.removeFromWorld(this.world.level.coins, this.world.level.collectableObjects);
     }
 
     checkBottleCollision(bottles){
