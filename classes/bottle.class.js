@@ -2,7 +2,7 @@ import { CollectableObject } from "./collectable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
 
 export class Bottle extends CollectableObject {
-  offset = { top: 10, bottom: 20, left: 40, right: 70 };
+  offset = { top: 0, bottom: 10, left: 0, right: 0 };
   y = 365;
   width = 50;
   height = 60;

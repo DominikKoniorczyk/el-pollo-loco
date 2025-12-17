@@ -10,6 +10,7 @@ export class DrawableObject {
     offset = { top: 0, bottom: 0, left: 0, right: 0 };
     shouldDrawCollisionFrame = false;
     minPositionX = 400;
+    deathTime = 0;
     
     loadImage(path){
         this.img = new Image();
@@ -51,5 +52,12 @@ export class DrawableObject {
                this.y + this.height - this.offset.bottom + this.offset.top > mo.y + mo.offset.top &&
                this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+    }
+
+    removeFromWorld(arr, mainArr){
+        const index = arr.indexOf(this);
+        const mainIndex = mainArr.indexOf(this);
+        if(index !== -1) arr.splice(index, 1);
+        if(mainIndex !== -1) mainArr.splice(mainIndex, 1);
     }
 }

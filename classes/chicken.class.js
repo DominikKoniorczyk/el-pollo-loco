@@ -10,11 +10,14 @@ export class Chicken extends MovableObject {
     offset = { top: 5, bottom: 10, left: 5, right: 10 };
     shouldDrawCollisionFrame = true;
     wasOffScreen = false;
+    isDead = false;
+
 
     constructor(world_tiles){
         super();
         super.loadImage(ImageHub.chicken.walk[0]);
         super.loadImages(ImageHub.chicken.walk);
+        super.loadImages(ImageHub.chicken.death);
         this.world_tiles = world_tiles;  
         this.calculateSpeeds();
     }
@@ -30,9 +33,9 @@ export class Chicken extends MovableObject {
     }
 
     move(){
-        if(!this.checkIfOffScreen() && !this.wasOffScreen){
+        if(!this.checkIfOffScreen(80) && !this.wasOffScreen){
             super.moveLeft();    
-        } else if(this.checkIfOffScreen) { 
+        } else if(this.checkIfOffScreen(80)) { 
             this.wasOffScreen = true;  
             super.moveRight();     
         } else if(this.x < (this.world_tiles - 1) *720 && this.wasOffScreen){
@@ -50,6 +53,19 @@ export class Chicken extends MovableObject {
     }
 
     animate(){
-        this.playAnimation(ImageHub.chicken.walk);   
+        if(!this.isDead) this.playAnimation(ImageHub.chicken.walk);   
+        else if(this.isDead && deathTime == 0){
+            this.playAnimation(ImageHub.chicken.death)
+            deathTime = new Date().getTime();
+        } else if(new Date().getTime() - deathTime < 2000){
+            this.playAnimation(ImageHub.chicken.death)
+        } else {
+            this.removeFromWorld(this.world.level.enemies, this.world.level.enemies);
+        }
+    }
+
+    applyDamage(){
+        this.isDead = true;
+        this.speed = 0;
     }
 }

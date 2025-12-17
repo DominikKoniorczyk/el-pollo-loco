@@ -102,6 +102,7 @@ export class Character extends MovableObject {
     throwAnObject(){
         this.bottleCount--;
         this.throwObject = true;
+        this.world.bottleBar.setPercentage(this.bottleCount *20);
     }
 
     checkEnemyCollision(enemies){
@@ -124,8 +125,8 @@ export class Character extends MovableObject {
     checkCoinCollision(coins){
         coins.forEach(coin => {
             if(this.isColliding(coin)){
-                this.coinCount++;
-                if(this.coinCount < 10) {
+                if(this.coinCount + 1 < 10) {
+                    this.coinCount++;
                     this.world.coinBar.setPercentage((this.coinCount + 1) *10);
                     coin.removeFromWorld(this.world.level.coins, this.world.level.collectableObjects);
                 }
@@ -136,6 +137,18 @@ export class Character extends MovableObject {
                     this.world.coinBar.setPercentage((this.coinCount + 1) *10);                  
                 }
             }            
+        })
+    }
+
+    checkBottleCollision(bottles){
+        bottles.forEach(bottle => {
+            if(this.isColliding(bottle)){             
+                if(this.bottleCount < 5) {             
+                    this.bottleCount++;     
+                    this.world.bottleBar.setPercentage((this.bottleCount) *20);
+                    bottle.removeFromWorld(this.world.level.bottles, this.world.level.collectableObjects); 
+                }
+            }
         })
     }
 }

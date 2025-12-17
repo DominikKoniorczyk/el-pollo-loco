@@ -148,6 +148,7 @@ export class World {
             this.character.checkEnemyCollision(this.level.enemies);
         }   
         this.character.checkCoinCollision(this.level.coins);
+        this.character.checkBottleCollision(this.level.bottles);
     }
 
     checkThrowObjects(){

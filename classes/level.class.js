@@ -36,7 +36,9 @@ export class Level {
             this.coins.push(newCoin);         
         }
         for(let i = 0; i < this.bottleCount; i++){
-            this.collectableObjects.push(new Bottle(this.world_tiles));
+            const newBottle = new Bottle(this.world_tiles);
+            this.collectableObjects.push(newBottle);
+            this.bottles.push(newBottle);
         }
         this.enemies.push(new Endboss(this.world_tiles, this.endbossSize));        
         this.level_end_x = this.canvas.width * this.world_tiles;

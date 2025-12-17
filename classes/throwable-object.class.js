@@ -27,7 +27,8 @@ export class ThrowableObject extends MovableObject {
     }
     
     interval60FPS(){
-        super.interval60FPS();        
+        super.interval60FPS(); 
+        this.checkHitEnemy();       
     }
 
     playRotationAnim(){
@@ -52,5 +53,14 @@ export class ThrowableObject extends MovableObject {
             const index = this.world.throwableObjects.indexOf(this);
             if(index !== -1) this.world.throwableObjects.splice(index, 1);
         }
+    }
+
+    checkHitEnemy(){        
+        this.world.level.enemies.forEach(e => {
+            if(this.isColliding(e)){
+                e.applyDamage();
+                this.splash();
+            }            
+        });
     }
 }

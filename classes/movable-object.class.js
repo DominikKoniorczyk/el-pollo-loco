@@ -32,8 +32,8 @@ export class MovableObject extends DrawableObject {
         this.otherDirection = true; 
     }
 
-    checkIfOffScreen(){
-       return this.x + this.width < 0;
+    checkIfOffScreen(offset){
+       return this.x + this.width - offset < 0;
     }
 
     playAnimation(images){

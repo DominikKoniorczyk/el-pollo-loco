@@ -14,14 +14,13 @@ export class Cloud extends MovableObject {
     
     interval60FPS(){
         super.interval60FPS();
-        this.moveLeft();
+        this.move();
     }
 
-    moveLeft(){
+    move(){
         super.moveLeft();
-        if(this.checkIfOffScreen()){            
+        if(this.checkIfOffScreen(0)){            
             this.x = (720 * (this.world_tiles - 1));   
         }
-        this.checkIfOffScreen();
     }
 }

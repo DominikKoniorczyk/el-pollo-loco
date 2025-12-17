@@ -4,7 +4,7 @@ import { ImageHub } from "./imagehub.class.js";
 export class Coin extends CollectableObject {
     minHeight = 360;
     maxHeight = 60;
-    offset = { top: 35, bottom: 70, left: 35, right: 70 };
+    offset = { top: 30, bottom: 60, left: 30, right: 60 };
 
     
     constructor(world_tiles){
