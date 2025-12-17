@@ -16,8 +16,6 @@ export class Coin extends CollectableObject {
     setWorldPosition(world_tiles){
         this.y = this.getRandomHeight();  
         this.x = this.getRandomX(world_tiles);
-        console.log(this.x);
-        
     }
 
     getRandomHeight(){

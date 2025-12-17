@@ -13,7 +13,7 @@ window.addEventListener('load', initGame);
 function initGame(){
     canvasRev = document.getElementById("canvas");
     IntervalHub.startInterval(tenMilliSecondsInterval, 10);
-    IntervalHub.startInterval(gameTick60FPS, 16.667);
+    IntervalHub.startInterval(gameTick60FPS, 1000 / 60);
     world = new World(canvasRev, keyboard, level1);
     addEventListeners();
 }

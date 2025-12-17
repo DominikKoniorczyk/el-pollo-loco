@@ -60,13 +60,6 @@ export class MovableObject extends DrawableObject {
         this.speedY = this.jump_height;
     }
 
-    isColliding(mo){               
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-               this.y + this.height - this.offset.bottom + this.offset.top > mo.y + mo.offset.top &&
-               this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-               this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
-    }
-
     applyDamage(damage){
         this.health -= damage;
         if(this.health < 0) {

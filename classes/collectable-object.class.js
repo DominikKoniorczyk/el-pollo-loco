@@ -11,4 +11,11 @@ export class CollectableObject extends DrawableObject{
         super();
         this.y = 60;        
     }
+
+    removeFromWorld(arr, mainArr){
+        const index = arr.indexOf(this);
+        const mainIndex = mainArr.indexOf(this);
+        if(index !== -1) arr.splice(index, 1);
+        if(mainIndex !== -1) mainArr.splice(mainIndex, 1);
+    }
 }

@@ -8,6 +8,8 @@ export class Level {
     clouds = [];
     backgroundObjects = [];
     collectableObjects = [];
+    coins = [];
+    bottles = [];
     world_tiles;
     level_end_x;
     canvas;
@@ -29,7 +31,9 @@ export class Level {
             this.enemies.push(new Chicken());
         }
         for(let i = 0; i < this.coinCount; i++){
-            this.collectableObjects.push(new Coin(this.world_tiles));         
+            const newCoin = new Coin(this.world_tiles);
+            this.collectableObjects.push(newCoin);
+            this.coins.push(newCoin);         
         }
         for(let i = 0; i < this.bottleCount; i++){
           //  this.collectableObjects.push(new CollectableObject());

@@ -25,8 +25,8 @@ export class World {
         this.keyboard = _keyboard;
         this.level = _level;
         this.level.canvas = this.canvas;
-        this.initWorld();
         this.draw();
+        this.initWorld();
         this.setWorld();
         this.checkCollisions();
     }
@@ -145,16 +145,13 @@ export class World {
 
     checkCollisions(globalIntervalCounter) {
         if(globalIntervalCounter % 200 === 0){
-            this.level.enemies.forEach(enemy => {
-                if(this.character.isColliding(enemy)){
-                    this.character.applyDamage(enemy.damagePerAttack);
-                    this.healthBar.setPercentage(this.character.health);
-                }});  
+            this.character.checkEnemyCollision(this.level.enemies);
         }   
+        this.character.checkCoinCollision(this.level.coins);
     }
 
     checkThrowObjects(){
-        if(this.keyboard.THROW && !this.character.throwObject && this.character.bottleCount != 0){
+        if(this.keyboard.THROW && !this.character.throwObject && this.character.bottleCount != 0 && !this.character.checkIsDead()){
             const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(newBottle);
             this.lastThrowObjectTime = new Date().getTime();
