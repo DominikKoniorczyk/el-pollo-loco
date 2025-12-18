@@ -10,6 +10,7 @@ export class Chicken extends MovableObject {
     offset = { top: 5, bottom: 10, left: 5, right: 10 };
     shouldDrawCollisionFrame = true;
     wasOffScreen = false;
+    damagePerAttack = 0.5;
 
 
     constructor(world_tiles){
