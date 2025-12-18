@@ -11,8 +11,6 @@ export class Chicken extends MovableObject {
     shouldDrawCollisionFrame = true;
     wasOffScreen = false;
     
-
-
     constructor(world_tiles, level){
         super();
         this.damagePerAttack = 0.5 * level.difficultyLevel;

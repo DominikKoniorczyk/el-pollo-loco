@@ -111,20 +111,10 @@ export class Character extends MovableObject {
             if(this.isColliding(enemy) && !enemy.isDead){
                 if(!(this.isInAir() && this.speedY < 0)){
                     this.applyDamage(enemy.damagePerAttack);
-                    this.world.healthBar.setPercentage(this.health);
                 } else if(!this.checkIsDead()) {
                     enemy.applyDamage();
                 }           
         }});
-    }
-
-    checkBottleCollision(bottles){
-        bottles.forEach(bottle => {
-            if(this.isColliding(bottle) && this.bottleCount < 10){
-                this.bottleCount++;
-                this.world.bottleBar.setPercentage(this.bottleCount);
-            }
-        })
     }
 
     checkCoinCollision(coins){
@@ -152,12 +142,17 @@ export class Character extends MovableObject {
     checkBottleCollision(bottles){
         bottles.forEach(bottle => {
             if(this.isColliding(bottle)){             
-                if(this.bottleCount < 5) {             
+                if(this.bottleCount < 10) {             
                     this.bottleCount++;     
-                    this.world.bottleBar.setPercentage((this.bottleCount) *20);
+                    this.world.bottleBar.setPercentage((this.bottleCount) *10);
                     bottle.removeFromWorld(this.world.level.bottles, this.world.level.collectableObjects); 
                 }
             }
         })
+    }
+
+    applyDamage(damage){
+        super.applyDamage(damage);
+        this.world.healthBar.setPercentage(this.health);
     }
 }

@@ -6,7 +6,7 @@ export class Endboss extends MovableObject {
     width = 343;
     y = 60;
     otherDirection = true;
-    offset = { top: 80, bottom: 150, left: 25, right: 70 };
+    offset = { top: 80, bottom: 150, left: 40, right: 80 };
     shouldDrawCollisionFrame = true;
     statBarOffset = { left: 90, top: 30} 
     health = 100;
@@ -16,25 +16,24 @@ export class Endboss extends MovableObject {
     speed = 1.5;
     timeSinceLastSequence = 0;
 
-    constructor(world_tiles, size){
+    constructor(world_tiles, size, level){
         super();
-        this.x = (world_tiles * 720) - 600;
+        this.x = 900;// (world_tiles * 720) - 600;
         this.height = size.height;
         this.width = size.width;
+        this.damagePerAttack = 20 * level.difficultyLevel;
         this.loadImage(ImageHub.endboss.alert[0]);
         this.loadImages(ImageHub.endboss.alert);
         this.loadImages(ImageHub.endboss.attack);
         this.loadImages(ImageHub.endboss.death);
         this.loadImages(ImageHub.endboss.hurt);
         this.loadImages(ImageHub.endboss.walk);
-        this.animate();
     }
 
     interval10ms(globalIntervalCounter){
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 200 === 0){
-            this.animate();    
-            this.attack();        
+            this.animate();       
         } 
     }
 
@@ -64,7 +63,11 @@ export class Endboss extends MovableObject {
     }
 
     checkDistanceToPlayer(){
-        return this.x - this.world.character.x; 
+        return this.world.character ? this.x - this.world.character.x : 0; 
+    }
+
+    checkCanChase(){
+        return this.sequence.startSequenceStart && this.sequence.statSequenceEnd && this.checkDistanceToPlayer() > 50;
     }
     
     animate(){
@@ -73,7 +76,19 @@ export class Endboss extends MovableObject {
         } else if(this.sequence.startSequenceStart && !this.sequence.statSequenceEnd){
             this.endStartSequence();
         } else {
-            
+            this.chasePlayer();
+        }
+    }
+
+    chasePlayer(){
+        if(this.checkCanChase()){
+            this.canMove = true;
+            this.left = true;
+            this.playAnimation(ImageHub.endboss.walk); 
+        } else {
+            this.canMove = false;
+            this.left = false;
+            this.attack();
         }
     }
 
@@ -94,8 +109,11 @@ export class Endboss extends MovableObject {
     }
 
     attack(){
-        if(this.checkDistanceToPlayer() > 50){
-
+        const localImageIndex = this.currentImageIndex % ImageHub.endboss.alert.length;
+        if(!this.world.character.checkIsDead() && localImageIndex <= ImageHub.endboss.alert.length -1)
+        {
+            this.playAnimation(ImageHub.endboss.attack);
+            if(ImageHub.endboss.attack.length / 2 == localImageIndex) this.world.character.applyDamage(this.damagePerAttack);
         }
     }
 
