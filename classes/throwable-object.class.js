@@ -5,7 +5,7 @@ export class ThrowableObject extends MovableObject {
     width = 50;
     height = 60;
     speedY = 20;
-    standing_ground_y = 360;
+    standingGroundY = 360;
     world;
     currentSplashIndex = 0;
 
@@ -36,7 +36,7 @@ export class ThrowableObject extends MovableObject {
     }
 
     fly(){
-        if(this.y < this.standing_ground_y){
+        if(this.y < this.standingGroundY){
             this.playRotationAnim();
             this.x += 30;
         } else {

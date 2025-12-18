@@ -6,7 +6,7 @@ export class MovableObject extends DrawableObject {
     world_tiles;
     speedY = 0;
     acceleration = 1;
-    standing_ground_y = 0;
+    standingGroundY = 0;
     jump_height = 20;
     health = 100;
     damagePerAttack = 20;
@@ -51,7 +51,7 @@ export class MovableObject extends DrawableObject {
     }
 
     isInAir(){
-        return this.y < this.standing_ground_y;
+        return this.y < this.standingGroundY;
     }
 
     jump(){

@@ -6,7 +6,7 @@ export class Character extends MovableObject {
     height = 240;
     y = 190;
     speed = 10;
-    standing_ground_y = 190;
+    standingGroundY = 190;
     offset = { top: 95, bottom: 105, left: 30, right: 60 };
     bottleCount = 5;
     coinCount = 0;
@@ -93,7 +93,7 @@ export class Character extends MovableObject {
         if(this.checkIsDead()){
             this.playAnimation(ImageHub.character.death);
             if(!this.isInAir() && this.speedY <= 0){
-                this.standing_ground_y = 1000;
+                this.standingGroundY = 1000;
                 this.jump();
             }
         }
