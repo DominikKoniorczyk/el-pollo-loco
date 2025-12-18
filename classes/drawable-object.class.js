@@ -60,4 +60,11 @@ export class DrawableObject {
         const index = arr.indexOf(this);
         if(index !== -1) arr.splice(index, 1);
     }
+
+    playAnimation(images){
+        const i = this.currentImageIndex % images.length;
+        const path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImageIndex++;
+    }
 }

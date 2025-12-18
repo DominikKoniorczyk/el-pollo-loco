@@ -20,7 +20,7 @@ export class Endboss extends MovableObject {
 
     constructor(world_tiles, size, level){
         super();
-        this.x = 900;// (world_tiles * 720) - 600;
+        this.x = (world_tiles * 720) - 600;
         this.height = size.height;
         this.width = size.width;
         this.difficultyLevel = level.difficultyLevel;
@@ -62,6 +62,8 @@ export class Endboss extends MovableObject {
             else if(this.canMove && !this.sequence.shouldMoveBack && !this.sequence.shouldFlee) this.playAnimation(ImageHub.endboss.walk);
             else if(this.sequence.shouldMoveBack) this.fleeFromPlayer();
             else this.playAnimation(ImageHub.endboss.alert);
+        } else {
+            this.playDeathAnimationOnce(ImageHub.endboss.death, true);
         }
     }
 
@@ -83,10 +85,6 @@ export class Endboss extends MovableObject {
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 200 === 0){
             this.animate();       
-        } 
-        if(globalIntervalCounter % 1000 === 0){
-            console.log(this.checkIsDead());
-             
         }         
     }
 
@@ -144,9 +142,10 @@ export class Endboss extends MovableObject {
         }
     }
 
-    applyDamage(){
-        super.applyDamage();
+    applyDamage(damage){
+        super.applyDamage(damage);
         if(this.health > 0) this.playAnimation(ImageHub.endboss.hurt);
+        else this.isDead = true;
     }
 
     applyDamageToPlayer(){
@@ -177,9 +176,9 @@ export class Endboss extends MovableObject {
     }
 
     move(){
-        if(this.left && this.canMove){
+        if(this.left && this.canMove && !this.isDead){
             this.moveLeft();
-        } else if(this.canMove) {
+        } else if(this.canMove && !this.isDead) {
             this.moveRight();
         }
     }

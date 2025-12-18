@@ -27,6 +27,27 @@ export class Level {
         this.worldTiles = world_tiles;
     }
 
+    interval10ms(globalIntervalCounter){
+        this.enemies.forEach(enemy => {
+            enemy.interval10ms(globalIntervalCounter);
+        });
+        this.clouds.forEach(cloud => {
+            cloud.interval10ms(globalIntervalCounter);
+        });
+        this.coins.forEach(coin => {
+            coin.interval10ms(globalIntervalCounter);
+        });
+    }
+
+    interval60FPS(){
+        this.enemies.forEach(enemy => {
+            enemy.interval60FPS();
+        });        
+        this.clouds.forEach(cloud => {
+            cloud.interval60FPS();
+        });
+    }
+
     initLevel(){
         for(let i = 0; i < this.enemiesCount; i++){
             this.enemies.push(new Chicken(this.worldTiles, this)); 

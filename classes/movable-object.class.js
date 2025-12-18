@@ -1,3 +1,4 @@
+import { gameOver } from "../js/game.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
 export class MovableObject extends DrawableObject {
@@ -14,6 +15,7 @@ export class MovableObject extends DrawableObject {
     lastHit = 0;
     hurtAnims = [];
     deathAnims = [];
+    onceImageIndex = 0;
 
     interval60FPS(){
         this.checkIfOffScreen();
@@ -38,11 +40,14 @@ export class MovableObject extends DrawableObject {
        return this.x + this.width - offset < 0;
     }
 
-    playAnimation(images){
-        const i = this.currentImageIndex % images.length;
-        const path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImageIndex++;
+    playDeathAnimationOnce(images, shouldEndGame){
+        if(this.onceImageIndex < images.length){
+            const path = images[this.onceImageIndex];
+            this.img = this.imageCache[path];
+            this.onceImageIndex++;
+        } else if(shouldEndGame){
+            gameOver(true);           
+        }
     }
 
     applyGravity(){

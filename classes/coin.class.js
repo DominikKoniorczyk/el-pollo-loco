@@ -9,8 +9,13 @@ export class Coin extends CollectableObject {
     
     constructor(world_tiles){
         super();
-        this.loadImage(ImageHub.coin);   
+        this.loadImage(ImageHub.coin[0]);   
+        this.loadImages(ImageHub.coin);
         this.setWorldPosition(world_tiles);
+    }
+
+    interval10ms(globalIntervalCounter){
+        if(globalIntervalCounter % 250 === 0) this.playAnimation(ImageHub.coin);
     }
 
     setWorldPosition(world_tiles){

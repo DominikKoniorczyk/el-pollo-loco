@@ -49,12 +49,7 @@ export class World {
     }
 
     interval10ms(globalIntervalCounter){
-        this.level.enemies.forEach(enemy => {
-            enemy.interval10ms(globalIntervalCounter);
-        });
-        this.level.clouds.forEach(cloud => {
-            cloud.interval10ms(globalIntervalCounter);
-        });
+        this.level.interval10ms(globalIntervalCounter);
         this.throwableObjects.forEach(to => {
             to.interval10ms(globalIntervalCounter);
         });
@@ -64,12 +59,7 @@ export class World {
 
     interval60FPS(){
         this.draw();
-        this.level.enemies.forEach(enemy => {
-            enemy.interval60FPS();
-        });        
-        this.level.clouds.forEach(cloud => {
-            cloud.interval60FPS();
-        });
+        this.level.interval60FPS();
         this.throwableObjects.forEach(to => {
             to.interval60FPS();
         });
