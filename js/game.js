@@ -44,8 +44,6 @@ function keyDown(e){
     else if(e.code === "KeyA" || e.code === "ArrowLeft") keyboard.LEFT = true;
     else if(e.code === "Space") keyboard.SPACE = true;
     else if(e.code === "KeyT") keyboard.THROW = true;   
-    console.log(e);
-     
 }
 
 function keyUp(e){

@@ -105,9 +105,11 @@ export class Character extends MovableObject {
         this.world.bottleBar.setPercentage(this.bottleCount *20);
     }
 
-    checkEnemyCollision(enemies){
+    checkEnemyCollision(enemies){        
         enemies.forEach(enemy => {
             if(this.isColliding(enemy) && !enemy.isDead){
+                
+        console.log(this.isInAir(), this.speedY);
                 if(!(this.isInAir() && this.speedY < 0)){
                     this.applyDamage(enemy.damagePerAttack);
                     this.world.healthBar.setPercentage(this.health);

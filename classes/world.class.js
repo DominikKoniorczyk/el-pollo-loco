@@ -144,9 +144,7 @@ export class World {
     }
 
     checkCollisions(globalIntervalCounter) {
-        if(globalIntervalCounter % 200 === 0){
-            this.character.checkEnemyCollision(this.level.enemies);
-        }   
+        this.character.checkEnemyCollision(this.level.enemies);
         this.character.checkCoinCollision(this.level.coins);
         this.character.checkBottleCollision(this.level.bottles);
     }
