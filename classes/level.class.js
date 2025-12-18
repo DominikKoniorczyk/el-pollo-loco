@@ -10,37 +10,38 @@ export class Level {
     collectableObjects = [];
     coins = [];
     bottles = [];
-    world_tiles;
-    level_end_x;
+    worldTiles;
+    levelEndX;
     canvas;
     enemiesCount;
     bottleCount;
     coinCount;
     endbossSize;
+    difficultyLevel = 1;
 
     constructor(amounts, world_tiles, endbossSize){
         this.endbossSize = endbossSize;
         this.enemiesCount = amounts.enemieCount;
         this.bottleCount = amounts.bottleCount;
         this.coinCount = amounts.coinCount;
-        this.world_tiles = world_tiles;
+        this.worldTiles = world_tiles;
     }
 
     initLevel(){
         for(let i = 0; i < this.enemiesCount; i++){
-            this.enemies.push(new Chicken(this.world_tiles)); 
+            this.enemies.push(new Chicken(this.worldTiles, this)); 
         }
         for(let i = 0; i < this.coinCount; i++){
-            const newCoin = new Coin(this.world_tiles);
+            const newCoin = new Coin(this.worldTiles);
             this.collectableObjects.push(newCoin);
             this.coins.push(newCoin);         
         }
         for(let i = 0; i < this.bottleCount; i++){
-            const newBottle = new Bottle(this.world_tiles);
+            const newBottle = new Bottle(this.worldTiles);
             this.collectableObjects.push(newBottle);
             this.bottles.push(newBottle);
         }
-        this.enemies.push(new Endboss(this.world_tiles, this.endbossSize));        
-        this.level_end_x = this.canvas.width * this.world_tiles;
+        this.enemies.push(new Endboss(this.worldTiles, this.endbossSize, this));        
+        this.levelEndX = this.canvas.width * this.worldTiles;
     }
 }

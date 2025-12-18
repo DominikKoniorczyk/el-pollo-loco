@@ -10,11 +10,12 @@ export class Chicken extends MovableObject {
     offset = { top: 5, bottom: 10, left: 5, right: 10 };
     shouldDrawCollisionFrame = true;
     wasOffScreen = false;
-    damagePerAttack = 0.5;
+    
 
 
-    constructor(world_tiles){
+    constructor(world_tiles, level){
         super();
+        this.damagePerAttack = 0.5 * level.difficultyLevel;
         super.loadImage(ImageHub.chicken.walk[0]);
         super.loadImages(ImageHub.chicken.walk);
         super.loadImages(ImageHub.chicken.death);

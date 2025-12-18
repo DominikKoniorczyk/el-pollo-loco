@@ -27,7 +27,7 @@ export class Character extends MovableObject {
 
     interval60FPS(){
         super.interval60FPS();
-        if(this.world.keyboard.RIGHT && (this.x < this.world.level.level_end_x - 720) && !this.checkIsDead()){
+        if(this.world.keyboard.RIGHT && (this.x < this.world.level.levelEndX - 720) && !this.checkIsDead()){
                 this.moveRight();
             } else if(this.world.keyboard.LEFT && this.x > 100 && !this.checkIsDead()){
                 this.moveLeft();
