@@ -54,12 +54,15 @@ export class Endboss extends MovableObject {
     }
     
     animate(){
-        if(this.sequence.startSequenceStart && this.checkDistanceToPlayer() > 270 && !this.sequence.startSequenceEnd) this.playAnimation(ImageHub.endboss.walk);         
-        else if(this.sequence.startSequenceStart && !this.sequence.startSequenceEnd) this.endStartSequence();
-        else if(this.sequence.shouldChase) this.chasePlayer();
-        else if(this.canMove && !this.sequence.shouldMoveBack && !this.sequence.shouldFlee) this.playAnimation(ImageHub.endboss.walk);
-        else if(this.sequence.shouldMoveBack) this.fleeFromPlayer();
-        else this.playAnimation(ImageHub.endboss.alert);
+        if(!this.checkIsDead()){
+            if(this.isHurt()) this.playAnimation(ImageHub.endboss.hurt);
+            else if(this.sequence.startSequenceStart && this.checkDistanceToPlayer() > 270 && !this.sequence.startSequenceEnd) this.playAnimation(ImageHub.endboss.walk);         
+            else if(this.sequence.startSequenceStart && !this.sequence.startSequenceEnd) this.endStartSequence();
+            else if(this.sequence.shouldChase) this.chasePlayer();
+            else if(this.canMove && !this.sequence.shouldMoveBack && !this.sequence.shouldFlee) this.playAnimation(ImageHub.endboss.walk);
+            else if(this.sequence.shouldMoveBack) this.fleeFromPlayer();
+            else this.playAnimation(ImageHub.endboss.alert);
+        }
     }
 
     setCanMove(left, move){
@@ -80,6 +83,10 @@ export class Endboss extends MovableObject {
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 200 === 0){
             this.animate();       
+        } 
+        if(globalIntervalCounter % 1000 === 0){
+            console.log(this.checkIsDead());
+             
         }         
     }
 
@@ -130,11 +137,16 @@ export class Endboss extends MovableObject {
             if(ImageHub.endboss.attack.length / 2 == localImageIndex && this.checkDistanceToPlayer() <= 60) this.applyDamageToPlayer();           
             else if(!this.world.character.checkIsDead() && localImageIndex == ImageHub.endboss.alert.length -1 && this.currentAttackCounter == 2 * this.difficultyLevel){
                 this.currentAttackCounter = 0;
-                this.offset = {top: 80, bottom: 150, left: 70, right: 80}
+                this.offset = {top: 80, bottom: 150, left: 40, right: 80}
                 this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, false, this.sequence.shouldFlee, true, false);
                 this.timeSinceLastRage = new Date().getTime();
             }            
         }
+    }
+
+    applyDamage(){
+        super.applyDamage();
+        if(this.health > 0) this.playAnimation(ImageHub.endboss.hurt);
     }
 
     applyDamageToPlayer(){

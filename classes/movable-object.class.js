@@ -12,6 +12,8 @@ export class MovableObject extends DrawableObject {
     damagePerAttack = 20;
     msCounter = 0;
     lastHit = 0;
+    hurtAnims = [];
+    deathAnims = [];
 
     interval60FPS(){
         this.checkIfOffScreen();
