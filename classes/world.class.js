@@ -152,7 +152,7 @@ export class World {
 
     checkThrowObjects(){
         if(this.keyboard.THROW && this.characterCanMove && !this.character.throwObject && this.character.bottleCount != 0 && !this.character.checkIsDead()){
-            const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100);
+            const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100, this.character);
             this.throwableObjects.push(newBottle);
             this.lastThrowObjectTime = new Date().getTime();
             this.character.throwAnObject();

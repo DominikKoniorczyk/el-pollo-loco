@@ -10,11 +10,11 @@ export class Endboss extends MovableObject {
     shouldDrawCollisionFrame = true;
     statBarOffset = { left: 90, top: 30} 
     health = 100;
-    sequence = { startSequenceStart: false, startSequenceEnd: false, shouldChase: false, shouldFlee: false, shouldMoveBack: false };
+    sequence = { startSequenceStart: false, startSequenceEnd: false, shouldChase: false, shouldFlee: false, shouldMoveBack: false, attack: false };
     left = false;
     canMove = false;    
     speed = 3;
-    timeSinceLastSequence = 0;
+    timeSinceLastRage = 0;
     currentAttackCounter = 0;
     difficultyLevel;
 
@@ -44,6 +44,14 @@ export class Endboss extends MovableObject {
     checkCanFlee(){
         return this.checkDistanceToPlayer <= 500 && this.x <= (this.worldTiles * 720) - 600;
     }
+
+    checkAttackStatePlayerDistance(){
+        if(!this.checkCanChase() && this.sequence.attack){
+            this.setCanMove(false, false);
+        } else if(new Date().getTime() - this.timeSinceLastRage >= 5000){
+            this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, this.sequence.shouldFlee, this.sequence.shouldMoveBack, false);
+        }       
+    }
     
     animate(){
         if(this.sequence.startSequenceStart && this.checkDistanceToPlayer() > 270 && !this.sequence.startSequenceEnd) this.playAnimation(ImageHub.endboss.walk);         
@@ -51,6 +59,7 @@ export class Endboss extends MovableObject {
         else if(this.sequence.shouldChase) this.chasePlayer();
         else if(this.canMove && !this.sequence.shouldMoveBack && !this.sequence.shouldFlee) this.playAnimation(ImageHub.endboss.walk);
         else if(this.sequence.shouldMoveBack) this.fleeFromPlayer();
+        else this.playAnimation(ImageHub.endboss.alert);
     }
 
     setCanMove(left, move){
@@ -63,19 +72,15 @@ export class Endboss extends MovableObject {
         this.world.character.canMove = canMove;
     }
 
-    setSequenceState(_startSequenceStart, _startSequenceEnd, _shouldChase, _shouldFlee, _shouldMoveBack){
-        this.sequence = {startSequenceStart: _startSequenceStart, startSequenceEnd: _startSequenceEnd, shouldChase: _shouldChase, shouldFlee: _shouldFlee, shouldMoveBack: _shouldMoveBack};
+    setSequenceState(_startSequenceStart, _startSequenceEnd, _shouldChase, _shouldFlee, _shouldMoveBack, _attack){
+        this.sequence = {startSequenceStart: _startSequenceStart, startSequenceEnd: _startSequenceEnd, shouldChase: _shouldChase, shouldFlee: _shouldFlee, shouldMoveBack: _shouldMoveBack, attack: _attack};
     }
 
     interval10ms(globalIntervalCounter){
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 200 === 0){
             this.animate();       
-        } 
-    }
-
-    returnCanSelectSequence(){
-        return new Date().getTime() - this.timeSinceLastSequence >= 5000 && this.sequence.startSequenceStart && this.sequence.startSequenceEnd;
+        }         
     }
 
     interval60FPS(){
@@ -84,6 +89,7 @@ export class Endboss extends MovableObject {
         this.startSequence();
         this.move();
         this.checkHealthState();
+        this.checkAttackStatePlayerDistance();
     }
 
     startSequence(){
@@ -110,6 +116,7 @@ export class Endboss extends MovableObject {
             this.playAnimation(ImageHub.endboss.walk); 
         } else {
             this.setCanMove(false, false);
+            this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, this.sequence.shouldChase, this.sequence.shouldFlee, this.sequence.shouldMoveBack, true);
             this.attack();
         }
     }
@@ -118,17 +125,21 @@ export class Endboss extends MovableObject {
         const localImageIndex = this.currentImageIndex % ImageHub.endboss.alert.length;
         if(!this.world.character.checkIsDead() && localImageIndex <= ImageHub.endboss.alert.length -1)
         {
+            this.offset = {top: 80, bottom: 150, left: 70, right: 80}
             this.playAnimation(ImageHub.endboss.attack);
-            if(ImageHub.endboss.attack.length / 2 == localImageIndex && this.checkDistanceToPlayer() <= 50) {
-                this.world.character.applyDamage(this.damagePerAttack); 
-                this.currentAttackCounter++;
-                console.log(this.currentAttackCounter);
-                
-            } else if(!this.world.character.checkIsDead() && localImageIndex == ImageHub.endboss.alert.length -1 && this.currentAttackCounter == 2 * this.difficultyLevel){
+            if(ImageHub.endboss.attack.length / 2 == localImageIndex && this.checkDistanceToPlayer() <= 60) this.applyDamageToPlayer();           
+            else if(!this.world.character.checkIsDead() && localImageIndex == ImageHub.endboss.alert.length -1 && this.currentAttackCounter == 2 * this.difficultyLevel){
                 this.currentAttackCounter = 0;
-                this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, false, this.sequence.shouldFlee, true);
+                this.offset = {top: 80, bottom: 150, left: 70, right: 80}
+                this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, false, this.sequence.shouldFlee, true, false);
+                this.timeSinceLastRage = new Date().getTime();
             }            
         }
+    }
+
+    applyDamageToPlayer(){
+        this.world.character.applyDamage(this.damagePerAttack); 
+        this.currentAttackCounter++;
     }
 
     checkHealthState(){
@@ -148,6 +159,7 @@ export class Endboss extends MovableObject {
             this.playAnimation(ImageHub.endboss.walk);
         } else {
             this.setCanMove(false, false);
+            this.otherDirection = true;
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, this.sequence.shouldChase, false, false);
         }
     }

@@ -12,6 +12,7 @@ export class DrawableObject {
     minPositionX = 400;
     deathTime = 0;
     isDead = false;
+    timeSinceLastDamage = 0;
     
     loadImage(path){
         this.img = new Image();

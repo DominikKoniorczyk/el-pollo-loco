@@ -5,19 +5,22 @@ export class ThrowableObject extends MovableObject {
     width = 50;
     height = 60;
     speedY = 20;
+    speedx = 30;
     standingGroundY = 360;
     world;
     currentSplashIndex = 0;
     damageApplied = false;
 
-    constructor(world, x, y){
+    constructor(world, x, y, character){
         super();
+        const direction = character.otherDirection ? -1 : 1;
         this.loadImage(ImageHub.bottle.rotation[0]);
         this.loadImages(ImageHub.bottle.rotation);
         this.loadImages(ImageHub.bottle.splash);
+        this.speedx = this.speedx * direction;
         this.world = world; 
         this.x = x;
-        this.y = y;       
+        this.y = y;               
     }
 
     interval10ms(globalIntervalCounter){
@@ -39,7 +42,7 @@ export class ThrowableObject extends MovableObject {
     fly(){
         if(this.y < this.standingGroundY){
             this.playRotationAnim();
-            this.x += 30;
+            this.x += this.speedx;
         } else {
             this.splash();
         }
