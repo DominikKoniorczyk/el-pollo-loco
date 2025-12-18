@@ -8,7 +8,7 @@ export class Character extends MovableObject {
     speed = 10;
     standingGroundY = 190;
     offset = { top: 95, bottom: 105, left: 30, right: 60 };
-    bottleCount = 5;
+    bottleCount = 10;
     coinCount = 0;
     throwObject = false;
     shouldDrawCollisionFrame = true;
@@ -103,7 +103,7 @@ export class Character extends MovableObject {
     throwAnObject(){
         this.bottleCount--;
         this.throwObject = true;
-        this.world.bottleBar.setPercentage(this.bottleCount *20);
+        this.world.bottleBar.setPercentage(this.bottleCount *10);
     }
 
     checkEnemyCollision(enemies){        
@@ -120,7 +120,7 @@ export class Character extends MovableObject {
 
     checkBottleCollision(bottles){
         bottles.forEach(bottle => {
-            if(this.isColliding(bottle) && this.bottleCount < 5){
+            if(this.isColliding(bottle) && this.bottleCount < 10){
                 this.bottleCount++;
                 this.world.bottleBar.setPercentage(this.bottleCount);
             }
