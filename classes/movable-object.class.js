@@ -3,7 +3,7 @@ import { DrawableObject } from "./drawable-object.class.js";
 export class MovableObject extends DrawableObject {
     speed = 0.15;
     world;
-    world_tiles;
+    worldTiles;
     speedY = 0;
     acceleration = 1;
     standingGroundY = 0;
