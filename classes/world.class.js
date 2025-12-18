@@ -6,6 +6,7 @@ import { BackgroundObject } from "./background-object.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Endboss } from "./endboss.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
+import { IntervalHub } from "./interavalhub.class.js";
 
 export class World {
     character = new Character();
@@ -15,9 +16,12 @@ export class World {
     keyboard;
     camera_x = 0;
     healthBar = new StatusBar(20, 0, ImageHub.statBars.health, true);
-    coinBar = new StatusBar(20, 100, ImageHub.statBars.coin, false);
-    bottleBar = new StatusBar(20, 50, ImageHub.statBars.bottle, false);
+    coinBar = new StatusBar(20, 70, ImageHub.statBars.coin, false);
+    bottleBar = new StatusBar(20, 35, ImageHub.statBars.bottle, true);
+    charStatBars = [this.healthBar, this.coinBar, this.bottleBar];
+    healthBarEndboss = new StatusBar(20, 0, ImageHub.statBars.endboss, true);
     throwableObjects = [];
+    characterCanMove = true;
 
     constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
@@ -45,7 +49,6 @@ export class World {
     }
 
     interval10ms(globalIntervalCounter){
-        this.character.interval10ms(globalIntervalCounter);
         this.level.enemies.forEach(enemy => {
             enemy.interval10ms(globalIntervalCounter);
         });
@@ -60,7 +63,6 @@ export class World {
     }
 
     interval60FPS(){
-        this.character.interval60FPS();
         this.draw();
         this.level.enemies.forEach(enemy => {
             enemy.interval60FPS();
@@ -101,11 +103,10 @@ export class World {
         this.addToViewport(this.character);
         this.addObjectsToViewport(this.level.enemies); 
         this.addObjectsToViewport(this.level.collectableObjects);
-        this.addObjectsToViewport(this.throwableObjects);      
+        this.addObjectsToViewport(this.throwableObjects);   
+        this.addToViewport(this.healthBarEndboss);   
         this.ctx.translate(-this.camera_x, 0);
-        this.addToViewport(this.healthBar);
-        this.addToViewport(this.bottleBar);
-        this.addToViewport(this.coinBar);
+        this.addObjectsToViewport(this.charStatBars);
     }
 
     addObjectsToViewport(objects){
@@ -150,7 +151,7 @@ export class World {
     }
 
     checkThrowObjects(){
-        if(this.keyboard.THROW && !this.character.throwObject && this.character.bottleCount != 0 && !this.character.checkIsDead()){
+        if(this.keyboard.THROW && this.characterCanMove && !this.character.throwObject && this.character.bottleCount != 0 && !this.character.checkIsDead()){
             const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(newBottle);
             this.lastThrowObjectTime = new Date().getTime();

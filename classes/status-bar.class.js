@@ -2,8 +2,8 @@ import { DrawableObject } from "./drawable-object.class.js";
 
 export class StatusBar extends DrawableObject{
     percentage = 100;
-    width = 200;
-    height = 60;
+    width = 150;
+    height = 45;
     x = 20;
     y = 0;
     imageSource;
@@ -22,6 +22,11 @@ export class StatusBar extends DrawableObject{
         this.percentage = percentage;
         let path = this.imageSource[this.resolveImageIndex()];
         this.img = this.imageCache[path];
+    }
+
+    setNewPositionInViewport(x, y){
+        this.x = x;
+        this.y = y;
     }
 
     resolveImageIndex(){

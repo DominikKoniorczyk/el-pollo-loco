@@ -8,6 +8,7 @@ export class ThrowableObject extends MovableObject {
     standingGroundY = 360;
     world;
     currentSplashIndex = 0;
+    damageApplied = false;
 
     constructor(world, x, y){
         super();
@@ -58,7 +59,10 @@ export class ThrowableObject extends MovableObject {
     checkHitEnemy(){        
         this.world.level.enemies.forEach(e => {
             if(this.isColliding(e)){
-                e.applyDamage();
+                if(!this.damageApplied){
+                    this.damageApplied = true;
+                    e.applyDamage(20);
+                }
                 this.splash();
             }            
         });

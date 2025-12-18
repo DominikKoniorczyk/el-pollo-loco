@@ -13,6 +13,7 @@ export class Character extends MovableObject {
     throwObject = false;
     shouldDrawCollisionFrame = true;
     time_since_last_move = 0;
+    canMove = true;
 
     constructor(){
         super();
@@ -27,12 +28,12 @@ export class Character extends MovableObject {
 
     interval60FPS(){
         super.interval60FPS();
-        if(this.world.keyboard.RIGHT && (this.x < this.world.level.levelEndX - 720) && !this.checkIsDead()){
+        if(this.world.keyboard.RIGHT && (this.x < this.world.level.levelEndX - 720) && !this.checkIsDead() && this.canMove){
                 this.moveRight();
-            } else if(this.world.keyboard.LEFT && this.x > 100 && !this.checkIsDead()){
+            } else if(this.world.keyboard.LEFT && this.x > 100 && !this.checkIsDead() && this.canMove){
                 this.moveLeft();
             }
-        if(this.world.keyboard.SPACE && !this.isInAir() && !this.checkIsDead()){
+        if(this.world.keyboard.SPACE && !this.isInAir() && !this.checkIsDead() && this.canMove){
             this.jump();
         }
         this.world.camera_x = -this.x + 100;
@@ -53,14 +54,14 @@ export class Character extends MovableObject {
     }
 
     walking(){
-        if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead()){
+        if((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() && this.canMove){
             this.playAnimation(ImageHub.character.walk);
             this.time_since_last_move = 0;
         } 
     }
 
     idleAnimationSwitch(){
-        if(!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead()){
+        if(!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() || !this.canMove){
             if(this.time_since_last_move === 0) this.time_since_last_move = new Date().getTime();
             if(new Date().getTime() - this.time_since_last_move <= 5000){
                 this.playAnimation(ImageHub.character.idle);

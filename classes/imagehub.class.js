@@ -145,20 +145,28 @@ export class ImageHub {
             'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
         ],
         coin: [
-            'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
-            'img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
-            'img/7_statusbars/1_statusbar/1_statusbar_coin/green/40.png',
-            'img/7_statusbars/1_statusbar/1_statusbar_coin/green/60.png',
-            'img/7_statusbars/1_statusbar/1_statusbar_coin/green/80.png',
-            'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/0.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/40.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/60.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png',
         ], 
         bottle: [
-            'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
-            'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
-            'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
-            'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
-            'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
-            'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png',
+        ],
+        endboss : [
+            'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
+            'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
+            'img/7_statusbars/2_statusbar_endboss/blue/blue40.png',
+            'img/7_statusbars/2_statusbar_endboss/blue/blue60.png',
+            'img/7_statusbars/2_statusbar_endboss/green/green80.png',
+            'img/7_statusbars/2_statusbar_endboss/green/green100.png'
         ]
     }
     static bottle = {
