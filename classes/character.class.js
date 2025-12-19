@@ -7,7 +7,7 @@ export class Character extends MovableObject {
     y = 190;
     speed = 10;
     standingGroundY = 190;
-    offset = { top: 95, bottom: 105, left: 30, right: 60 };
+    offset = { top: 105, bottom: 12, left: 25, right: 35 };
     bottleCount = 10;
     coinCount = 0;
     throwObject = false;

@@ -6,7 +6,7 @@ export class Endboss extends MovableObject {
     width = 343;
     y = 60;
     otherDirection = true;
-    offset = { top: 80, bottom: 150, left: 40, right: 80 };
+    offset = { top: 80, bottom: 40, left: 40, right: 40 };
     shouldDrawCollisionFrame = true;
     statBarOffset = { left: 90, top: 30} 
     health = 100;
@@ -89,6 +89,7 @@ export class Endboss extends MovableObject {
     }
 
     interval60FPS(){
+        super.interval60FPS();
         this.world.healthBarEndboss.setNewPositionInViewport(this.x + this.statBarOffset.left, this.y + this.statBarOffset.top);
         this.world.healthBarEndboss.setPercentage(this.health);
         this.startSequence();
@@ -130,12 +131,12 @@ export class Endboss extends MovableObject {
         const localImageIndex = this.currentImageIndex % ImageHub.endboss.alert.length;
         if(!this.world.character.checkIsDead() && localImageIndex <= ImageHub.endboss.alert.length -1)
         {
-            this.offset = {top: 80, bottom: 150, left: 70, right: 80}
+            this.offset = { top: 80, bottom: 40, left: 70, right: 40 }
             this.playAnimation(ImageHub.endboss.attack);
             if(ImageHub.endboss.attack.length / 2 == localImageIndex && this.checkDistanceToPlayer() <= 60) this.applyDamageToPlayer();           
             else if(!this.world.character.checkIsDead() && localImageIndex == ImageHub.endboss.alert.length -1 && this.currentAttackCounter == 2 * this.difficultyLevel){
                 this.currentAttackCounter = 0;
-                this.offset = {top: 80, bottom: 150, left: 40, right: 80}
+                this.offset = { top: 80, bottom: 40, left: 40, right: 40 }
                 this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, false, this.sequence.shouldFlee, true, false);
                 this.timeSinceLastRage = new Date().getTime();
             }            

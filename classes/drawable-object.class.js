@@ -13,10 +13,33 @@ export class DrawableObject {
     deathTime = 0;
     isDead = false;
     timeSinceLastDamage = 0;
+    realCollisionFram = {x: 0, y: 0, w: 0, h: 0};
     
     loadImage(path){
         this.img = new Image();
         this.img.src = path;
+    }
+
+    interval60FPS(){
+        this.getRealCollisionFrame();
+    }
+
+    getRealCollisionFrame(){
+        this.realCollisionFram = { 
+            x: this.x + this.offset.left, 
+            y: this.y + this.offset.top, 
+            w: this.width - this.offset.left - this.offset.right, 
+            h: this.height - this.offset.top - this.offset.bottom };
+    }
+    
+    drawCollisionFrames(ctx){
+        if(this.shouldDrawCollisionFrame){
+            ctx.beginPath();
+            ctx.linewidth = "10";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.realCollisionFram.x, this.realCollisionFram.y, this.realCollisionFram.w, this.realCollisionFram.h);
+            ctx.stroke();
+        }
     }
 
     draw(ctx){
@@ -31,16 +54,6 @@ export class DrawableObject {
         });
     }
     
-    drawCollisionFrames(ctx){
-        if(this.shouldDrawCollisionFrame){
-            ctx.beginPath();
-            ctx.linewidth = "10";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
-            ctx.stroke();
-        }
-    }
-    
     getRandomX(world_tiles){
         const maxX = (world_tiles - 1) * 720;
         const difference = maxX - this.minPositionX;
@@ -50,10 +63,10 @@ export class DrawableObject {
     }
 
     isColliding(mo){               
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-               this.y + this.height - this.offset.bottom + this.offset.top > mo.y + mo.offset.top &&
-               this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-               this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+        return this.realCollisionFram.x + this.realCollisionFram.w > mo.realCollisionFram.x &&
+        this.realCollisionFram.y + this.realCollisionFram.h > mo.realCollisionFram.y &&
+        this.realCollisionFram.x < mo.realCollisionFram.x + mo.realCollisionFram.w &&
+        this.realCollisionFram.y < mo.realCollisionFram.y + mo.realCollisionFram.h;
     }
 
     removeFromWorld(arr){

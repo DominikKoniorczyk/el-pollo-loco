@@ -18,6 +18,7 @@ export class MovableObject extends DrawableObject {
     onceImageIndex = 0;
 
     interval60FPS(){
+        super.interval60FPS();
         this.checkIfOffScreen();
         this.applyGravity();        
     }
