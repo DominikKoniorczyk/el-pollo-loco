@@ -13,7 +13,7 @@ export class Chicken extends MovableObject {
     
     constructor(world_tiles, level, img){
         super();
-        this.damagePerAttack = 0.5 * level.difficultyLevel;
+        this.damagePerAttack = 10 * level.difficultyLevel;
         super.loadImage(img.walk[0]);
         super.loadImages(img.walk);
         super.loadImages(img.death);

@@ -158,7 +158,7 @@ export class Character extends MovableObject {
             super.applyDamage(damage);
             this.world.healthBar.setPercentage(this.health);
             this.timeSinceLastDamage = new Date().getTime();
+        console.log("GetDamage: ", damage, ". Time since last Attack: ", this.timeSinceLastDamage - new Date().getTime() );
         }
-        console.log("GetDamage: ", damage, ". Time since last Attack: ", this.timeSinceLastDamage);
     }
 }
