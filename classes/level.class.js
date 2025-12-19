@@ -2,6 +2,8 @@ import { Chicken } from "./chicken.class.js";
 import { Endboss } from "./endboss.class.js";
 import { Coin } from "./coin.class.js";
 import { Bottle } from "./bottle.class.js";
+import { ImageHub } from "./imagehub.class.js";
+import { BabyChicken } from "./baby-chicken.class.js";
 
 export class Level {
     enemies = [];
@@ -17,6 +19,7 @@ export class Level {
     bottleCount;
     coinCount;
     endbossSize;
+    babyPerBig = 2;
     difficultyLevel = 1;
 
     constructor(amounts, world_tiles, endbossSize){
@@ -46,11 +49,17 @@ export class Level {
         this.clouds.forEach(cloud => {
             cloud.interval60FPS();
         });
+        this.collectableObjects.forEach(collectable => {
+            collectable.interval60FPS();
+        })
     }
 
     initLevel(){
         for(let i = 0; i < this.enemiesCount; i++){
-            this.enemies.push(new Chicken(this.worldTiles, this)); 
+            this.enemies.push(new Chicken(this.worldTiles, this, ImageHub.chicken));
+            for(let j = 0; j < this.babyPerBig; j++ ){
+                this.enemies.push(new BabyChicken(this.worldTiles, this, ImageHub.chickenSmall));
+            } 
         }
         for(let i = 0; i < this.coinCount; i++){
             const newCoin = new Coin(this.worldTiles);

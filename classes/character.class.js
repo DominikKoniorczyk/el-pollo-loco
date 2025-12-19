@@ -111,9 +111,10 @@ export class Character extends MovableObject {
         enemies.forEach(enemy => {
             if(this.isColliding(enemy) && !enemy.isDead){
                 if(!(this.isInAir() && this.speedY < 0)){
-                    this.applyDamage(enemy.damagePerAttack);
+                    this.applyDamage(enemy.damagePerAttack);                    
                 } else if(!this.checkIsDead()) {
                     enemy.applyDamage();
+                    console.log("Overlap while falling");                    
                 }           
         }});
     }
@@ -158,5 +159,6 @@ export class Character extends MovableObject {
             this.world.healthBar.setPercentage(this.health);
             this.timeSinceLastDamage = new Date().getTime();
         }
+        console.log("GetDamage: ", damage, ". Time since last Attack: ", this.timeSinceLastDamage);
     }
 }

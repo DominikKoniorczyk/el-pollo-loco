@@ -4,7 +4,7 @@ import { ImageHub } from "./imagehub.class.js";
 export class Coin extends CollectableObject {
     minHeight = 360;
     maxHeight = 60;
-    offset = { top: 30, bottom: 60, left: 30, right: 60 };
+    offset = { top: 35, bottom: 35, left: 35, right: 35 };
 
     
     constructor(world_tiles){
@@ -16,6 +16,10 @@ export class Coin extends CollectableObject {
 
     interval10ms(globalIntervalCounter){
         if(globalIntervalCounter % 250 === 0) this.playAnimation(ImageHub.coin);
+    }
+
+    interval60FPS(){
+        super.interval60FPS();
     }
 
     setWorldPosition(world_tiles){

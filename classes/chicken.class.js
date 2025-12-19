@@ -11,18 +11,18 @@ export class Chicken extends MovableObject {
     shouldDrawCollisionFrame = true;
     wasOffScreen = false;
     
-    constructor(world_tiles, level){
+    constructor(world_tiles, level, img){
         super();
         this.damagePerAttack = 0.5 * level.difficultyLevel;
-        super.loadImage(ImageHub.chicken.walk[0]);
-        super.loadImages(ImageHub.chicken.walk);
-        super.loadImages(ImageHub.chicken.death);
-        this.world_tiles = world_tiles;  
+        super.loadImage(img.walk[0]);
+        super.loadImages(img.walk);
+        super.loadImages(img.death);
+        this.worldTiles = world_tiles;  
         this.calculateSpeeds();
     }
 
     calculateSpeeds(){
-        this.x = this.getRandomX(this.world_tiles);
+        this.x = this.getRandomX(this.worldTiles);
         this.speed = 0.5 + Math.random() * 0.5;      
     }
 
@@ -37,7 +37,7 @@ export class Chicken extends MovableObject {
         } else if(this.checkIfOffScreen(80)) { 
             this.wasOffScreen = true;  
             super.moveRight();     
-        } else if(this.x < (this.world_tiles - 1) *720 && this.wasOffScreen){
+        } else if(this.x < (this.worldTiles - 1) *720 && this.wasOffScreen){
             super.moveRight();
         } else {
             this.wasOffScreen = false;

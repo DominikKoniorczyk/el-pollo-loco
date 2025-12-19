@@ -53,7 +53,7 @@ export class World {
         this.throwableObjects.forEach(to => {
             to.interval10ms(globalIntervalCounter);
         });
-        this.checkCollisions(globalIntervalCounter);
+        this.checkCollisions();
         this.checkThrowObjects();
     }
 
@@ -134,7 +134,7 @@ export class World {
         mo.x = mo.x * -1;
     }
 
-    checkCollisions(globalIntervalCounter) {
+    checkCollisions() {
         this.character.checkEnemyCollision(this.level.enemies);
         this.character.checkCoinCollision(this.level.coins);
         this.character.checkBottleCollision(this.level.bottles);
