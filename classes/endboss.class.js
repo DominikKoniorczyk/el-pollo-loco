@@ -1,5 +1,6 @@
 import { ImageHub } from "./imagehub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class Endboss extends MovableObject {
     height = 400;
@@ -146,7 +147,11 @@ export class Endboss extends MovableObject {
     applyDamage(damage){
         super.applyDamage(damage);
         if(this.health > 0) this.playAnimation(ImageHub.endboss.hurt);
-        else this.isDead = true;
+        else {
+            this.isDead = true;            
+            let randomInt = Math.random();
+            SoundHub.playOne(SoundHub.chicken[Math.round(randomInt)]);
+        }
     }
 
     applyDamageToPlayer(){
@@ -155,7 +160,7 @@ export class Endboss extends MovableObject {
     }
 
     checkHealthState(){
-        if(this.health <= 15){
+        if(this.health < 15){
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, false, false);
         } else if(this.health <= 25) {
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, false, false);

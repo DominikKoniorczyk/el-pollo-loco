@@ -3,6 +3,7 @@ import { Keyboard } from '../classes/keyboard.class.js';
 import { IntervalHub } from '../classes/interavalhub.class.js';
 import { level1 } from '../levels/level1.js';
 import { ImageHub } from '../classes/imagehub.class.js';
+import { SoundHub } from '../classes/soundhub.class.js';
 
 let canvasRev;
 let ctx;
@@ -45,8 +46,10 @@ function gameTick60FPS(){
 }
 
 export function gameOver(won){
+    IntervalHub.clearAllIntervals();
+    SoundHub.stopAll(); 
+    Keyboard.removeKeyboardListener();
     world.level.clearWorld();
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
     ctx.drawImage(won ? endScreenWin : endScreenLose, 0, 0, 720, 480);
-    IntervalHub.clearAllIntervals(); 
 }

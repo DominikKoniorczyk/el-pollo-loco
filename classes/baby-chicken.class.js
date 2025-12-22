@@ -1,5 +1,6 @@
 import { Chicken } from "./chicken.class.js";
 import { ImageHub } from "./imagehub.class.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class BabyChicken extends Chicken{
     width = 40;
@@ -41,5 +42,7 @@ export class BabyChicken extends Chicken{
     applyDamage(){
         this.isDead = true;
         this.speed = 0;
+        let randomInt = Math.random();
+        SoundHub.playOne(SoundHub.chicken[Math.round(randomInt)]);
     }
 }

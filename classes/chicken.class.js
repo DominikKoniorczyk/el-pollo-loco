@@ -1,5 +1,6 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class Chicken extends MovableObject {
     width = 60;
@@ -10,6 +11,7 @@ export class Chicken extends MovableObject {
     offset = { top: 5, bottom: 10, left: 5, right: 10 };
     shouldDrawCollisionFrame = true;
     wasOffScreen = false;
+    hurtSounds = ['../audio/chicken/chickenDead.mp3', '../audio/chicken/chickenDead2.mp3']
     
     constructor(world_tiles, level, img){
         super();
@@ -17,8 +19,15 @@ export class Chicken extends MovableObject {
         super.loadImage(img.walk[0]);
         super.loadImages(img.walk);
         super.loadImages(img.death);
-        this.worldTiles = world_tiles;  
+        this.worldTiles = world_tiles;
+        this.addAudio();
         this.calculateSpeeds();
+    }
+
+    addAudio(){
+        let i = Math.random();
+        i = Math.round(i);
+        this.hurtSound = new Audio(this.hurtSounds[i]);
     }
 
     calculateSpeeds(){
@@ -66,5 +75,6 @@ export class Chicken extends MovableObject {
     applyDamage(){
         this.isDead = true;
         this.speed = 0;
+        SoundHub.playOne(this.hurtSound);
     }
 }

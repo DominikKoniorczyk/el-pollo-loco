@@ -14,6 +14,11 @@ export class Keyboard {
         window.addEventListener("keyup", Keyboard.onKeyUp);
     }
 
+    static removeKeyboardListener(){
+        window.removeEventListener("keydown", Keyboard.onKeyDown);
+        window.removeEventListener("keyup", Keyboard.onKeyUp);
+    }
+
     static onKeyDown = (e) => {
         if(e.code === "KeyD" || e.code === "ArrowRight") Keyboard.RIGHT = true;
         else if(e.code === "KeyA" || e.code === "ArrowLeft") Keyboard.LEFT = true;

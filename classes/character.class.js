@@ -1,5 +1,6 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class Character extends MovableObject {
     width = 122;
@@ -57,7 +58,11 @@ export class Character extends MovableObject {
         if((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() && this.canMove){
             this.playAnimation(ImageHub.character.walk);
             this.timeSinceLastMove = 0;
-        } 
+            SoundHub.playCharacterSounds("run", true);
+            SoundHub.stopAllCharacterSounds("run");
+        } else {
+            SoundHub.stopOne(SoundHub.playing.run);
+        }
     }
 
     idleAnimationSwitch(){
@@ -65,8 +70,10 @@ export class Character extends MovableObject {
             if(this.timeSinceLastMove === 0) this.timeSinceLastMove = new Date().getTime();
             if(new Date().getTime() - this.timeSinceLastMove <= 5000){
                 this.playAnimation(ImageHub.character.idle);
+                SoundHub.stopAllCharacterSounds("");
             } else {
                 this.playAnimation(ImageHub.character.idle_long);
+                SoundHub.playCharacterSounds("snorring", true);
             }
         }
     }
@@ -74,7 +81,9 @@ export class Character extends MovableObject {
     jumpAnimation(){
         if(this.isInAir() || this.speedY > 0 && !this.checkIsDead()){
             this.playAnimation(ImageHub.character.jump);
-            this.timeSinceLastMove = 0;
+            this.timeSinceLastMove = 0;            
+            SoundHub.stopAllCharacterSounds("jump");
+            SoundHub.playCharacterSounds("jump", false);
         }
     }
 
@@ -88,6 +97,7 @@ export class Character extends MovableObject {
         if(this.isHurt()){
             this.playAnimation(ImageHub.character.hurt);
             this.timeSinceLastMove = 0;
+            SoundHub.playCharacterSounds("hurt", false);
         }
     }
 
@@ -113,8 +123,7 @@ export class Character extends MovableObject {
                 if(!(this.isInAir() && this.speedY < 0)){
                     this.applyDamage(enemy.damagePerAttack);                    
                 } else if(!this.checkIsDead()) {
-                    enemy.applyDamage();
-                    console.log("Overlap while falling");                    
+                    enemy.applyDamage();                
                 }           
         }});
     }
@@ -158,7 +167,6 @@ export class Character extends MovableObject {
             super.applyDamage(damage);
             this.world.healthBar.setPercentage(this.health);
             this.timeSinceLastDamage = new Date().getTime();
-        console.log("GetDamage: ", damage, ". Time since last Attack: ", this.timeSinceLastDamage - new Date().getTime() );
         }
     }
 }

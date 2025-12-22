@@ -16,6 +16,7 @@ export class MovableObject extends DrawableObject {
     hurtAnims = [];
     deathAnims = [];
     onceImageIndex = 0;
+    hurtSound;
 
     interval60FPS(){
         super.interval60FPS();

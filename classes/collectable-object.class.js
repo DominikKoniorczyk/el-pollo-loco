@@ -1,4 +1,5 @@
 import { DrawableObject } from "./drawable-object.class.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class CollectableObject extends DrawableObject{
     width = 100;
@@ -6,6 +7,7 @@ export class CollectableObject extends DrawableObject{
     x = 200;
     imageSource;
     shouldDrawCollisionFrame = true;
+    collectingSound = "";
     
     constructor(){
         super();
@@ -17,5 +19,10 @@ export class CollectableObject extends DrawableObject{
         const mainIndex = mainArr.indexOf(this);
         if(index !== -1) arr.splice(index, 1);
         if(mainIndex !== -1) mainArr.splice(mainIndex, 1);
+        this.playSoundOnCollecting();
+    }
+
+    playSoundOnCollecting(){
+        SoundHub.playOne(this.collectingSound);
     }
 }

@@ -1,5 +1,6 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class ThrowableObject extends MovableObject {
     width = 50;
@@ -10,6 +11,7 @@ export class ThrowableObject extends MovableObject {
     world;
     currentSplashIndex = 0;
     damageApplied = false;
+    splashSound = new Audio("../audio/throwable/bottleBreak.mp3");
 
     constructor(world, x, y, character){
         super();
@@ -44,6 +46,7 @@ export class ThrowableObject extends MovableObject {
             this.playRotationAnim();
             this.x += this.speedx;
         } else {
+            SoundHub.playOne(this.splashSound);
             this.splash();
         }
     }
