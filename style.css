@@ -3,6 +3,101 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(111,42,18); 
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: whitesmoke; 
+  border-radius: 4px;
+}
+
 canvas {
     background-color: black;
+    position: absolute;
+}
+
+h2, h3, h4, h5, p {
+    margin-block: 0;
+    text-align: center;
+}
+
+button {
+    cursor: pointer;
+    background-color: #BA7137;
+    color: rgb(111,42,18);
+    border: 1.5px solid rgb(111,42,18);
+    border-radius: 8px;
+    &:hover{
+        border: 1.5px solid whitesmoke;
+        color: whitesmoke;
+    }
+}
+
+.main_screen{
+    position: relative;    
+    width: 720px;
+    height: 480px;
+}
+
+.menu {
+    background-color: rgba(0, 0, 0, 0.215);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: rgb(111,42,18);
+    background-color: #BA7137;
+    padding: 16px;
+    border-radius: 16px;
+    border: 4px solid rgb(111,42,18);
+    width: 300px;
+    height: 160px;
+}
+
+.how_to_play{
+    width: 300px;
+    height: 300px;
+    overflow: auto;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 200px;
+    gap: 8px;
+    margin-top: 175px;
+
+    button {
+        width: 120px;
+        height: 32px;
+    }
+}
+
+.inner{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.d_none {
+    display: none;
 }

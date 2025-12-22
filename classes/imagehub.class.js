@@ -197,4 +197,5 @@ export class ImageHub {
         gameOver: 'img/You won, you lost/Game Over.png',
         winGame: 'img/You won, you lost/You Win A.png',
     };
+    static startScreen = 'img/9_intro_outro_screens/start/startscreen_1.png';
 }

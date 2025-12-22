@@ -8,7 +8,6 @@ export class DrawableObject {
     currentImageIndex = 0;
     otherDirection = false;
     offset = { top: 0, bottom: 0, left: 0, right: 0 };
-    shouldDrawCollisionFrame = false;
     minPositionX = 400;
     deathTime = 0;
     isDead = false;
@@ -31,16 +30,6 @@ export class DrawableObject {
             y: this.y + this.offset.top, 
             w: this.width - this.offset.left - this.offset.right, 
             h: this.height - this.offset.top - this.offset.bottom };
-    }
-    
-    drawCollisionFrames(ctx){
-        if(this.shouldDrawCollisionFrame){
-            ctx.beginPath();
-            ctx.linewidth = "10";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.realCollisionFram.x, this.realCollisionFram.y, this.realCollisionFram.w, this.realCollisionFram.h);
-            ctx.stroke();
-        }
     }
 
     draw(ctx){

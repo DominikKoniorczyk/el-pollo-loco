@@ -12,7 +12,6 @@ export class Character extends MovableObject {
     bottleCount = 10;
     coinCount = 0;
     throwObject = false;
-    shouldDrawCollisionFrame = true;
     timeSinceLastMove = 0;
     canMove = true;
 
@@ -38,6 +37,14 @@ export class Character extends MovableObject {
             this.jump();
         }
         this.world.camera_x = -this.x + 100;
+        this.checkHeight();
+    }
+
+    checkHeight(){
+        if(this.y > this.standingGroundY){
+            this.speedY = 0;
+            this.y = this.standingGroundY;
+        }
     }
 
     interval10ms(globalIntervalCounter){
@@ -123,7 +130,8 @@ export class Character extends MovableObject {
                 if(!(this.isInAir() && this.speedY < 0)){
                     this.applyDamage(enemy.damagePerAttack);                    
                 } else if(!this.checkIsDead()) {
-                    enemy.applyDamage();                
+                    enemy.applyDamage();
+                    this.speedY = this.jump_height / 2;                
                 }           
         }});
     }

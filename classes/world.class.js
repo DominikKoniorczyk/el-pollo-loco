@@ -6,7 +6,6 @@ import { BackgroundObject } from "./background-object.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Endboss } from "./endboss.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
-import { IntervalHub } from "./interavalhub.class.js";
 
 export class World {
     character = new Character();
@@ -116,7 +115,6 @@ export class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawCollisionFrames(this.ctx);
         if((mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss)) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
             this.flipImageBack(mo);
         }

@@ -8,14 +8,13 @@ export class Chicken extends MovableObject {
     y = 363;
     standingGroundY = 363;
     minPositionX = 200;
-    offset = { top: 5, bottom: 10, left: 5, right: 10 };
-    shouldDrawCollisionFrame = true;
+    offset = { top: 5, bottom: 10, left: 5, right: 10 };s
     wasOffScreen = false;
     hurtSounds = ['../audio/chicken/chickenDead.mp3', '../audio/chicken/chickenDead2.mp3']
     
     constructor(world_tiles, level, img){
         super();
-        this.level = level;
+        this.level = level;                
         this.damagePerAttack = 10 * level.difficultyLevel;
         super.loadImage(img.walk[0]);
         super.loadImages(img.walk);

@@ -12,7 +12,60 @@
 
     <h1>El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="main_screen">
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+        <div class="menu">
+            <section id="mainMenu" class="main">
+                <button onclick="play()">Play</button>
+                <button onclick="openHowToPlay()">How to Play</button>
+                <button onclick="openImpressum()">Impressum</button>
+            </section>
+            <section id="difficultyLevel" class="centered d_none">
+                <h2>Choose your difficulty level</h2>
+                <button onclick="setDifficultyLevel(0.5)">Easy</button>
+                <button onclick="setDifficultyLevel(1)">Middle</button>
+                <button onclick="setDifficultyLevel(2)">Hard</button>
+                <button onclick="setDifficultyLevel(4)">Hell</button>
+                <button onclick="back(0)">Back</button>
+            </section>
+            <section id="selectLevel" class="centered d_none">
+                <button onclick="startLevel(1)">Level 1</button>
+                <button onclick="startLevel(2)">Level 2</button>
+                <button onclick="startLevel(3)">Level 3</button>
+                <button onclick="back(1)">Back</button>
+            </section>
+            <section id="howToPlay" class="centered how_to_play d_none">
+                <h3>Gameplay</h3>
+                <p> Try to kill chickens by jumping on them or hitting them with bottles.<br>
+                    The final boss can only be damaged by bottles, so keep an eye on your bottle count.<br> 
+                    Collect bottles to fill your count.<br>
+                    Collect 10 coins to replenish your life.<br>
+                    Try to complete the level within the specified time.<br>
+                    Be careful, the boss spawns chickens.</p>
+                
+                <h3>Controls</h3> 
+                <div class="inner">
+                    <p>Move left: A or Arrow left</p>
+                    <img src="" alt="">
+                </div>    
+                    <p>Move rigt: W or Arrow right</p>
+                    <p>Jump: Spacebar</p>
+                    <p>Throw Items: T</p>
+                <button onclick="openHowToPlay()">Back</button>
+            </section>
+            <section id="Impressum" class="centered how_to_play d_none">
+                <h3>Gameplay</h3>
+                <p> Try to kill chickens by jumping on them or hitting them with bottles.<br>
+                    The final boss can only be damaged by bottles, so keep an eye on your bottle count.<br> 
+                    Collect bottles to fill your count.<br>
+                    Collect 10 coins to replenish your life.<br>
+                    Try to complete the level within the specified time.<br>
+                    Be careful, the boss spawns chickens.</p>
+                <button onclick="openImpressum()">Back</button>
+            </section>
+        </div>
+    </div>
     
 </body>
 </html>
