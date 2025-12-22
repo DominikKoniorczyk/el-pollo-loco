@@ -159,6 +159,7 @@ export class Endboss extends MovableObject {
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, false, false);
         } else if(this.health <= 25) {
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, false, false);
+            this.world.level.bossSpawnMinions(this.x);
         }
     }
 

@@ -45,7 +45,8 @@ function gameTick60FPS(){
 }
 
 export function gameOver(won){
-    IntervalHub.clearAllIntervals(); 
+    world.level.clearWorld();
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
     ctx.drawImage(won ? endScreenWin : endScreenLose, 0, 0, 720, 480);
+    IntervalHub.clearAllIntervals(); 
 }

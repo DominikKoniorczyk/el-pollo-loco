@@ -23,7 +23,7 @@ export class Chicken extends MovableObject {
 
     calculateSpeeds(){
         this.x = this.getRandomX(this.worldTiles);
-        this.speed = 0.5 + Math.random() * 0.5;      
+        this.speed = 1 + Math.random() * 0.5;      
     }
 
     interval60FPS(){

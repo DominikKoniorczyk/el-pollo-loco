@@ -21,6 +21,7 @@ export class Level {
     endbossSize;
     babyPerBig = 2;
     difficultyLevel = 1;
+    minionSpawnTimeout = 0;
 
     constructor(amounts, world_tiles, endbossSize){
         this.endbossSize = endbossSize;
@@ -58,7 +59,7 @@ export class Level {
         for(let i = 0; i < this.enemiesCount; i++){
             this.enemies.push(new Chicken(this.worldTiles, this, ImageHub.chicken));
             for(let j = 0; j < this.babyPerBig; j++ ){
-                this.enemies.push(new BabyChicken(this.worldTiles, this, ImageHub.chickenSmall));
+                this.enemies.push(new BabyChicken(this.worldTiles, this, ImageHub.chickenSmall, {absolute: false, x: 0, speed: 1}));
             } 
         }
         for(let i = 0; i < this.coinCount; i++){
@@ -73,5 +74,24 @@ export class Level {
         }
         this.enemies.push(new Endboss(this.worldTiles, this.endbossSize, this));        
         this.levelEndX = this.canvas.width * this.worldTiles;
+    }
+
+    bossSpawnMinions(worldX){
+        let currentTime = new Date().getTime();
+        if(currentTime - this.minionSpawnTimeout >= 5000){
+            for(let i = 0; i < this.babyPerBig * this.difficultyLevel; i++){
+                this.enemies.push(new BabyChicken(this.worldTiles, this, ImageHub.chickenSmall, {absolute: true, x: worldX, speed: 5}));
+            }        
+            this.minionSpawnTimeout = currentTime;
+        }
+    }
+
+    clearWorld(){
+        this.enemies = [];
+        this.collectableObjects = [];
+        this.clouds = [];
+        this.backgroundObjects = [];
+        this.coins = [];
+        this.bottles = [];
     }
 }
