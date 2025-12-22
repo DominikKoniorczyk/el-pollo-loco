@@ -6,7 +6,7 @@ export class BabyChicken extends Chicken{
     height = 40;
     y = 385;
     standingGroundY = 385;
-    offset = { top: 5, bottom: 5, left: 5, right: 5 };
+    offset = { top: -10, bottom: 8, left: 5, right: 5 };
 
     constructor(world_tiles, level, img){
         super(world_tiles, level, img);    
