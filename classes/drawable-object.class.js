@@ -14,6 +14,7 @@ export class DrawableObject {
     isDead = false;
     timeSinceLastDamage = 0;
     realCollisionFram = {x: 0, y: 0, w: 0, h: 0};
+    level;
     
     loadImage(path){
         this.img = new Image();

@@ -13,6 +13,7 @@ export class BabyChicken extends Chicken{
     constructor(world_tiles, level, img, pos){   
         super(world_tiles, level, img); 
         this.damagePerAttack = 5 * level.difficultyLevel;
+        this.level = level;
         if(pos.absolute){
             this.x = pos.x;
             this.speed = pos.speed + Math.random();
@@ -35,7 +36,7 @@ export class BabyChicken extends Chicken{
         } else if(new Date().getTime() - this.deathTime < 2000){
             this.playAnimation(ImageHub.chickenSmall.death)
         } else {
-            this.removeFromWorld(this.world.level.enemies, this.world.level.enemies);
+            this.removeFromWorld(this.level.enemies, this.level.enemies);
         }
     }
 
