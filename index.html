@@ -54,15 +54,27 @@
                     <p>Throw Items: T</p>
                 <button onclick="openHowToPlay()">Back</button>
             </section>
-            <section id="Impressum" class="centered how_to_play d_none">
-                <h3>Gameplay</h3>
-                <p> Try to kill chickens by jumping on them or hitting them with bottles.<br>
-                    The final boss can only be damaged by bottles, so keep an eye on your bottle count.<br> 
-                    Collect bottles to fill your count.<br>
-                    Collect 10 coins to replenish your life.<br>
-                    Try to complete the level within the specified time.<br>
-                    Be careful, the boss spawns chickens.</p>
+            <section id="impressum" class="centered fullscreen d_none">
+                <h3>Impressum</h3>
+                <p>Dominik Koniorczyk</p>
+                <p>Ahler Kopf 15</p>
+                <p>56112 Lahnstein</p>
+                <a href="mailto:d.koniorczyk@limesgames.de">d.koniorczyk@limesgames.de</a><br><br>
+                <h4>Credits</h4>
+                <ul>
+                    <li>160bpm retro game square wave song - mysterious exploration by Johnmode - <br><a href="//freesound.org/s/819267/">freesound.org</a> - License: Creative Commons 0</li>
+                    <li>horn_fail_wahwah_3.wav by TaranP - <br><a href="https://freesound.org/s/362204/">freesound.org</a> - License: Creative Commons 0</li>
+                    <li>Success Resolution Video Game Fanfare Sound Effect with Drum Roll.mp3 by FunWithSound - <a href="https://freesound.org/s/456969/">freesound.org</a> -- License: Attribution 4.0</li>
+                </ul>
                 <button onclick="openImpressum()">Back</button>
+            </section>
+            <section id="youLose" class="centered end_screen d_none">
+                <button onclick="reinitGame()">Mainmenu</button>
+                <button onclick="tryAgain()">Try again</button>
+            </section>
+            <section id="youWin" class="centered end_screen d_none">
+                <button onclick="reinitGame()">Mainmenu</button>
+                <button onclick="playNext()">Next Level</button>
             </section>
         </div>
     </div>

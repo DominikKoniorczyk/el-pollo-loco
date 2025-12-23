@@ -5,6 +5,7 @@ import { level1, level2, level3 } from '../levels/level1.js';
 import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
+import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen } from './dom.js';
 
 let canvasRev;
 let ctx;
@@ -13,21 +14,42 @@ let globalIntervalCounter = 0;
 let endScreenWin = null;
 let endScreenLose = null;
 let difficultyLevel = 1;
+let levelIndex = 0;
 const doc = window.document;
 const levels = [level1, level2, level3];
+const sounds = [new Audio("../assets/audio/music/456969__funwithsound__success-resolution-video-game-fanfare-sound-effect-with-drum-roll.mp3"), new Audio("../assets/audio/music/362204__taranp__horn_fail_wahwah_3.wav")]
 
 window.addEventListener('load', initGame);
-window.setDifficultyLevel = (l) => setDifficultyLevel(l);
-window.startLevel = (levelToStart) => startLevel(levelToStart);
-window.play = () => openPlayDialog();
-window.back = (i) => menuGoBack(i);
-window.openHowToPlay = () => openHowToPlay();
 
 function initGame(){
+    addFunctionListner();
     canvasRev = document.getElementById("canvas");  
     ctx = canvasRev.getContext('2d');
     Keyboard.addKeyboardListener();
     world = new MainMenu(canvasRev, Keyboard);
+    initData(doc);
+}
+
+function addFunctionListner(){
+    window.setDifficultyLevel = (l) => setDifficultyLevel(l);
+    window.startLevel = (levelToStart) => startLevel(levelToStart);
+    window.play = () => openPlayDialog();
+    window.back = (i) => menuGoBack(i);
+    window.openHowToPlay = () => openHowToPlay();
+    window.openImpressum = () => openImpressum();
+    window.reinitGame = () => reinitGame();
+    window.tryAgain = () => tryAgain();
+    window.playNext = () => nextLevel();
+}
+
+function reinitGame(){
+    initGame();
+    const loseContRef = doc.getElementById("youLose");
+    const winContRef = doc.getElementById("youWin");
+    const mainContRef = doc.getElementById("mainMenu");
+    mainContRef.classList.remove("d_none");
+    loseContRef.classList.add("d_none");
+    winContRef.classList.add("d_none");
 }
 
 function loadImages(){
@@ -53,11 +75,13 @@ function gameTick60FPS(){
 
 export function gameOver(won){
     IntervalHub.clearAllIntervals();
-    SoundHub.stopAll(); 
     Keyboard.removeKeyboardListener();
     world.level.clearWorld();
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
     ctx.drawImage(won ? endScreenWin : endScreenLose, 0, 0, 720, 480);
+    openOverlayOnGameOver(won);
+    SoundHub.stopAll(); 
+    SoundHub.playOne(won ? sounds[0] : sounds[1]);
 }
 
 function setDifficultyLevel(difficulty){
@@ -69,6 +93,7 @@ function setDifficultyLevel(difficulty){
 }
 
 function startLevel(levelToStart){
+    levelIndex = levelToStart;
     const levelCont = doc.getElementById('selectLevel');
     IntervalHub.clearAllIntervals();
     levels[levelToStart].updateDifficulty(difficultyLevel);
@@ -79,18 +104,32 @@ function startLevel(levelToStart){
     levelCont.classList.toggle("d_none"); 
 }
 
+function tryAgain(){
+    removeEndscreen();
+    Keyboard.addKeyboardListener();
+    IntervalHub.clearAllIntervals();
+    levels[levelIndex].updateDifficulty(difficultyLevel);
+    world = new World(canvasRev, Keyboard, levels[levelIndex]);
+    IntervalHub.startInterval(tenMilliSecondsInterval, 10);
+    IntervalHub.startInterval(gameTick60FPS, 1000 / 60);
+    loadImages();
+}
+
+function nextLevel(){
+    if(levelIndex < 2){
+        levelIndex ++;
+        tryAgain();
+    }
+}
+
 function reopenDifficultySelector(){
-    const difficultyCont = doc.getElementById('difficultyLevel')
-    const levelCont = doc.getElementById('selectLevel');
-    difficultyCont.classList.toggle("d_none");
-    levelCont.classList.toggle("d_none");
+    difficultyToggle();
+    selectLevelToggle();
 }
 
 function openPlayDialog(){
-    const difficultyCont = doc.getElementById('difficultyLevel')
-    const mainCont = doc.getElementById('mainMenu');
-    difficultyCont.classList.toggle("d_none");
-    mainCont.classList.toggle("d_none"); 
+    difficultyToggle();
+    mainMenuToggle();   
 }
 
 function menuGoBack(i){
@@ -105,8 +144,15 @@ function menuGoBack(i){
 }
 
 function openHowToPlay(){
-    const howToPlayCont = doc.getElementById('howToPlay')
-    const mainCont = doc.getElementById('mainMenu');
-    mainCont.classList.toggle("d_none");
-    howToPlayCont.classList.toggle("d_none"); 
+    mainMenuToggle();
+    howToPlayToggle();
+}
+
+function openImpressum(){
+    mainMenuToggle();
+    impressumToggle();
+}
+
+function openOverlayOnGameOver(won){
+    won ? youWinToggle() : youLoseToggle();
 }

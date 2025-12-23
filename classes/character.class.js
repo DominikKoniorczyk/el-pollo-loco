@@ -1,6 +1,7 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { SoundHub } from "./soundhub.class.js";
+import { gameOver } from "../js/game.js";
 
 export class Character extends MovableObject {
     width = 122;
@@ -14,7 +15,9 @@ export class Character extends MovableObject {
     throwObject = false;
     timeSinceLastMove = 0;
     canMove = true;
-    hurtSound = new Audio("../assets/audio/character/characterDamage.mp3");
+    sounds = [new Audio("../assets/audio/character/characterDamage.mp3"), new Audio("../assets/audio/character/characterSnoring.mp3"), new Audio("../assets/audio/character/characterRun.mp3"), 
+        new Audio("../assets/audio/character/characterJump.wav"), new Audio("../assets/audio/character/characterDead.wav")
+    ];
 
     constructor(){
         super();
@@ -66,10 +69,9 @@ export class Character extends MovableObject {
         if((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() && this.canMove){
             this.playAnimation(ImageHub.character.walk);
             this.timeSinceLastMove = 0;
-            SoundHub.playCharacterSounds("run", true);
-            SoundHub.stopAllCharacterSounds("run");
+            SoundHub.playOne(this.sounds[2]);
         } else {
-            SoundHub.stopOne(SoundHub.playing.run);
+            SoundHub.stopOne(this.sounds[2]);
         }
     }
 
@@ -78,10 +80,9 @@ export class Character extends MovableObject {
             if(this.timeSinceLastMove === 0) this.timeSinceLastMove = new Date().getTime();
             if(new Date().getTime() - this.timeSinceLastMove <= 5000){
                 this.playAnimation(ImageHub.character.idle);
-                SoundHub.stopAllCharacterSounds("");
             } else {
                 this.playAnimation(ImageHub.character.idle_long);
-                SoundHub.playCharacterSounds("snorring", true);
+                SoundHub.playOne(this.sounds[1]);
             }
         }
     }
@@ -89,9 +90,8 @@ export class Character extends MovableObject {
     jumpAnimation(){
         if(this.isInAir() || this.speedY > 0 && !this.checkIsDead()){
             this.playAnimation(ImageHub.character.jump);
-            this.timeSinceLastMove = 0;            
-            SoundHub.stopAllCharacterSounds("jump");
-            SoundHub.playCharacterSounds("jump", false);
+            this.timeSinceLastMove = 0;        
+            SoundHub.playOne(this.sounds[3]);
         }
     }
 
@@ -105,7 +105,7 @@ export class Character extends MovableObject {
         if(this.isHurt()){
             this.playAnimation(ImageHub.character.hurt);
             this.timeSinceLastMove = 0;
-            SoundHub.playOne(this.hurtSound);
+            SoundHub.playOne(this.sounds[0]);
         }
     }
 
@@ -115,7 +115,9 @@ export class Character extends MovableObject {
             if(!this.isInAir() && this.speedY <= 0){
                 this.standingGroundY = 1000;
                 this.jump();
+                SoundHub.playOne(this.sounds[4]);
             }
+            if(this.y >= 700) gameOver(false);
         }
     }
 

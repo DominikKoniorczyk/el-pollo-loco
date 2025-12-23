@@ -5,6 +5,7 @@ import { Bottle } from "./bottle.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { BabyChicken } from "./baby-chicken.class.js";
 import { gameOver } from "../js/game.js";
+import { SoundHub } from "./soundhub.class.js";
 
 export class Level {
     enemies = [];
@@ -23,8 +24,10 @@ export class Level {
     babyPerBig = 2;
     difficultyLevel = 1;
     minionSpawnTimeout = 0;
+    defaultTime = 0;
     gameTime = 0;
     startGameTime = 0;
+    music = new Audio("../assets/audio/music/819267__johnmode__160bpm-retro-game-square-wave-song-mysterious-exploration.wav");
 
     constructor(amounts, world_tiles, endbossSize, time){
         this.endbossSize = endbossSize;
@@ -32,14 +35,12 @@ export class Level {
         this.bottleCount = amounts.bottleCount;
         this.coinCount = amounts.coinCount;
         this.worldTiles = world_tiles;
-        this.gameTime = time;
-        this.startGameTime = this.gameTime;
-        
+        this.defaultTime = time;        
     }
 
     updateDifficulty(difficulty){
         this.difficultyLevel = difficulty;
-        this.gameTime = this.gameTime - (this.gameTime / 6 * difficulty);
+        this.gameTime = Math.round(this.defaultTime - (this.defaultTime / 6 * difficulty));
         this.startGameTime = this.gameTime;     
     }
 
@@ -71,12 +72,28 @@ export class Level {
     }
 
     initLevel(){
+        this.spawnEnemies();
+        this.spawnCollectableObjects();
+        this.enemies.push(new Endboss(this.worldTiles, this.endbossSize, this));        
+        this.levelEndX = this.canvas.width * this.worldTiles;
+        this.playMusic();
+    }
+
+    playMusic(){
+        this.music.loop = true;
+        SoundHub.playOne(this.music);
+    }
+
+    spawnEnemies(){
         for(let i = 0; i < this.enemiesCount; i++){
             this.enemies.push(new Chicken(this.worldTiles, this, ImageHub.chicken));
             for(let j = 0; j < this.babyPerBig; j++ ){
                 this.enemies.push(new BabyChicken(this.worldTiles, this, ImageHub.chickenSmall, {absolute: false, x: 0, speed: 1}));
             } 
         }
+    }
+
+    spawnCollectableObjects(){        
         for(let i = 0; i < this.coinCount; i++){
             const newCoin = new Coin(this.worldTiles);
             this.collectableObjects.push(newCoin);
@@ -87,8 +104,6 @@ export class Level {
             this.collectableObjects.push(newBottle);
             this.bottles.push(newBottle);
         }
-        this.enemies.push(new Endboss(this.worldTiles, this.endbossSize, this));        
-        this.levelEndX = this.canvas.width * this.worldTiles;
     }
 
     bossSpawnMinions(worldX){
