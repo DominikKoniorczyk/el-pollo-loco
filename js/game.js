@@ -13,8 +13,8 @@ let globalIntervalCounter = 0;
 let endScreenWin = null;
 let endScreenLose = null;
 let difficultyLevel = 1;
-let doc = window.document;
-let levels = [level1, level2, level3]
+const doc = window.document;
+const levels = [level1, level2, level3];
 
 window.addEventListener('load', initGame);
 window.setDifficultyLevel = (l) => setDifficultyLevel(l);
