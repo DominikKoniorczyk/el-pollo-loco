@@ -1,17 +1,19 @@
 export class SoundHub {
     static volume = 0.2; 
     static muted = false; 
-    static allSounds = []
+    static allSounds = [];
 
     static playOne(sound) {
-        const int = setInterval(() => {  
-            if (sound.readyState == 4) {
-                sound.volume = SoundHub.volume; 
-                sound.play(); 
-                SoundHub.allSounds.push(sound);
-                clearInterval(int);
-            } 
-        }, 200);
+        if(!SoundHub.muted){
+            const int = setInterval(() => {  
+                if (sound.readyState == 4) {
+                    sound.volume = SoundHub.volume; 
+                    sound.play(); 
+                    SoundHub.allSounds.push(sound);
+                    clearInterval(int);
+                } 
+            }, 200);
+        }
     }
 
     static stopAll() {
@@ -33,13 +35,11 @@ export class SoundHub {
                 sound.volume = SoundHub.volume;
             });
             SoundHub.muted = false;
-            document.getElementById('mute').innerHTML = "MuteAll";
         } else {
             SoundHub.allSounds.forEach(sound => {
                 sound.volume = 0;
             });
             SoundHub.muted = true;
-            document.getElementById('mute').innerHTML = "UnmuteAll";
         }
     }
 

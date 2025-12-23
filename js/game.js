@@ -6,6 +6,7 @@ import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
 import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen } from './dom.js';
+import { addFunctionListnerControlls } from './controlls.js';
 
 let canvasRev;
 let ctx;
@@ -40,6 +41,7 @@ function addFunctionListner(){
     window.reinitGame = () => reinitGame();
     window.tryAgain = () => tryAgain();
     window.playNext = () => nextLevel();
+    addFunctionListnerControlls();
 }
 
 function reinitGame(){

@@ -5,6 +5,9 @@ let howToPlayRef = null;
 let impressumRef = null;
 let youLoseRef = null;
 let youWinRef = null;
+let volumeOnRef = null;
+let volumeOffRef = null;
+let mainScreenRef = null;
 
 export function initData(doc){
     mainMenuRef = doc.getElementById("mainMenu");
@@ -14,6 +17,9 @@ export function initData(doc){
     impressumRef = doc.getElementById("impressum");
     youLoseRef = doc.getElementById("youLose");
     youWinRef = doc.getElementById("youWin");
+    volumeOnRef = doc.getElementById("audioOn");
+    volumeOffRef = doc.getElementById("audioOff");
+    mainScreenRef = doc. getElementById("mainScreen");
 }
 
 export function mainMenuToggle(){
@@ -47,4 +53,19 @@ export function youWinToggle(){
 export function removeEndscreen(){
     youLoseRef.classList.add("d_none");
     youWinRef.classList.add("d_none");
+}
+
+export function toggleSoundSymbol(){
+    volumeOnRef.classList.toggle("d_none");
+    volumeOffRef.classList.toggle("d_none");
+}
+
+export function openFullscreen() {
+  if (mainScreenRef.requestFullscreen) {
+    mainScreenRef.requestFullscreen();
+  } else if (mainScreenRef.webkitRequestFullscreen) { 
+    mainScreenRef.webkitRequestFullscreen();
+  } else if (mainScreenRef.msRequestFullscreen) {
+    mainScreenRef.msRequestFullscreen();
+  }
 }

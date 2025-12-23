@@ -12,7 +12,7 @@
 
     <h1>El Pollo Loco</h1>
 
-    <div class="main_screen">
+    <div class="main_screen" id="mainScreen">
         <canvas id="canvas" width="720" height="480"></canvas>
 
         <div class="menu">
@@ -65,6 +65,9 @@
                     <li>160bpm retro game square wave song - mysterious exploration by Johnmode - <br><a href="//freesound.org/s/819267/">freesound.org</a> - License: Creative Commons 0</li>
                     <li>horn_fail_wahwah_3.wav by TaranP - <br><a href="https://freesound.org/s/362204/">freesound.org</a> - License: Creative Commons 0</li>
                     <li>Success Resolution Video Game Fanfare Sound Effect with Drum Roll.mp3 by FunWithSound - <a href="https://freesound.org/s/456969/">freesound.org</a> -- License: Attribution 4.0</li>
+                    <li><a href="https://www.flaticon.com/free-icons/fullscreen" title="fullscreen icons">Fullscreen icons created by mavadee - Flaticon</a></li>
+                    <li><a href="https://www.flaticon.com/free-icons/speaker" title="speaker icons">Speaker icons created by Freepik - Flaticon</a></li>
+                    <li><a href="https://www.flaticon.com/free-icons/mute" title="mute icons">Mute icons created by Mayor Icons - Flaticon</a></li>
                 </ul>
                 <button onclick="openImpressum()">Back</button>
             </section>
@@ -76,8 +79,13 @@
                 <button onclick="reinitGame()">Mainmenu</button>
                 <button onclick="playNext()">Next Level</button>
             </section>
+        </div>    
+        <div class="upper_controlls">
+            <button onclick="toggleAudio()"><img src="../assets/icon/speaker-filled-audio-tool.png" alt="audio enabled" id="audioOn"><img src="../assets/icon/volume-mute.png" alt="audio disabled" id="audioOff" class="d_none"></button>
+            <button onclick="toggleFullScreen()"><img src="../assets/icon/fullscreen.png" alt="fullscreen symbol"></button>
         </div>
     </div>
+
     
 </body>
 </html>
