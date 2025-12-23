@@ -6,6 +6,7 @@ import { BackgroundObject } from "./background-object.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Endboss } from "./endboss.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
+import { TimerText } from "./timer-text.class.js";
 
 export class World {
     character = new Character();
@@ -19,6 +20,7 @@ export class World {
     bottleBar = new StatusBar(20, 35, ImageHub.statBars.bottle, true);
     charStatBars = [this.healthBar, this.coinBar, this.bottleBar];
     healthBarEndboss = new StatusBar(20, 0, ImageHub.statBars.endboss, true);
+    timerText;
     throwableObjects = [];
     characterCanMove = true;
 
@@ -28,6 +30,7 @@ export class World {
         this.keyboard = _keyboard;
         this.level = _level;
         this.level.canvas = this.canvas;
+        this.timerText = new TimerText(this, this.ctx);
         this.draw();
         this.initWorld();
         this.setWorld();
@@ -59,6 +62,7 @@ export class World {
     interval60FPS(){
         this.draw();
         this.level.interval60FPS();
+        this.timerText.interval60FPS();
         this.throwableObjects.forEach(to => {
             to.interval60FPS();
         });
@@ -96,6 +100,7 @@ export class World {
         this.addToViewport(this.healthBarEndboss);   
         this.ctx.translate(-this.camera_x, 0);
         this.addObjectsToViewport(this.charStatBars);
+        this.addToViewport(this.timerText);
     }
 
     addObjectsToViewport(objects){

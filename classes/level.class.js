@@ -4,6 +4,7 @@ import { Coin } from "./coin.class.js";
 import { Bottle } from "./bottle.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { BabyChicken } from "./baby-chicken.class.js";
+import { gameOver } from "../js/game.js";
 
 export class Level {
     enemies = [];
@@ -22,13 +23,15 @@ export class Level {
     babyPerBig = 2;
     difficultyLevel = 1;
     minionSpawnTimeout = 0;
+    gameTime = 0;
 
-    constructor(amounts, world_tiles, endbossSize){
+    constructor(amounts, world_tiles, endbossSize, time){
         this.endbossSize = endbossSize;
         this.enemiesCount = amounts.enemieCount;
         this.bottleCount = amounts.bottleCount;
         this.coinCount = amounts.coinCount;
         this.worldTiles = world_tiles;
+        this.gameTime = time;
     }
 
     interval10ms(globalIntervalCounter){
@@ -41,6 +44,9 @@ export class Level {
         this.coins.forEach(coin => {
             coin.interval10ms(globalIntervalCounter);
         });
+        if(globalIntervalCounter % 1000 === 0){
+            this.decreaseTime();
+        }
     }
 
     interval60FPS(){
@@ -93,5 +99,12 @@ export class Level {
         this.backgroundObjects = [];
         this.coins = [];
         this.bottles = [];
+    }
+
+    decreaseTime(){
+        this.gameTime--;
+        if(this.gameTime < 0){
+            gameOver(false);
+        }
     }
 }
