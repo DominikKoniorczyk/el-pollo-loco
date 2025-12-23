@@ -14,6 +14,7 @@ export class Character extends MovableObject {
     throwObject = false;
     timeSinceLastMove = 0;
     canMove = true;
+    hurtSound = new Audio("../assets/audio/character/characterDamage.mp3");
 
     constructor(){
         super();
@@ -104,7 +105,7 @@ export class Character extends MovableObject {
         if(this.isHurt()){
             this.playAnimation(ImageHub.character.hurt);
             this.timeSinceLastMove = 0;
-            SoundHub.playCharacterSounds("hurt", false);
+            SoundHub.playOne(this.hurtSound);
         }
     }
 

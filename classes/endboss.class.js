@@ -26,6 +26,11 @@ export class Endboss extends MovableObject {
         this.width = size.width;
         this.difficultyLevel = level.difficultyLevel;
         this.damagePerAttack = 20 * level.difficultyLevel;
+        this.initEndboss();
+    }
+
+    initEndboss(){
+        this.addAudio();
         this.loadImage(ImageHub.endboss.alert[0]);
         this.loadImages(ImageHub.endboss.alert);
         this.loadImages(ImageHub.endboss.attack);
@@ -148,9 +153,8 @@ export class Endboss extends MovableObject {
         super.applyDamage(damage);
         if(this.health > 0) this.playAnimation(ImageHub.endboss.hurt);
         else {
-            this.isDead = true;            
-            let randomInt = Math.random();
-            SoundHub.playOne(SoundHub.chicken[Math.round(randomInt)]);
+            this.isDead = true;           
+            SoundHub.playOne(this.hurtSound);
         }
     }
 

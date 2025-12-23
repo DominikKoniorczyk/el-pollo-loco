@@ -71,7 +71,7 @@ function setDifficultyLevel(difficulty){
 function startLevel(levelToStart){
     const levelCont = doc.getElementById('selectLevel');
     IntervalHub.clearAllIntervals();
-    levels[levelToStart].difficultyLevel = difficultyLevel;
+    levels[levelToStart].updateDifficulty(difficultyLevel);
     world = new World(canvasRev, Keyboard, levels[levelToStart]);
     IntervalHub.startInterval(tenMilliSecondsInterval, 10);
     IntervalHub.startInterval(gameTick60FPS, 1000 / 60);

@@ -17,6 +17,7 @@ export class MovableObject extends DrawableObject {
     deathAnims = [];
     onceImageIndex = 0;
     hurtSound;
+    hurtSounds = ['../assets/audio/chicken/chickenDead.mp3', '../assets/audio/chicken/chickenDead2.mp3'];
 
     interval60FPS(){
         super.interval60FPS();
@@ -83,5 +84,11 @@ export class MovableObject extends DrawableObject {
     isHurt(){
         let timePassed = new Date().getTime() - this.lastHit;
         return timePassed < 200; 
+    }
+
+    addAudio(){
+        let i = Math.random();
+        i = Math.round(i);
+        this.hurtSound = new Audio(this.hurtSounds[i]);
     }
 }

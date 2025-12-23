@@ -9,7 +9,7 @@ export class TimerText{
     }
 
     draw(){
-        this.ctx.font = "24px Arial";
+        this.ctx.font = "24px 'HennyPenny', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif";
         let textWidth = this.ctx.measureText(this.world.level.gameTime).width;
         let time = this.world.level.gameTime;
         this.ctx.fillStyle = time > 10 ? "#ffffffff" : "#ff0000ff";

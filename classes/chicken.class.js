@@ -10,7 +10,6 @@ export class Chicken extends MovableObject {
     minPositionX = 200;
     offset = { top: 5, bottom: 10, left: 5, right: 10 };s
     wasOffScreen = false;
-    hurtSounds = ['../assets/audio/chicken/chickenDead.mp3', '../assets/audio/chicken/chickenDead2.mp3'];
     
     constructor(world_tiles, level, img){
         super();
@@ -22,12 +21,6 @@ export class Chicken extends MovableObject {
         this.worldTiles = world_tiles;
         this.addAudio();
         this.calculateSpeeds();
-    }
-
-    addAudio(){
-        let i = Math.random();
-        i = Math.round(i);
-        this.hurtSound = new Audio(this.hurtSounds[i]);
     }
 
     calculateSpeeds(){

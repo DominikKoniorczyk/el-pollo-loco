@@ -24,6 +24,7 @@ export class Level {
     difficultyLevel = 1;
     minionSpawnTimeout = 0;
     gameTime = 0;
+    startGameTime = 0;
 
     constructor(amounts, world_tiles, endbossSize, time){
         this.endbossSize = endbossSize;
@@ -32,6 +33,14 @@ export class Level {
         this.coinCount = amounts.coinCount;
         this.worldTiles = world_tiles;
         this.gameTime = time;
+        this.startGameTime = this.gameTime;
+        
+    }
+
+    updateDifficulty(difficulty){
+        this.difficultyLevel = difficulty;
+        this.gameTime = this.gameTime - (this.gameTime / 6 * difficulty);
+        this.startGameTime = this.gameTime;     
     }
 
     interval10ms(globalIntervalCounter){
