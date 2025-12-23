@@ -6,7 +6,7 @@ export class Coin extends CollectableObject {
     minHeight = 360;
     maxHeight = 60;
     offset = { top: 35, bottom: 35, left: 35, right: 35 };
-    collectingSound = new Audio('../audio/collectibles/collectSound.wav');
+    collectingSound = new Audio('../assets/audio/collectibles/collectSound.wav');
     
     constructor(world_tiles){
         super();

@@ -7,6 +7,7 @@ export class BabyChicken extends Chicken{
     height = 40;
     y = 385;
     standingGroundY = 385;
+    hurtSounds = ['../assets/audio/chicken/chickenDead.mp3', '../assets/audio/chicken/chickenDead2.mp3'];
 
     offset = { top: -10, bottom: 8, left: 5, right: 5 };
 
@@ -18,6 +19,7 @@ export class BabyChicken extends Chicken{
             this.x = pos.x;
             this.speed = pos.speed + Math.random();
         }  
+        this.addAudio();
     }
 
     interval10ms(globalIntervalCounter){
@@ -43,7 +45,6 @@ export class BabyChicken extends Chicken{
     applyDamage(){
         this.isDead = true;
         this.speed = 0;
-        let randomInt = Math.random();
-        SoundHub.playOne(SoundHub.chicken[Math.round(randomInt)]);
+        SoundHub.playOne(this.hurtSound);
     }
 }

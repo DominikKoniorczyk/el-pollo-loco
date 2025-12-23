@@ -6,7 +6,7 @@ export class Bottle extends CollectableObject {
   y = 365;
   width = 50;
   height = 60;
-  collectingSound = new Audio('../audio/collectibles/bottleCollectSound.wav');
+  collectingSound = new Audio('../assets/audio/collectibles/bottleCollectSound.wav');
 
   constructor(world_tiles) {
     super();

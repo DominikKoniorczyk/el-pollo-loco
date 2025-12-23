@@ -11,7 +11,7 @@ export class ThrowableObject extends MovableObject {
     world;
     currentSplashIndex = 0;
     damageApplied = false;
-    splashSound = new Audio("../audio/throwable/bottleBreak.mp3");
+    splashSound = new Audio("../assets/audio/throwable/bottleBreak.mp3");
 
     constructor(world, x, y, character){
         super();
