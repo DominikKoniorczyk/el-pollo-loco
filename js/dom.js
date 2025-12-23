@@ -8,18 +8,21 @@ let youWinRef = null;
 let volumeOnRef = null;
 let volumeOffRef = null;
 let mainScreenRef = null;
+let isFullscreen = false;
+let document = null;
 
-export function initData(doc){
-    mainMenuRef = doc.getElementById("mainMenu");
-    difficultyRef = doc.getElementById("difficultyLevel");
-    selectLevelRef = doc.getElementById("selectLevel");
-    howToPlayRef = doc.getElementById("howToPlay");
-    impressumRef = doc.getElementById("impressum");
-    youLoseRef = doc.getElementById("youLose");
-    youWinRef = doc.getElementById("youWin");
-    volumeOnRef = doc.getElementById("audioOn");
-    volumeOffRef = doc.getElementById("audioOff");
-    mainScreenRef = doc. getElementById("mainScreen");
+export function initData(document){
+    mainMenuRef = document.getElementById("mainMenu");
+    difficultyRef = document.getElementById("difficultyLevel");
+    selectLevelRef = document.getElementById("selectLevel");
+    howToPlayRef = document.getElementById("howToPlay");
+    impressumRef = document.getElementById("impressum");
+    youLoseRef = document.getElementById("youLose");
+    youWinRef = document.getElementById("youWin");
+    volumeOnRef = document.getElementById("audioOn");
+    volumeOffRef = document.getElementById("audioOff");
+    mainScreenRef = document. getElementById("mainScreen");
+    document = document;
 }
 
 export function mainMenuToggle(){
@@ -68,4 +71,20 @@ export function openFullscreen() {
   } else if (mainScreenRef.msRequestFullscreen) {
     mainScreenRef.msRequestFullscreen();
   }
+  isFullscreen = true;
+}
+
+export function closeFullscreen() {
+  if (window.document.exitFullscreen) {
+    window.document.exitFullscreen();
+  } else if (window.document.webkitExitFullscreen) {
+    window.document.webkitExitFullscreen();
+  } else if (window.document.msExitFullscreen) { 
+    window.document.msExitFullscreen();
+  }
+  isFullscreen = false;
+}
+
+export function isInFullscreen(){
+    return isFullscreen;
 }

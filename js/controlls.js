@@ -1,5 +1,5 @@
 import { SoundHub } from "../classes/soundhub.class.js";
-import { openFullscreen, toggleSoundSymbol } from "./dom.js";
+import { closeFullscreen, isInFullscreen, openFullscreen, toggleSoundSymbol } from "./dom.js";
 
 export let muted = false;
 
@@ -15,5 +15,5 @@ function toggleAudio(){
 }
 
 function fullScreenToggle(){
-    openFullscreen();
+    isInFullscreen() ? closeFullscreen() : openFullscreen();    
 }
