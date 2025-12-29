@@ -5,7 +5,7 @@ import { level1, level2, level3 } from '../levels/level1.js';
 import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
-import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile } from './dom.js';
+import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape } from './dom.js';
 import { addFunctionListnerControlls } from './controlls.js';
 
 let canvasRev;
@@ -28,7 +28,8 @@ function initGame(){
     ctx = canvasRev.getContext('2d');
     Keyboard.addKeyboardListener();
     world = new MainMenu(canvasRev, Keyboard);
-    initData(doc);
+    initData(doc);    
+    IntervalHub.startInterval(checkIsInLandscape, 16.67);
 }
 
 function addFunctionListner(){
@@ -62,6 +63,7 @@ function loadImages(){
 }
 
 function tenMilliSecondsInterval(){
+    checkIsInLandscape();
     world.interval10ms(globalIntervalCounter);
     world.character.interval10ms(globalIntervalCounter);
     globalIntervalCounter += 10;

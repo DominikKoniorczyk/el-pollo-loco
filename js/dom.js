@@ -1,3 +1,5 @@
+import { ImageHub } from "../classes/imagehub.class.js";
+
 let mainMenuRef = null;
 let difficultyRef = null;
 let selectLevelRef = null;
@@ -10,6 +12,7 @@ let volumeOffRef = null;
 let mainScreenRef = null;
 let mobileButtons = null;
 let isFullscreen = false;
+let turnPhoneScreen = false;
 
 export function initData(document){
     mainMenuRef = document.getElementById("mainMenu");
@@ -19,6 +22,11 @@ export function initData(document){
     impressumRef = document.getElementById("impressum");
     youLoseRef = document.getElementById("youLose");
     youWinRef = document.getElementById("youWin");
+    turnPhoneScreen = document.getElementById("turnPhone");
+    getButtons(document);
+}
+
+function getButtons(document){
     volumeOnRef = document.getElementById("audioOn");
     volumeOffRef = document.getElementById("audioOff");
     mainScreenRef = document.getElementById("mainScreen");
@@ -90,9 +98,12 @@ export function isInFullscreen(){
 }
 
 export function checkMobile(){
-  console.log(window.innerWidth);
-  
     if(window.innerWidth < 800){
       mobileButtons.classList.toggle("d_none");
     }
+}
+
+export function checkIsInLandscape(){
+    if(window.innerWidth < window.innerHeight) turnPhoneScreen.classList.remove("d_none");
+    else turnPhoneScreen.classList.add("d_none");  
 }
