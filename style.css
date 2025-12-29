@@ -42,13 +42,17 @@ canvas {
 
 h1{
     color:#BA7137;
-    text-shadow: 0px 0px 6px black;
     font-size: 48px;
 }
 
 h2, h3, h4, h5, p {
     margin-block: 0;
     text-align: center;
+}
+
+h1, h2, h3, h4, h5 {
+    text-decoration: underline;
+    text-shadow: 0px 0px 6px white;
 }
 
 button {
@@ -105,6 +109,12 @@ button {
     }
 }
 
+.flex_column{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .centered {
     display: flex;
     flex-direction: column;
@@ -135,6 +145,19 @@ button {
         width: 20%;
         aspect-ratio: 1/1;
     }
+
+    .bar {
+        aspect-ratio: 3/1;
+    }
+
+    .keyboardkey{
+        width: 10%;
+    }
+}
+
+.controlls{
+    width: 30%;
+    gap: 8px;
 }
 
 .enemies_text{
@@ -164,13 +187,6 @@ button {
         width: 120px;
         height: 32px;
     }
-}
-
-.inner{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 .d_none {

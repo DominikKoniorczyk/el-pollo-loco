@@ -36,31 +36,71 @@
                 <button onclick="back(1)">Back</button>
             </section>
             <section id="howToPlay" class="centered how_to_play d_none">
-                <h3>Gameplay</h3>
-                <p>The aim of the game is to guide Pepé safely through the level and defeat the crazy chicken (‘El Pollo Loco’) at the end of the level.</p>
-                <h4>Chickens</h4>
-                <div class="enemies">
-                    <img src="./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png" alt="Normal walking Chicken">
-                    <p class="enemies_text">Chickens can be killed by jumping on them or throwing Tabasco bottles at them. They run from their spawn position to the start, then to the end of the level, and shuttle between the start and end.</p>
+                <div class="flex_column">                
+                    <h3>Gameplay</h3>
+                    <p>The aim of the game is to guide Pepé safely through the level and defeat the crazy chicken (‘El Pollo Loco’) at the end of the level.</p>
+                    <br>
+                    <h3>Controls</h3> 
+                    <div class="enemies controlls">
+                        <p>Move left:</p>
+                        <img class="keyboardkey" src="./assets/img/10_key_caps/keyA.png" alt="Keyboardkey A">
+                        <p>or</p>
+                        <img class="keyboardkey" src="./assets/img/10_key_caps/keyArrowLeft.png" alt="Keyboardkey Left Arrow">
+                    </div>   
+                    <div class="enemies controlls">
+                        <p>Move right:</p>
+                        <img class="keyboardkey" src="./assets/img/10_key_caps/keyW.png" alt="Keyboardkey W">
+                        <p>or</p>
+                        <img class="keyboardkey" src="./assets/img/10_key_caps/keyArrowRight.png" alt="Keyboardkey Right Arrow">
+                    </div>
+                    <div class="enemies controlls">
+                        <p>Jump:</p>
+                        <img class="keyboardkey" src="./assets/img/10_key_caps/keySpace.png" alt="Keyboardkey Spacebar">
+                    </div> 
+                    <div class="enemies controlls">
+                        <p>Throw bottle:</p>
+                        <img class="keyboardkey" src="./assets/img/10_key_caps/keyT.png" alt="Keyboardkey T">
+                    </div>       
+                    <br>
+                    <h4>Chickens</h4>
+                    <div class="enemies">
+                        <img src="./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png" alt="Normal walking Chicken">
+                        <p class="enemies_text">Chickens can be killed by jumping on them or throwing Tabasco bottles at them. They run from their spawn position to the start, then to the end of the level, and shuttle between the start and end.</p>
+                    </div><br>
+                    <h4>Chicks</h4>
+                    <div class="enemies">                   
+                        <p class="enemies_text">Chicks can be killed by jumping on them or throwing Tabasco bottles at them. They run from their spawn position to the start, then to the end of the level, and shuttle between the start and end.</p>
+                        <img src="./assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png" alt="Small walking Chicken">
+                    </div><br>
+                    <h4>El Pollo Loco</h4>
+                    <div class="enemies">
+                        <img src="./assets/img/4_enemie_boss_chicken/2_alert/G10.png" alt="Endboss Chicken">
+                        <p class="enemies_text">El Pollo Loco is the final boss of the level. It can only be defeated with bottles. It attacks the player at regular intervals. From time to time, it spawns chicks that attack the player.</p>
+                    </div><br>
+                    <h4>Coins</h4>
+                    <div class="enemies">                   
+                        <p class="enemies_text">Coins give 100 Points. If you collect 10 of them, your health would be restored and you get 1000 extra points.</p>
+                        <img src="./assets/img/8_coin/coin_1.png" alt="Coin image">
+                    </div><br>
+                    <h4>Salsa Bottles</h4>
+                    <div class="enemies">
+                        <img src="./assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png" alt="Salsa bottle image">
+                        <p class="enemies_text">Salsa Bottles can be collect. Maximum amount is 10 bottles. You need the bottles to kill El Pollo Loco, the endboss.</p>
+                    </div><br>
+                    <h4>The Status Bars</h4>
+                    <div class="enemies">
+                        <img class="bar" src="./assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png" alt="">
+                        <p>The health bar represents Pepé´s health. If it is empty you die.</p>
+                    </div>
+                    <div class="enemies">
+                        <img class="bar" src="./assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png" alt="">
+                        <p>The bottle bar represents Pepé´s bottle count. If it is full you got 10 bottles to throw.</p>
+                    </div>
+                    <div class="enemies">
+                        <img class="bar" src="./assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png" alt="">
+                        <p>The coin bar represents the current collected coin amount. If it is full you got 10 coins.</p>
+                    </div>
                 </div>
-                <h4>Chicks</h4>
-                <div class="enemies">                   
-                    <p class="enemies_text">Chicks can be killed by jumping on them or throwing Tabasco bottles at them. They run from their spawn position to the start, then to the end of the level, and shuttle between the start and end.</p>
-                    <img src="./assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png" alt="Small walking Chicken">
-                </div>
-                <h4>El Pollo Loco</h4>
-                <div class="enemies">
-                    <img src="./assets/img/4_enemie_boss_chicken/all_sequences.gif" alt="Normal walking Chicken">
-                    <p class="enemies_text">El Pollo Loco is the final boss of the level. It can only be defeated with bottles. It attacks the player at regular intervals. From time to time, it spawns chicks that attack the player.</p>
-                </div>
-                <h3>Controls</h3> 
-                <div class="inner">
-                    <p>Move left: A or Arrow left</p>
-                    <img src="" alt="">
-                </div>    
-                    <p>Move rigt: W or Arrow right</p>
-                    <p>Jump: Spacebar</p>
-                    <p>Throw Items: T</p>
                 <button onclick="openHowToPlay()">Back</button>
             </section>
             <section id="impressum" class="centered fullscreen d_none">
