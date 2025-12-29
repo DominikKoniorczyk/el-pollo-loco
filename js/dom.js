@@ -8,8 +8,8 @@ let youWinRef = null;
 let volumeOnRef = null;
 let volumeOffRef = null;
 let mainScreenRef = null;
+let mobileButtons = null;
 let isFullscreen = false;
-let document = null;
 
 export function initData(document){
     mainMenuRef = document.getElementById("mainMenu");
@@ -21,8 +21,8 @@ export function initData(document){
     youWinRef = document.getElementById("youWin");
     volumeOnRef = document.getElementById("audioOn");
     volumeOffRef = document.getElementById("audioOff");
-    mainScreenRef = document. getElementById("mainScreen");
-    document = document;
+    mainScreenRef = document.getElementById("mainScreen");
+    mobileButtons = document.getElementById("mobileControlls");
 }
 
 export function mainMenuToggle(){
@@ -87,4 +87,12 @@ export function closeFullscreen() {
 
 export function isInFullscreen(){
     return isFullscreen;
+}
+
+export function checkMobile(){
+  console.log(window.innerWidth);
+  
+    if(window.innerWidth < 800){
+      mobileButtons.classList.toggle("d_none");
+    }
 }

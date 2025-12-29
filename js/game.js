@@ -5,7 +5,7 @@ import { level1, level2, level3 } from '../levels/level1.js';
 import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
-import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen } from './dom.js';
+import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile } from './dom.js';
 import { addFunctionListnerControlls } from './controlls.js';
 
 let canvasRev;
@@ -76,6 +76,7 @@ function gameTick60FPS(){
 }
 
 export function gameOver(won){
+    checkMobile();
     IntervalHub.clearAllIntervals();
     Keyboard.removeKeyboardListener();
     world.level.clearWorld();
@@ -96,6 +97,7 @@ function setDifficultyLevel(difficulty){
 
 function startLevel(levelToStart){
     levelIndex = levelToStart;
+    checkMobile();
     const levelCont = doc.getElementById('selectLevel');
     IntervalHub.clearAllIntervals();
     levels[levelToStart].updateDifficulty(difficultyLevel);
@@ -107,6 +109,7 @@ function startLevel(levelToStart){
 }
 
 function tryAgain(){
+    checkMobile();
     removeEndscreen();
     Keyboard.addKeyboardListener();
     IntervalHub.clearAllIntervals();

@@ -120,22 +120,22 @@
                 </ul>
                 <button onclick="openImpressum()">Back</button>
             </section>
-            <section id="youLose" class="centered end_screen d_none">
+            <section id="youLose" class="centered d_none">
                 <button onclick="reinitGame()">Mainmenu</button>
                 <button onclick="tryAgain()">Try again</button>
             </section>
-            <section id="youWin" class="centered end_screen d_none">
+            <section id="youWin" class="centered d_none">
                 <button onclick="reinitGame()">Mainmenu</button>
                 <button onclick="playNext()">Next Level</button>
             </section>
             <section id="mobileControlls" class="mobile_buttons d_none">
                 <div class="controll_buttons">
-                    <button><img src="./assets/img/10_key_caps/arrowLeft.png" alt="Left Arrow"></button>
-                    <button><img src="./assets/img/10_key_caps/arrowRight.png" alt="Right Arrow"></button>
+                    <button id="buttonLeft"><img src="./assets/img/10_key_caps/arrowLeft.png" alt="Left Arrow"></button>
+                    <button id="buttonRight"><img src="./assets/img/10_key_caps/arrowRight.png" alt="Right Arrow"></button>
                 </div>
                 <div class="controll_buttons">
-                    <button><img src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="Bottle image"></button>
-                    <button><img src="./assets/img/10_key_caps/arrowUp.png" alt="Up Arrow"></button>
+                    <button id="buttonThrow"><img src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="Bottle image"></button>
+                    <button id="buttonJump"><img src="./assets/img/10_key_caps/arrowUp.png" alt="Up Arrow"></button>
                 </div>
             </section>
         </div>    
@@ -143,8 +143,6 @@
             <button onclick="toggleAudio()"><img src="../assets/icon/speaker-filled-audio-tool.png" alt="audio enabled" id="audioOn"><img src="../assets/icon/volume-mute.png" alt="audio disabled" id="audioOff" class="d_none"></button>
             <button onclick="toggleFullScreen()"><img src="../assets/icon/fullscreen.png" alt="fullscreen symbol"></button>
         </div>
-    </div>
-
-    
+    </div>    
 </body>
 </html>
