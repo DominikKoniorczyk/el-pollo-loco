@@ -98,7 +98,7 @@ export function isInFullscreen(){
 }
 
 export function checkMobile(){
-    if(window.innerWidth < 800){
+    if(window.innerWidth < 1000){
       mobileButtons.classList.toggle("d_none");
     }
 }
