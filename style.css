@@ -97,7 +97,7 @@ button {
     justify-content: flex-end;
     align-items: center;
     justify-self: center;
-    gap: 2px;
+    gap: 8px;
 
     button{
         cursor: pointer;
