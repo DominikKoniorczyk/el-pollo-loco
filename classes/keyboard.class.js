@@ -25,7 +25,7 @@ export class Keyboard {
 
     static getMobileButtons(document){  
         let leftTouch = document.getElementById("buttonLeft");
-        let rightTouch = document.getElementById("buttonLeft");
+        let rightTouch = document.getElementById("buttonRight");
         let jumpTouch = document.getElementById("buttonJump");
         let throwTouch = document.getElementById("buttonThrow");
         return {left: leftTouch, right: rightTouch, throw: throwTouch, jump: jumpTouch};
