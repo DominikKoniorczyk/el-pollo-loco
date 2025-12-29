@@ -68,9 +68,9 @@ button {
 }
 
 .main_screen{
-    position: relative;    
-    width: 720px;
-    height: 480px;
+    position: relative;   
+    width: clamp(658px, 100vw ,720px); 
+    height: clamp(320px, 100vh, 480px);
 }
 
 .menu {
@@ -189,12 +189,8 @@ button {
     }
 }
 
-.d_none {
-    display: none;
-}
-
 .mobile_buttons{
-    display: flex;
+    display: none;
     margin-top: 380px;
     width: 90%;
     justify-content: space-between;
@@ -220,4 +216,14 @@ button {
             height: 36px;
         }
     }
+}
+
+@media only screen and (min-width : 321px) {
+    h1{
+        display: none;
+    }
+}
+
+.d_none {
+    display: none;
 }
