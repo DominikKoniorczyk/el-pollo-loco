@@ -40,6 +40,12 @@ canvas {
     width: 100%;
 }
 
+h1{
+    color:#BA7137;
+    text-shadow: 0px 0px 6px black;
+    font-size: 48px;
+}
+
 h2, h3, h4, h5, p {
     margin-block: 0;
     text-align: center;
@@ -112,9 +118,27 @@ button {
 }
 
 .how_to_play{
-    width: 300px;
-    height: 300px;
+    width: 650px;
+    height: 400px;
     overflow: auto;
+}
+
+.enemies{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    gap: 24px;
+    
+    img{
+        width: 20%;
+        aspect-ratio: 1/1;
+    }
+}
+
+.enemies_text{
+    text-align: left;
 }
 
 .fullscreen {
