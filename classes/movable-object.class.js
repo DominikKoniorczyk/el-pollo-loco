@@ -17,7 +17,7 @@ export class MovableObject extends DrawableObject {
     deathAnims = [];
     onceImageIndex = 0;
     hurtSound;
-    hurtSounds = ['../assets/audio/chicken/chickenDead.mp3', '../assets/audio/chicken/chickenDead2.mp3'];
+    hurtSounds = ['./assets/audio/chicken/chickenDead.mp3', './assets/audio/chicken/chickenDead2.mp3'];
 
     interval60FPS(){
         super.interval60FPS();

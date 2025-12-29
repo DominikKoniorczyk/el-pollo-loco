@@ -27,7 +27,7 @@ export class Level {
     defaultTime = 0;
     gameTime = 0;
     startGameTime = 0;
-    music = new Audio("../assets/audio/music/819267__johnmode__160bpm-retro-game-square-wave-song-mysterious-exploration.wav");
+    music = new Audio("./assets/audio/music/819267__johnmode__160bpm-retro-game-square-wave-song-mysterious-exploration.wav");
 
     constructor(amounts, world_tiles, endbossSize, time){
         this.endbossSize = endbossSize;

@@ -15,8 +15,8 @@ export class Character extends MovableObject {
     throwObject = false;
     timeSinceLastMove = 0;
     canMove = true;
-    sounds = [new Audio("../assets/audio/character/characterDamage.mp3"), new Audio("../assets/audio/character/characterSnoring.mp3"), new Audio("../assets/audio/character/characterRun.mp3"), 
-        new Audio("../assets/audio/character/characterJump.wav"), new Audio("../assets/audio/character/characterDead.wav")
+    sounds = [new Audio("./assets/audio/character/characterDamage.mp3"), new Audio("./assets/audio/character/characterSnoring.mp3"), new Audio("./assets/audio/character/characterRun.mp3"), 
+        new Audio("./assets/audio/character/characterJump.wav"), new Audio("./assets/audio/character/characterDead.wav")
     ];
 
     constructor(){

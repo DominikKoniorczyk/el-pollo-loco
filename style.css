@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'HennyPenny';
-    src: url("../assets/fonts/HennyPenny-Regular.ttf");
+    src: url("./assets/fonts/HennyPenny-Regular.ttf");
 }
 
 *{
@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url("../assets/img/5_background/bg.png");
+    background-image: url("./assets/img/5_background/bg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
