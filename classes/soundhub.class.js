@@ -12,7 +12,7 @@ export class SoundHub {
                     SoundHub.allSounds.push(sound);
                     clearInterval(int);
                 } 
-            }, 200);
+            }, 10);
         }
     }
 

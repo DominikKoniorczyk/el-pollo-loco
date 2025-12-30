@@ -7,6 +7,7 @@ import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
 import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape } from './dom.js';
 import { addFunctionListnerControlls } from './controlls.js';
+import { EndScoreText } from '../classes/end-score-text.class.js';
 
 let canvasRev;
 let ctx;
@@ -78,12 +79,14 @@ function gameTick60FPS(){
 }
 
 export function gameOver(won){
+    let points = world.character.score;
     checkMobile();
     IntervalHub.clearAllIntervals();
     Keyboard.removeKeyboardListener();
     world.level.clearWorld();
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
     ctx.drawImage(won ? endScreenWin : endScreenLose, 0, 0, 720, 480);
+    new EndScoreText(points, ctx);
     openOverlayOnGameOver(won);
     SoundHub.stopAll(); 
     SoundHub.playOne(won ? sounds[0] : sounds[1]);

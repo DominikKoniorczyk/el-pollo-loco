@@ -18,6 +18,8 @@ export class Endboss extends MovableObject {
     timeSinceLastRage = 0;
     currentAttackCounter = 0;
     difficultyLevel;
+    killScorePoints = 2500;
+    startSound = new Audio('./assets/audio/endboss/endbossApproach.wav');
 
     constructor(world_tiles, size, level){
         super();
@@ -26,6 +28,7 @@ export class Endboss extends MovableObject {
         this.width = size.width;
         this.difficultyLevel = level.difficultyLevel;
         this.damagePerAttack = 20 * level.difficultyLevel;
+        this.addAudio();
         this.initEndboss();
     }
 
@@ -109,6 +112,7 @@ export class Endboss extends MovableObject {
             this.setSequenceState(true, false, false, false, false);
             this.setCanMove(true, true);
             this.setCharacterCanMove(false);
+            SoundHub.playOne(this.startSound);
         }
     }
 
@@ -149,12 +153,13 @@ export class Endboss extends MovableObject {
         }
     }
 
-    applyDamage(damage){
+    applyDamage(damage, character){
         super.applyDamage(damage);
         if(this.health > 0) this.playAnimation(ImageHub.endboss.hurt);
         else {
             this.isDead = true;           
             SoundHub.playOne(this.hurtSound);
+            character.score += this.killScorePoints;
         }
     }
 

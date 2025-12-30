@@ -8,7 +8,7 @@ export class BabyChicken extends Chicken{
     y = 385;
     standingGroundY = 385;
     hurtSounds = ['../assets/audio/chicken/chickenDead.mp3', '../assets/audio/chicken/chickenDead2.mp3'];
-
+    killScorePoints = 125;
     offset = { top: -10, bottom: 8, left: 5, right: 5 };
 
     constructor(world_tiles, level, img, pos){   
@@ -42,9 +42,10 @@ export class BabyChicken extends Chicken{
         }
     }
 
-    applyDamage(){
+    applyDamage(dmg, character){
         this.isDead = true;
         this.speed = 0;
         SoundHub.playOne(this.hurtSound);
+        character.score += this.killScorePoints;
     }
 }

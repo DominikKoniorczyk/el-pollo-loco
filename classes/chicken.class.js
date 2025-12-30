@@ -65,9 +65,10 @@ export class Chicken extends MovableObject {
         }
     }
 
-    applyDamage(){
+    applyDamage(dmg, character){
         this.isDead = true;
         this.speed = 0;
         SoundHub.playOne(this.hurtSound);
+        character.score += this.killScorePoints;
     }
 }

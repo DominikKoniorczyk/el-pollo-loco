@@ -18,6 +18,7 @@ export class Character extends MovableObject {
     sounds = [new Audio("./assets/audio/character/characterDamage.mp3"), new Audio("./assets/audio/character/characterSnoring.mp3"), new Audio("./assets/audio/character/characterRun.mp3"), 
         new Audio("./assets/audio/character/characterJump.wav"), new Audio("./assets/audio/character/characterDead.wav")
     ];
+    score = 0;
 
     constructor(){
         super();
@@ -133,7 +134,7 @@ export class Character extends MovableObject {
                 if(!(this.isInAir() && this.speedY < 0)){
                     this.applyDamage(enemy.damagePerAttack);                    
                 } else if(!this.checkIsDead()) {
-                    enemy.applyDamage();
+                    enemy.applyDamage(10, this);
                     this.speedY = this.jump_height / 2;                
                 }           
         }});
@@ -156,7 +157,8 @@ export class Character extends MovableObject {
     }
 
     addCoin(coin){        
-        this.coinCount++;
+        this.coinCount++;        
+        this.score += 100;
         this.world.coinBar.setPercentage((this.coinCount + 1) *10);
         coin.removeFromWorld(this.world.level.coins, this.world.level.collectableObjects);
     }

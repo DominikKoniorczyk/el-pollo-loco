@@ -18,6 +18,7 @@ export class MovableObject extends DrawableObject {
     onceImageIndex = 0;
     hurtSound;
     hurtSounds = ['./assets/audio/chicken/chickenDead.mp3', './assets/audio/chicken/chickenDead2.mp3'];
+    killScorePoints = 250;
 
     interval60FPS(){
         super.interval60FPS();
@@ -68,7 +69,7 @@ export class MovableObject extends DrawableObject {
         this.speedY = this.jump_height;
     }
 
-    applyDamage(damage){
+    applyDamage(damage, character){
         this.health -= damage;
         if(this.health < 0) {
             this.health = 0;

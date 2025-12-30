@@ -12,6 +12,7 @@ export class ThrowableObject extends MovableObject {
     currentSplashIndex = 0;
     damageApplied = false;
     splashSound = new Audio("./assets/audio/throwable/bottleBreak.mp3");
+    character;
 
     constructor(world, x, y, character){
         super();
@@ -22,7 +23,8 @@ export class ThrowableObject extends MovableObject {
         this.speedx = this.speedx * direction;
         this.world = world; 
         this.x = x;
-        this.y = y;               
+        this.y = y;
+        this.character = character;               
     }
 
     interval10ms(globalIntervalCounter){
@@ -67,7 +69,7 @@ export class ThrowableObject extends MovableObject {
             if(this.isColliding(e)){
                 if(!this.damageApplied){
                     this.damageApplied = true;
-                    e.applyDamage(20);
+                    e.applyDamage(20, this.character);
                 }
                 this.splash();
             }            
