@@ -14,7 +14,7 @@ export class Endboss extends MovableObject {
     sequence = { startSequenceStart: false, startSequenceEnd: false, shouldChase: false, shouldFlee: false, shouldMoveBack: false, attack: false };
     left = false;
     canMove = false;    
-    speed = 3;
+    speed = 6;
     timeSinceLastRage = 0;
     currentAttackCounter = 0;
     difficultyLevel;
@@ -28,6 +28,7 @@ export class Endboss extends MovableObject {
         this.width = size.width;
         this.difficultyLevel = level.difficultyLevel;
         this.damagePerAttack = 20 * level.difficultyLevel;
+        this.speed = 3 * level.difficultyLevel;
         this.addAudio();
         this.initEndboss();
     }
@@ -55,7 +56,7 @@ export class Endboss extends MovableObject {
     }
 
     checkPlayerIsBehind(){
-        if(this.world.character.x > this.x){
+        if(this.world.character.x > this.realCollisionFram.w){
             this.canMove = true;
             this.left = false;
             this.move();
@@ -183,6 +184,7 @@ export class Endboss extends MovableObject {
         } else if(this.health <= 25) {
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, false, false);
             this.world.level.bossSpawnMinions(this.x);
+            this.speed = this.speed < 12 ? this.speed * 2 : this.speed;
         }
     }
 
