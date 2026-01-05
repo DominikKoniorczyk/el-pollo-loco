@@ -9,6 +9,9 @@ export class Keyboard {
     constructor() {
     }
 
+    /**
+     * Registers keyboard and touch listeners for movement and action controls.
+     */
     static addKeyboardListener(){
         window.addEventListener("keydown", Keyboard.onKeyDown);
         window.addEventListener("keyup", Keyboard.onKeyUp);
@@ -23,6 +26,11 @@ export class Keyboard {
         mobileButtons.throw.addEventListener("touchend", Keyboard.onTouchEndThrow);
     }
 
+    /**
+     * Retrieves the DOM elements for mobile control buttons.
+     * @param {Document} document - The HTML document to query buttons from.
+     * @returns {{left: HTMLElement, right: HTMLElement, jump: HTMLElement, throw: HTMLElement}} Mobile buttons elements.
+     */
     static getMobileButtons(document){  
         let leftTouch = document.getElementById("buttonLeft");
         let rightTouch = document.getElementById("buttonRight");
@@ -31,11 +39,18 @@ export class Keyboard {
         return {left: leftTouch, right: rightTouch, throw: throwTouch, jump: jumpTouch};
     }
 
+    /**
+     * Removes the global keyboard event listeners.
+     */
     static removeKeyboardListener(){
         window.removeEventListener("keydown", Keyboard.onKeyDown);
         window.removeEventListener("keyup", Keyboard.onKeyUp);
     }
 
+    /**
+     * Handles keydown events and sets corresponding control flags to true.
+     * @param {KeyboardEvent} e - The keyboard event object.
+     */
     static onKeyDown = (e) => {
         if(e.code === "KeyD" || e.code === "ArrowRight") Keyboard.RIGHT = true;
         else if(e.code === "KeyA" || e.code === "ArrowLeft") Keyboard.LEFT = true;
@@ -43,6 +58,10 @@ export class Keyboard {
         else if(e.code === "KeyT") Keyboard.THROW = true;           
     }
 
+    /**
+     * Handles keyup events and sets corresponding control flags to false.
+     * @param {KeyboardEvent} e - The keyboard event object.
+     */
     static onKeyUp(e){
         if(e.code === "KeyD" || e.code === "ArrowRight") Keyboard.RIGHT = false;
         else if(e.code === "KeyA" || e.code === "ArrowLeft") Keyboard.LEFT = false;
@@ -50,34 +69,58 @@ export class Keyboard {
         else if(e.code === "KeyT") Keyboard.THROW = false;
     }
     
+    /**
+     * Sets the LEFT control flag to true on touch start.
+     */
     static onTouchStartLeft(){
         Keyboard.LEFT = true;
     }
     
+    /**
+     * Sets the LEFT control flag to false on touch end.
+     */
     static onTouchEndLeft(){
         Keyboard.LEFT = false;
     }
     
+    /**
+     * Sets the RIGHT control flag to true on touch start.
+     */
     static onTouchStartRight(){
         Keyboard.RIGHT = true;
     }
     
+    /**
+     * Sets the RIGHT control flag to false on touch end.
+     */
     static onTouchEndRight(){
         Keyboard.RIGHT = false;
     }
     
+    /**
+     * Sets the SPACE (jump) control flag to true on touch start.
+     */
     static onTouchStartJump(){
         Keyboard.SPACE = true;
     }
     
+    /**
+     * Sets the SPACE (jump) control flag to false on touch end.
+     */
     static onTouchEndJump(){
         Keyboard.SPACE = false;
     }
     
+    /**
+     * Sets the THROW control flag to true on touch start.
+     */
     static onTouchStartThrow(){
         Keyboard.THROW = true;
     }
     
+    /**
+     * Sets the THROW control flag to false on touch end.
+     */
     static onTouchEndThrow(){
         Keyboard.THROW = false;
     }
