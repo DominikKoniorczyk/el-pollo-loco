@@ -3,6 +3,10 @@ export class SoundHub {
     static muted = false; 
     static allSounds = [];
 
+    /**
+     * Plays a single sound if not muted, waiting until the sound is ready.
+     * @param {HTMLAudioElement} sound - The audio element to play.
+     */
     static playOne(sound) {
         if(!SoundHub.muted){
             const int = setInterval(() => {  
@@ -16,6 +20,9 @@ export class SoundHub {
         }
     }
 
+    /**
+     * Stops all currently playing sounds and clears the sound list.
+     */
     static stopAll() {
         SoundHub.allSounds.forEach(sound => {
             if(sound.readyState == 4) {
@@ -25,10 +32,17 @@ export class SoundHub {
         SoundHub.allSounds = [];
     }
 
+    /**
+     * Pauses a single sound.
+     * @param {HTMLAudioElement} sound - The audio element to stop.
+     */
     static stopOne(sound) {
         sound.pause();
     }
 
+    /**
+     * Toggles mute for all sounds. Restores previous volume if unmuting.
+     */
     static muteAll(){
         if(SoundHub.muted){
             SoundHub.allSounds.forEach(sound => {
@@ -43,6 +57,10 @@ export class SoundHub {
         }
     }
 
+    /**
+     * Sets the volume of all sounds based on a volume slider input.
+     * @param {HTMLAudioElement[]} volumeSlider - Array of audio elements to adjust.
+     */
     static objSetVolume(volumeSlider) {
         let volumeValue = document.getElementById('volume').value; 
         volumeSlider.forEach(sound => {
