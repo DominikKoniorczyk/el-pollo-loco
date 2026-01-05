@@ -38,12 +38,20 @@ export class Level {
         this.defaultTime = time;        
     }
 
+   /**
+     * Updates the difficulty level and adjusts the game timer accordingly.
+     * @param {number} difficulty - The new difficulty level (integer).
+     */ 
     updateDifficulty(difficulty){
         this.difficultyLevel = difficulty;
         this.gameTime = Math.round(this.defaultTime - (this.defaultTime / 6 * difficulty));
         this.startGameTime = this.gameTime;     
     }
 
+    /**
+     * Updates all enemies, clouds, and coins every 10ms, and decreases game time periodically.
+     * @param {number} globalIntervalCounter - The global interval tick counter.
+     */
     interval10ms(globalIntervalCounter){
         this.enemies.forEach(enemy => {
             enemy.interval10ms(globalIntervalCounter);
@@ -59,6 +67,9 @@ export class Level {
         }
     }
 
+    /**
+     * Updates all enemies, clouds, and collectable objects at 60 frames per second.
+     */
     interval60FPS(){
         this.enemies.forEach(enemy => {
             enemy.interval60FPS();
@@ -71,6 +82,9 @@ export class Level {
         })
     }
 
+    /**
+     * Initializes the level by spawning enemies, collectables, the end boss, and playing background music.
+     */
     initLevel(){
         this.spawnEnemies();
         this.spawnCollectableObjects();
@@ -79,11 +93,17 @@ export class Level {
         this.playMusic();
     }
 
+    /**
+     * Starts looping the level’s background music.
+     */
     playMusic(){
         this.music.loop = true;
         SoundHub.playOne(this.music);
     }
 
+    /**
+     * Spawns all standard enemies and their respective baby versions in the level.
+     */
     spawnEnemies(){
         for(let i = 0; i < this.enemiesCount; i++){
             this.enemies.push(new Chicken(this.worldTiles, this, ImageHub.chicken));
@@ -93,6 +113,10 @@ export class Level {
         }
     }
 
+    /**
+     * Spawns collectable objects in the world, including coins and bottles, 
+     * and adds them to the relevant tracking arrays.
+     */
     spawnCollectableObjects(){        
         for(let i = 0; i < this.coinCount; i++){
             const newCoin = new Coin(this.worldTiles);
@@ -106,6 +130,11 @@ export class Level {
         }
     }
 
+    /**
+     * Spawns minion enemies at a given X position if the spawn cooldown has passed,
+     * scaling the amount based on difficulty level.
+     * @param {number} worldX - The X coordinate where minions should spawn.
+     */
     bossSpawnMinions(worldX){
         let currentTime = new Date().getTime();
         if(currentTime - this.minionSpawnTimeout >= 5000){
@@ -116,6 +145,10 @@ export class Level {
         }
     }
 
+    /**
+     * Clears all dynamic elements from the world, including enemies, collectibles,
+     * clouds, and background objects.
+     */
     clearWorld(){
         this.enemies = [];
         this.collectableObjects = [];
@@ -125,6 +158,9 @@ export class Level {
         this.bottles = [];
     }
 
+    /**
+     * Decreases the game timer by one unit and triggers game over if time runs out.
+     */
     decreaseTime(){
         this.gameTime--;
         if(this.gameTime < 0){
