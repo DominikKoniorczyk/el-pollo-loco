@@ -100,6 +100,7 @@ export function isInFullscreen(){
 export function checkMobile(){
     if(window.innerWidth < 1000){
       mobileButtons.classList.toggle("d_none");
+      window.document.addEventListener('contextmenu', e => e.preventDefault());
     }
 }
 

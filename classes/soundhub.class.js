@@ -18,7 +18,7 @@ export class SoundHub {
 
     static stopAll() {
         SoundHub.allSounds.forEach(sound => {
-            if(sound) {
+            if(sound.readyState == 4) {
                 sound.pause();
             }
         });

@@ -8,10 +8,19 @@ export function addFunctionListnerControlls(){
     window.toggleFullScreen = () => fullScreenToggle();
 }
 
+export function loadAudioSetting(){
+    if(JSON.parse(localStorage.getItem("Audio"))) {
+        toggleSoundSymbol();
+        muted = !muted;
+        SoundHub.muteAll();
+    }
+}
+
 function toggleAudio(){
     toggleSoundSymbol();
     muted = !muted;
     SoundHub.muteAll();
+    localStorage.setItem("Audio", JSON.stringify(muted));
 }
 
 function fullScreenToggle(){

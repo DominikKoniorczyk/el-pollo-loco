@@ -195,7 +195,7 @@ export class ImageHub {
     ];   
     static endScreens = {
         gameOver: './assets/img/You won, you lost/Game Over.png',
-        winGame: './assets/img/You won, you lost/You Win A.png',
+        winGame: './assets/img/You won, you lost/You win B.png',
     };
     static startScreen = './assets/img/9_intro_outro_screens/start/startscreen_1.png';
 }

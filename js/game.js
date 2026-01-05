@@ -6,7 +6,7 @@ import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
 import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape } from './dom.js';
-import { addFunctionListnerControlls } from './controlls.js';
+import { addFunctionListnerControlls, loadAudioSetting } from './controlls.js';
 import { EndScoreText } from '../classes/end-score-text.class.js';
 
 let canvasRev;
@@ -17,6 +17,7 @@ let endScreenWin = null;
 let endScreenLose = null;
 let difficultyLevel = 1;
 let levelIndex = 0;
+let points = 0;
 const doc = window.document;
 const levels = [level1, level2, level3];
 const sounds = [new Audio("./assets/audio/music/456969__funwithsound__success-resolution-video-game-fanfare-sound-effect-with-drum-roll.mp3"), new Audio("./assets/audio/music/362204__taranp__horn_fail_wahwah_3.wav")]
@@ -31,6 +32,7 @@ function initGame(){
     world = new MainMenu(canvasRev, Keyboard);
     initData(doc);    
     IntervalHub.startInterval(checkIsInLandscape, 16.67);
+    loadAudioSetting();
 }
 
 function addFunctionListner(){
@@ -79,15 +81,24 @@ function gameTick60FPS(){
 }
 
 export function gameOver(won){
-    let points = world.character.score;
     checkMobile();
     IntervalHub.clearAllIntervals();
     Keyboard.removeKeyboardListener();
     world.level.clearWorld();
+    drawScoreText();
+    openOverlayOnGameOver(won);
+    playGameOverSound(won);
+}
+
+function drawScoreText(){    
+    points = world.character.score;
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
     ctx.drawImage(won ? endScreenWin : endScreenLose, 0, 0, 720, 480);
-    new EndScoreText(points, ctx);
-    openOverlayOnGameOver(won);
+    new EndScoreText(points, ctx, localStorage.getItem('Highscore') !== null ? JSON.parse(localStorage.getItem('Highscore')) : points);
+   
+}
+
+function playGameOverSound(won){
     SoundHub.stopAll(); 
     SoundHub.playOne(won ? sounds[0] : sounds[1]);
 }
@@ -164,5 +175,11 @@ function openImpressum(){
 }
 
 function openOverlayOnGameOver(won){
-    won ? youWinToggle() : youLoseToggle();
+    if(won){
+        youWinToggle();
+        if(localStorage.getItem('Highscore') === null || JSON.parse(localStorage.getItem('Highscore')) < points){
+            localStorage.setItem('Highscore', JSON.stringify(points))
+        }
+    }
+    else youLoseToggle();
 }

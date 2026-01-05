@@ -7,7 +7,7 @@ export class Chicken extends MovableObject {
     height = 60;
     y = 363;
     standingGroundY = 363;
-    minPositionX = 200;
+    minPositionX = 720;
     offset = { top: 5, bottom: 10, left: 5, right: 10 };s
     wasOffScreen = false;
     

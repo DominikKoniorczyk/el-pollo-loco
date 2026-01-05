@@ -28,7 +28,7 @@ export class Endboss extends MovableObject {
         this.width = size.width;
         this.difficultyLevel = level.difficultyLevel;
         this.damagePerAttack = 20 * level.difficultyLevel;
-        this.speed = 3 * level.difficultyLevel;
+        this.speed = 6 * level.difficultyLevel;
         this.addAudio();
         this.initEndboss();
     }
@@ -56,10 +56,10 @@ export class Endboss extends MovableObject {
     }
 
     checkPlayerIsBehind(){
-        if(this.world.character.x > this.realCollisionFram.w){
+        if(this.world.character.x > this.realCollisionFram.x + this.realCollisionFram.w){
             this.canMove = true;
             this.left = false;
-            this.move();
+            this.move();            
         }
     }
 
@@ -165,10 +165,10 @@ export class Endboss extends MovableObject {
 
     applyDamage(damage, character){
         super.applyDamage(damage);
+        SoundHub.playOne(this.hurtSound);
         if(this.health > 0) this.playAnimation(ImageHub.endboss.hurt);
         else {
             this.isDead = true;           
-            SoundHub.playOne(this.hurtSound);
             character.score += this.killScorePoints;
         }
     }
