@@ -33,6 +33,10 @@ export class Endboss extends MovableObject {
         this.initEndboss();
     }
 
+    /**
+     * Initializes the end boss by adding audio and preloading all required images.
+     * Loads alert, attack, death, hurt, and walk animations to ensure smooth playback.
+     */
     initEndboss(){
         this.addAudio();
         this.loadImage(ImageHub.endboss.alert[0]);
@@ -43,18 +47,25 @@ export class Endboss extends MovableObject {
         this.loadImages(ImageHub.endboss.walk);
     }
 
+    /** Returns true if the character is in attack range. */
     checkDistanceToPlayer(){
         return this.world.character ? this.x - this.world.character.x : 0; 
     }
 
+    /** Returns true if the boss could chase the player. */
     checkCanChase(){
         return this.sequence.startSequenceStart && this.sequence.startSequenceEnd && this.checkDistanceToPlayer() > 50;
     }
 
+    /** Returns true if the boss could flee from the player. */
     checkCanFlee(){
         return this.checkDistanceToPlayer <= 500 && this.x <= (this.worldTiles * 720) - 600;
     }
 
+    /**
+     * Checks whether the player is positioned behind the collision frame.
+     * If true, movement is enabled and the character is moved forward.
+     */
     checkPlayerIsBehind(){
         if(this.world.character.x > this.realCollisionFram.x + this.realCollisionFram.w){
             this.canMove = true;
@@ -63,6 +74,10 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Checks the current attack and chase state based on player distance. 
+     * Disables movement during an active attack, or resets the sequence if rage has cooled down for 5 seconds.
+     */
     checkAttackStatePlayerDistance(){
         if(!this.checkCanChase() && this.sequence.attack){
             this.setCanMove(false, false);
@@ -71,6 +86,10 @@ export class Endboss extends MovableObject {
         }       
     }
     
+    /**
+     * Updates the end boss each frame by selecting the appropriate animation or behavior based on health, sequence state,
+     * distance to the player, and movement flags. Plays the death animation once if the boss is dead.
+     */
     animate(){
         if(!this.checkIsDead()){
             if(this.isHurt()) this.playAnimation(ImageHub.endboss.hurt);
@@ -85,20 +104,42 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Sets the object's left position and movement ability.
+     * @param {number} left - The new left position.
+     * @param {boolean} move - Whether the object can move.
+     */
     setCanMove(left, move){
         this.left = left;
         this.canMove = move;
     }
 
+    /**
+     * Sets whether the character is allowed to move in the world.
+     * @param {boolean} canMove - True to allow movement, false to disable it.
+     */
     setCharacterCanMove(canMove){
         this.world.characterCanMove = canMove;
         this.world.character.canMove = canMove;
     }
 
+    /**
+     * Sets the state of a sequence with timing and behavior flags.
+     * @param {number} _startSequenceStart - Start time of the sequence.
+     * @param {number} _startSequenceEnd - End time of the sequence.
+     * @param {boolean} _shouldChase - Whether to chase during the sequence.
+     * @param {boolean} _shouldFlee - Whether to flee during the sequence.
+     * @param {boolean} _shouldMoveBack - Whether to move back during the sequence.
+     * @param {boolean} _attack - Whether to perform an attack during the sequence.
+     */
     setSequenceState(_startSequenceStart, _startSequenceEnd, _shouldChase, _shouldFlee, _shouldMoveBack, _attack){
         this.sequence = {startSequenceStart: _startSequenceStart, startSequenceEnd: _startSequenceEnd, shouldChase: _shouldChase, shouldFlee: _shouldFlee, shouldMoveBack: _shouldMoveBack, attack: _attack};
     }
 
+    /**
+     * Called every 10ms; triggers the parent interval handler and runs animation every 2 seconds.
+     * @param {number} globalIntervalCounter - The global counter incremented every 10ms.
+     */
     interval10ms(globalIntervalCounter){
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 200 === 0){
@@ -106,6 +147,9 @@ export class Endboss extends MovableObject {
         }         
     }
 
+    /**
+     * Updates the endboss state and UI each frame at 60 FPS, including position, health bar, movement, and attack checks.
+     */
     interval60FPS(){
         super.interval60FPS();
         this.world.healthBarEndboss.setNewPositionInViewport(this.x + this.statBarOffset.left, this.y + this.statBarOffset.top);
@@ -126,6 +170,10 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Initiates the sequence if it hasn't started and the player is within 580 units,
+     * updating movement states and playing the start sound.
+     */
     endStartSequence(){
         this.setCanMove(false, false);
         this.playAnimation(ImageHub.endboss.alert);
@@ -136,6 +184,10 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Handles the boss's behavior when chasing the player, enabling movement and walk animation 
+     * if possible, otherwise executes attack and sequence logic.
+     */
     chasePlayer(){
         if(this.checkCanChase()){
             this.setCanMove(true, true);
@@ -147,6 +199,10 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Performs the endboss attack sequence, updating animation, offsets, 
+     * and applying damage if the player is within range.
+     */
     attack(){
         const localImageIndex = this.currentImageIndex % ImageHub.endboss.alert.length;
         if(!this.world.character.checkIsDead() && localImageIndex <= ImageHub.endboss.alert.length -1)
@@ -163,6 +219,11 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Applies damage to the entity, plays hurt sound/animation, and updates score if killed.
+     * @param {number} damage - Amount of damage to apply.
+     * @param {Object} character - Character dealing the damage, whose score may increase.
+     */
     applyDamage(damage, character){
         super.applyDamage(damage);
         SoundHub.playOne(this.hurtSound);
@@ -173,11 +234,18 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Applies damage to the player character and increments the attack counter.
+     */
     applyDamageToPlayer(){
         this.world.character.applyDamage(this.damagePerAttack); 
         this.currentAttackCounter++;
     }
 
+    /**
+     * Checks the entity's health and updates its behavior accordingly,
+     * triggering sequences, spawning minions, and adjusting speed when thresholds are met.
+     */
     checkHealthState(){
         if(this.health < 15){
             this.setSequenceState(this.sequence.startSequenceStart, this.sequence.startSequenceEnd, true, false, false);
@@ -188,6 +256,10 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Controls the enemy's behavior to either flee from the player or switch to a different sequence
+     * based on distance and internal state flags, updating movement and animations accordingly.
+     */
     fleeFromPlayer(){
         if(this.sequence.shouldMoveBack && this.checkDistanceToPlayer() < 300){
             this.setCanMove(false, true);
@@ -202,6 +274,10 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Moves the object left if `left` is true and movement is allowed, 
+     * otherwise moves it right, provided it is not dead.
+     */
     move(){
         if(this.left && this.canMove && !this.isDead){
             this.moveLeft();
