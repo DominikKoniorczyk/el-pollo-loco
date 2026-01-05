@@ -27,6 +27,10 @@ export class ThrowableObject extends MovableObject {
         this.character = character;               
     }
 
+    /**
+     * Called every 10ms. Calls the parent method and triggers the fly() method every 50 intervals.
+     * @param {number} globalIntervalCounter - The global interval counter.
+     */
     interval10ms(globalIntervalCounter){
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 50 === 0){
@@ -34,15 +38,24 @@ export class ThrowableObject extends MovableObject {
         }
     }
     
+    /**
+     * Called every frame (60 FPS). Calls the parent method and checks for collisions with enemies.
+     */
     interval60FPS(){
         super.interval60FPS(); 
         this.checkHitEnemy();       
     }
 
+    /**
+     * Plays the bottle rotation animation.
+     */
     playRotationAnim(){
         this.playAnimation(ImageHub.bottle.rotation);
     }
 
+    /**
+     * Moves the object forward and plays rotation animation, or triggers splash when reaching the ground.
+     */
     fly(){
         if(this.y < this.standingGroundY){
             this.playRotationAnim();
@@ -53,6 +66,9 @@ export class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Plays the splash animation and removes the object from the world when the animation finishes.
+     */
     splash(){
         if(this.currentSplashIndex < ImageHub.bottle.splash.length){
             const path = ImageHub.bottle.splash[this.currentSplashIndex];
@@ -64,6 +80,9 @@ export class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Checks collisions with enemies, applies damage once, and triggers splash on hit.
+     */
     checkHitEnemy(){        
         this.world.level.enemies.forEach(e => {
             if(this.isColliding(e)){
