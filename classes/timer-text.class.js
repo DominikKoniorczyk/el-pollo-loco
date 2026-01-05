@@ -8,6 +8,10 @@ export class TimerText{
         this.draw();
     }
 
+    /**
+     * Draws the current game time on the canvas, 
+     * changing color if time is below a threshold, and draws a corresponding circle.
+     */
     draw(){
         this.ctx.font = "24px 'HennyPenny', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif";
         let textWidth = this.ctx.measureText(this.world.level.gameTime).width;
@@ -17,6 +21,11 @@ export class TimerText{
         this.drawCircle(time);
     }
 
+    /**
+     * Draws a circular timer around the time, 
+     * with color changing when the time is low.
+     * @param {number} currentTime - The current elapsed game time.
+     */
     drawCircle(currentTime){
         const endAngle = -0.5 * Math.PI + 2 * Math.PI * (currentTime / this.world.level.startGameTime);
         this.ctx.beginPath();
@@ -26,6 +35,9 @@ export class TimerText{
         this.ctx.stroke();
     }
 
+    /**
+     * Called every frame (60 FPS) to update the canvas display.
+     */
     interval60FPS(){
         this.draw();
     }
