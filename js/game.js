@@ -24,6 +24,10 @@ const sounds = [new Audio("./assets/audio/music/456969__funwithsound__success-re
 
 window.addEventListener('load', initGame);
 
+/**
+ * Initializes the game by setting up the canvas, input listeners, main menu, 
+ * data, intervals, and audio settings.
+ */
 function initGame(){
     addFunctionListner();
     canvasRev = document.getElementById("canvas");  
@@ -35,6 +39,9 @@ function initGame(){
     loadAudioSetting();
 }
 
+/**
+ * Exposes game control functions on the global `window` object and initializes control listeners.
+ */
 function addFunctionListner(){
     window.setDifficultyLevel = (l) => setDifficultyLevel(l);
     window.startLevel = (levelToStart) => startLevel(levelToStart);
@@ -48,6 +55,9 @@ function addFunctionListner(){
     addFunctionListnerControlls();
 }
 
+/**
+ * Reinitializes the game by restarting it and resetting the visibility of main, win, and lose screens.
+ */
 function reinitGame(){
     initGame();
     const loseContRef = doc.getElementById("youLose");
@@ -58,6 +68,9 @@ function reinitGame(){
     winContRef.classList.add("d_none");
 }
 
+/**
+ * Loads the end screen images for win and lose scenarios.
+ */
 function loadImages(){
     endScreenLose = new Image();
     endScreenWin = new Image();
@@ -65,6 +78,10 @@ function loadImages(){
     endScreenWin.src = ImageHub.endScreens.winGame;
 }
 
+/**
+ * Executes a 10ms interval update for the world and character, 
+ * ensuring the landscape check and updating the global interval counter.
+ */
 function tenMilliSecondsInterval(){
     checkIsInLandscape();
     world.interval10ms(globalIntervalCounter);
@@ -75,11 +92,19 @@ function tenMilliSecondsInterval(){
     }
 }
 
+/**
+ * Updates the world and character at 60 frames per second.
+ */
 function gameTick60FPS(){
     world.interval60FPS();
     world.character.interval60FPS();
 }
 
+/**
+ * Handles the end-of-game sequence by stopping inputs, clearing intervals, 
+ * updating the world and UI, and playing the appropriate game-over sound.
+ * @param {boolean} won - Indicates if the player has won the game.
+ */
 export function gameOver(won){
     checkMobile();
     IntervalHub.clearAllIntervals();
@@ -90,6 +115,10 @@ export function gameOver(won){
     playGameOverSound(won);
 }
 
+/**
+ * Renders the current score and the end screen (win/lose) on the canvas, 
+ * and displays the final score along with the highscore.
+ */
 function drawScoreText(){    
     points = world.character.score;
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
@@ -98,11 +127,19 @@ function drawScoreText(){
    
 }
 
+/**
+ * Stops all sounds and plays the game over sound based on win status.
+ * @param {boolean} won - True if the player won, false if lost.
+ */
 function playGameOverSound(won){
     SoundHub.stopAll(); 
     SoundHub.playOne(won ? sounds[0] : sounds[1]);
 }
 
+/**
+ * Sets the current difficulty level and toggles the visibility of related UI elements.
+ * @param {string} difficulty - The difficulty level to set (e.g., "easy", "medium", "hard").
+ */
 function setDifficultyLevel(difficulty){
     const difficultyCont = doc.getElementById('difficultyLevel')
     const levelCont = doc.getElementById('selectLevel');
@@ -111,6 +148,11 @@ function setDifficultyLevel(difficulty){
     difficultyLevel = difficulty;
 }
 
+/**
+ * Starts the specified game level by setting difficulty, initializing the world,
+ * managing intervals, loading images, and updating the level UI.
+ * @param {number} levelToStart - Index of the level to start.
+ */
 function startLevel(levelToStart){
     levelIndex = levelToStart;
     checkMobile();
@@ -124,6 +166,10 @@ function startLevel(levelToStart){
     levelCont.classList.toggle("d_none"); 
 }
 
+/**
+ * Resets the game state by clearing intervals, updating the current level's difficulty,
+ * reinitializing the world and keyboard, and reloading assets.
+ */
 function tryAgain(){
     checkMobile();
     removeEndscreen();
@@ -136,6 +182,9 @@ function tryAgain(){
     loadImages();
 }
 
+/**
+ * Advances to the next level if not at the last one and triggers a retry.
+ */
 function nextLevel(){
     if(levelIndex < 2){
         levelIndex ++;
@@ -143,16 +192,26 @@ function nextLevel(){
     }
 }
 
+/**
+ * Reopens the difficulty selector by toggling the difficulty and level selection UI.
+ */
 function reopenDifficultySelector(){
     difficultyToggle();
     selectLevelToggle();
 }
 
+/**
+ * Opens the play dialog by toggling difficulty settings and the main menu.
+ */
 function openPlayDialog(){
     difficultyToggle();
     mainMenuToggle();   
 }
 
+/**
+ * Navigates back in the menu based on the given index.
+ * @param {number} i - The menu step to return to (0 for play dialog, 1 for difficulty selector).
+ */
 function menuGoBack(i){
     switch (i){
         case 0: 
@@ -164,16 +223,26 @@ function menuGoBack(i){
     }
 }
 
+/**
+ * Toggles the main menu and the "How to Play" section visibility.
+ */
 function openHowToPlay(){
     mainMenuToggle();
     howToPlayToggle();
 }
 
+/**
+ * Toggles the main menu and the Impressum section visibility.
+ */
 function openImpressum(){
     mainMenuToggle();
     impressumToggle();
 }
 
+/**
+ * Displays a win or lose overlay and updates the highscore if the game is won.
+ * @param {boolean} won - True if the player won, false otherwise.
+ */
 function openOverlayOnGameOver(won){
     if(won){
         youWinToggle();
