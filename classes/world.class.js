@@ -40,11 +40,17 @@ export class World {
         this.checkCollisions();
     }
 
+    /**
+     * Sets the world reference for the main character and updates enemies with the world.
+     */
     setWorld(){
         this.character.world = this;
         this.addWorldToEnemies();
     }
 
+    /**
+     * Initializes the level and populates it with dynamic clouds and background objects for each world tile.
+     */
     initWorld(){
         this.level.initLevel();
         for(let i = 0; i < this.level.worldTiles; i++){
@@ -53,6 +59,10 @@ export class World {
         }
     }
 
+    /**
+     * Updates the world every 10ms: level logic, throwable objects, and collision checks.
+     * @param {number} globalIntervalCounter - The global counter for interval updates.
+     */
     interval10ms(globalIntervalCounter){
         this.level.interval10ms(globalIntervalCounter);
         this.throwableObjects.forEach(to => {
@@ -62,6 +72,9 @@ export class World {
         this.checkThrowObjects();
     }
 
+    /**
+     * Updates the world at 60 frames per second: rendering, level updates, timer, and throwable objects.
+     */
     interval60FPS(){
         this.draw();
         this.level.interval60FPS();
@@ -71,6 +84,10 @@ export class World {
         });
     }
 
+    /**
+     * Adds layered background objects for the given world tile index, alternating textures for variety.
+     * @param {number} actualIndex - Index of the world tile for which backgrounds are added.
+     */
     addDynamicBackgrounds(actualIndex){        
         if(actualIndex % 2 == 0){
             this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * this.canvas.width));
@@ -85,12 +102,19 @@ export class World {
         } 
     }
 
+    /**
+     * Adds clouds to the level dynamically based on the world tile index, alternating textures.
+     * @param {number} actualIndex - Index of the world tile for which clouds are added.
+     */
     addDynamicClouds(actualIndex){
         if(actualIndex % 2 == 0)
             this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * this.canvas.width, this.level.worldTiles));
         else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * this.canvas.width, this.level.worldTiles));
     }
  
+    /**
+     * Clears the canvas and renders all game elements, including background, clouds, characters, enemies, collectibles, and UI.
+     */
     draw(){ 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -107,18 +131,29 @@ export class World {
         this.addToViewport(this.scoreText);
     }
 
+    /**
+     * Adds multiple movable objects to the viewport by calling `addToViewport` on each.
+     * @param {Array} objects - Array of objects to render.
+     */
     addObjectsToViewport(objects){
         objects.forEach(object => {
             this.addToViewport(object);
         });
     }
 
+    /**
+     * Sets the current world context to all enemies in the level.
+     */
     addWorldToEnemies(){
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
     }
 
+    /**
+     * Renders a single movable object, flipping it horizontally if needed.
+     * @param {Object} mo - Movable object to render.
+     */
     addToViewport(mo){
         if((mo.otherDirection && !(mo instanceof Chicken || mo instanceof Endboss)) || ((mo instanceof Chicken || mo instanceof Endboss) && !mo.otherDirection)){
             this.flipImage(mo);
@@ -129,6 +164,10 @@ export class World {
         }
     }
 
+    /**
+     * Flips an object horizontally on the canvas for rendering.
+     * @param {Object} mo - Movable object to flip.
+     */
     flipImage(mo){
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -136,17 +175,28 @@ export class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Restores the canvas state after flipping an object and resets its x-coordinate.
+     * @param {Object} mo - Movable object to restore.
+     */
     flipImageBack(mo){
         this.ctx.restore();
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Checks for collisions between the character and enemies, coins, or bottles.
+     */
     checkCollisions() {
         this.character.checkEnemyCollision(this.level.enemies);
         this.character.checkCoinCollision(this.level.coins);
         this.character.checkBottleCollision(this.level.bottles);
     }
 
+    /**
+     * Checks if the character can throw an object and creates a new throwable object if possible.
+     * Adds the object to the throwableObjects array and updates the last throw time.
+     */
     checkThrowObjects(){        
         if(this.keyboard.THROW && this.characterCanMove && this.character.checkCanThrow()){
             const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100, this.character);
