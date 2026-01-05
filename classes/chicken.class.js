@@ -23,16 +23,25 @@ export class Chicken extends MovableObject {
         this.calculateSpeeds();
     }
 
+    /**
+     * Calculates a new horizontal position and random speed for the entity.
+     */
     calculateSpeeds(){
         this.x = this.getRandomX(this.worldTiles);
         this.speed = 1 + Math.random() * 0.5;      
     }
 
+    /**
+     * Updates the entity state at 60 FPS and triggers movement.
+     */
     interval60FPS(){
         super.interval60FPS();
         this.move();
     }
 
+    /**
+     * Moves the entity left or right based on its position relative to screen bounds.
+     */
     move(){
         if(!this.checkIfOffScreen(80) && !this.wasOffScreen){
             super.moveLeft();    
@@ -47,12 +56,19 @@ export class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Updates the entity animation every 10ms based on a global interval counter.
+     * @param {number} globalIntervalCounter - The global counter to time animations.
+     */
     interval10ms(globalIntervalCounter){
         if(globalIntervalCounter % 110 === 0){
             this.animate();
         }
     }
 
+    /**
+     * Handles the entity's walking or death animation, and removes it after death.
+     */
     animate(){
         if(!this.isDead) this.playAnimation(ImageHub.chicken.walk);   
         else if(this.isDead && this.deathTime == 0){
@@ -65,6 +81,11 @@ export class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Applies damage to the entity, stops its movement, plays hurt sound, and updates the character's score.
+     * @param {number} dmg - The amount of damage applied.
+     * @param {Object} character - The character dealing the damage.
+     */
     applyDamage(dmg, character){
         this.isDead = true;
         this.speed = 0;
