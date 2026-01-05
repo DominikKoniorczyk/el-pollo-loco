@@ -14,6 +14,11 @@ export class CollectableObject extends DrawableObject{
         this.y = 60;        
     }
 
+    /**
+     * Removes the current object from the given arrays and plays a collection sound.
+     * @param {Array} arr - The first array to remove the object from.
+     * @param {Array} mainArr - The main array to remove the object from.
+     */
     removeFromWorld(arr, mainArr){
         const index = arr.indexOf(this);
         const mainIndex = mainArr.indexOf(this);
@@ -22,6 +27,9 @@ export class CollectableObject extends DrawableObject{
         this.playSoundOnCollecting();
     }
 
+    /**
+     * Plays the sound associated with collecting this object.
+     */
     playSoundOnCollecting(){
         SoundHub.playOne(this.collectingSound);
     }
