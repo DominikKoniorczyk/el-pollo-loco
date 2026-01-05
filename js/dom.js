@@ -13,6 +13,7 @@ let mainScreenRef = null;
 let mobileButtons = null;
 let isFullscreen = false;
 let turnPhoneScreen = false;
+let nextLevelButton = null;
 
 /**
  * Initializes references to key DOM elements and sets up buttons for the game interface.
@@ -27,6 +28,7 @@ export function initData(document){
     youLoseRef = document.getElementById("youLose");
     youWinRef = document.getElementById("youWin");
     turnPhoneScreen = document.getElementById("turnPhone");
+    nextLevelButton = document.getElementById("nextLevelButton");
     getButtons(document);
 }
 
@@ -160,4 +162,18 @@ export function checkMobile(){
 export function checkIsInLandscape(){
     if(window.innerWidth < window.innerHeight) turnPhoneScreen.classList.remove("d_none");
     else turnPhoneScreen.classList.add("d_none");  
+}
+
+/**
+ * Turns of the play next level button when the last level is reached.
+ */
+export function setNextLevelButtonInvisble(){
+  nextLevelButton.classList.add("d_none");
+}
+
+/**
+ * Turns on the play next level button.
+ */
+export function setNextLevelButtonVisble(){
+  nextLevelButton.classList.remove("d_none");
 }

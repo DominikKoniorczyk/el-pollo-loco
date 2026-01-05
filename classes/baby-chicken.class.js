@@ -6,8 +6,7 @@ export class BabyChicken extends Chicken{
     width = 40;
     height = 40;
     y = 385;
-    standingGroundY = 385;
-    hurtSounds = ['../assets/audio/chicken/chickenDead.mp3', '../assets/audio/chicken/chickenDead2.mp3'];
+    standingGroundY = 385
     killScorePoints = 125;
     offset = { top: -10, bottom: 8, left: 5, right: 5 };
 

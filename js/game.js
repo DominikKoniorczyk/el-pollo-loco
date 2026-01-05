@@ -5,7 +5,7 @@ import { level1, level2, level3 } from '../levels/level1.js';
 import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
-import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape } from './dom.js';
+import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape, setNextLevelButtonInvisble, setNextLevelButtonVisble } from './dom.js';
 import { addFunctionListnerControlls, loadAudioSetting } from './controlls.js';
 import { EndScoreText } from '../classes/end-score-text.class.js';
 
@@ -110,7 +110,7 @@ export function gameOver(won){
     IntervalHub.clearAllIntervals();
     Keyboard.removeKeyboardListener();
     world.level.clearWorld();
-    drawScoreText();
+    drawScoreText(won);
     openOverlayOnGameOver(won);
     playGameOverSound(won);
 }
@@ -118,8 +118,9 @@ export function gameOver(won){
 /**
  * Renders the current score and the end screen (win/lose) on the canvas, 
  * and displays the final score along with the highscore.
+ * @param {boolean} won - Indicates if the player has won the game.
  */
-function drawScoreText(){    
+function drawScoreText(won){    
     points = world.character.score;
     ctx.clearRect(0, 0, canvasRev.width, canvasRev.height);
     ctx.drawImage(won ? endScreenWin : endScreenLose, 0, 0, 720, 480);
@@ -189,6 +190,10 @@ function nextLevel(){
     if(levelIndex < 2){
         levelIndex ++;
         tryAgain();
+        setNextLevelButtonVisble();
+    }
+    else {
+        setNextLevelButtonInvisble();
     }
 }
 
