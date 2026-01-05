@@ -22,14 +22,25 @@ export class BabyChicken extends Chicken{
         this.addAudio();
     }
 
+    /**
+     * Called every 10ms to update the object state.
+     * @param {number} globalIntervalCounter - The global counter incremented every 10ms.
+     */
     interval10ms(globalIntervalCounter){
         super.interval10ms(globalIntervalCounter);
     }
     
+    /**
+     * Called every frame (60 FPS) to update animations or logic.
+     */
     interval60FPS(){
         super.interval60FPS();
     }    
 
+    /**
+     * Handles the animation state of the object based on life and death.
+     * Plays walking animation if alive, death animation if dead, and removes from world after 2 seconds.
+     */
     animate(){
         if(!this.isDead) this.playAnimation(ImageHub.chickenSmall.walk);   
         else if(this.isDead && this.deathTime == 0){
@@ -42,6 +53,11 @@ export class BabyChicken extends Chicken{
         }
     }
 
+    /**
+     * Applies damage to the object, marking it as dead and awarding points to the character.
+     * @param {number} dmg - The amount of damage dealt.
+     * @param {Object} character - The character dealing the damage.
+     */
     applyDamage(dmg, character){
         this.isDead = true;
         this.speed = 0;
