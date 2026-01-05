@@ -32,6 +32,10 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.character.death);
     }
 
+    /**
+     * Updates the character state at 60 FPS.
+     * Handles movement, jumping, and camera position.
+     */
     interval60FPS(){
         super.interval60FPS();
         if(this.world.keyboard.RIGHT && (this.x < this.world.level.levelEndX - 720) && !this.checkIsDead() && this.canMove){
@@ -46,6 +50,10 @@ export class Character extends MovableObject {
         this.checkHeight();
     }
 
+    /**
+     * Ensures the character does not fall below the ground level.
+     * Resets vertical position and speed if below standing ground.
+     */
     checkHeight(){
         if(this.y > this.standingGroundY){
             this.speedY = 0;
@@ -53,10 +61,19 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the character can throw an object.
+     * Returns true if bottles are available, character is alive, and cooldown passed.
+     */
     checkCanThrow(){
         return !this.throwObject && this.bottleCount != 0 && !this.checkIsDead() && new Date().getTime() - this.lastThrowedBottle >= 1000;
     }
 
+    /**
+     * Updates character state every 10ms.
+     * Handles animations, life state, and throw key checks at specific intervals.
+     * @param {number} globalIntervalCounter - Current global interval tick.
+     */
     interval10ms(globalIntervalCounter){
         super.interval10ms(globalIntervalCounter);
         if(globalIntervalCounter % 50 === 0){
@@ -71,6 +88,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Plays walking animation if character moves on the ground.
+     * Resets move timer and plays sound; stops sound if not walking.
+     */
     walking(){
         if((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() && this.canMove){
             this.playAnimation(ImageHub.character.walk);
@@ -81,6 +102,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Switches the character's idle animation based on inactivity.
+     * Plays a short idle or long idle animation with sound after 5 seconds.
+     */
     idleAnimationSwitch(){
         if(!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() || !this.canMove){
             if(this.timeSinceLastMove === 0) this.timeSinceLastMove = new Date().getTime();
@@ -93,6 +118,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Plays the jump animation if the character is in the air and not dead.
+     * Resets idle timer and plays the jump sound effect.
+     */
     jumpAnimation(){
         if(this.isInAir() || this.speedY > 0 && !this.checkIsDead()){
             this.playAnimation(ImageHub.character.jump);
@@ -101,12 +130,19 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Resets the throw action when the throw key is released.
+     */
     checkThrowKeyUp(){
         if(this.throwObject && !this.world.keyboard.THROW){
             this.throwObject = false;
         }
     }
 
+    /**
+     * Plays the hurt animation if the character is injured.
+     * Resets idle timer and plays the hurt sound effect.
+     */
     hurtAnimation(){
         if(this.isHurt()){
             this.playAnimation(ImageHub.character.hurt);
@@ -115,6 +151,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the character is dead and handles death animation and effects.
+     * Triggers jump if on ground and ends the game if fallen off screen.
+     */
     checkLifeState(){
         if(this.checkIsDead()){
             this.playAnimation(ImageHub.character.death);
@@ -127,6 +167,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Throws an object and updates inventory and UI.
+     * Marks the throw action and records the last throw time.
+     */
     throwAnObject(){
         this.bottleCount--;
         this.throwObject = true;
@@ -134,6 +178,10 @@ export class Character extends MovableObject {
         this.lastThrowedBottle = new Date().getTime();
     }
 
+    /**
+     * Checks collision with enemies and applies damage to either the player or the enemy.
+     * @param {Array} enemies - Array of enemy objects to check collision against.
+     */
     checkEnemyCollision(enemies){        
         enemies.forEach(enemy => {
             if(this.isColliding(enemy) && !enemy.isDead){
@@ -146,6 +194,10 @@ export class Character extends MovableObject {
         }});
     }
 
+    /**
+     * Checks collision with coins, increments coin count or restores health if max coins reached.
+     * @param {Array} coins - Array of coin objects to check collision against.
+     */
     checkCoinCollision(coins){
         coins.forEach(coin => {
             if(this.isColliding(coin)){
@@ -162,6 +214,10 @@ export class Character extends MovableObject {
         })
     }
 
+    /**
+     * Increases coin count and score, updates coin UI, and removes the collected coin from the world.
+     * @param {Object} coin - Coin object to be collected.
+     */
     addCoin(coin){        
         this.coinCount++;        
         this.score += 100;
@@ -169,6 +225,10 @@ export class Character extends MovableObject {
         coin.removeFromWorld(this.world.level.coins, this.world.level.collectableObjects);
     }
 
+    /**
+     * Checks collision with bottles, increments bottle count, updates bottle UI, and removes bottle from world.
+     * @param {Array} bottles - Array of bottle objects to check collision against.
+     */
     checkBottleCollision(bottles){
         bottles.forEach(bottle => {
             if(this.isColliding(bottle)){             
@@ -181,6 +241,10 @@ export class Character extends MovableObject {
         })
     }
 
+    /**
+     * Applies damage to the player if enough time has passed since the last hit and updates health UI.
+     * @param {number} damage - Amount of damage to apply.
+     */
     applyDamage(damage){
         if(new Date().getTime() - this.timeSinceLastDamage > 1000){
             super.applyDamage(damage);
