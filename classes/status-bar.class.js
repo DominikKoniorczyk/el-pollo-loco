@@ -18,17 +18,30 @@ export class StatusBar extends DrawableObject{
         this.setPercentage(full ? 100 : 0);       
     }
 
+    /**
+     * Sets the current percentage and updates the image based on the resolved index.
+     * @param {number} percentage - The new percentage value.
+     */
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.imageSource[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Updates the element's position in the viewport.
+     * @param {number} x - The new x-coordinate.
+     * @param {number} y - The new y-coordinate.
+     */
     setNewPositionInViewport(x, y){
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Determines the image index based on the current percentage.
+     * @returns {number} The index corresponding to the current percentage range.
+     */
     resolveImageIndex(){
         if(this.percentage === 100){
             return 5;
