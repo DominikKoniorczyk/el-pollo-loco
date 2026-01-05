@@ -19,6 +19,7 @@ export class Character extends MovableObject {
         new Audio("./assets/audio/character/characterJump.wav"), new Audio("./assets/audio/character/characterDead.wav")
     ];
     score = 0;
+    lastThrowedBottle = 0;
 
     constructor(){
         super();
@@ -50,6 +51,10 @@ export class Character extends MovableObject {
             this.speedY = 0;
             this.y = this.standingGroundY;
         }
+    }
+
+    checkCanThrow(){
+        return !this.throwObject && this.bottleCount != 0 && !this.checkIsDead() && new Date().getTime() - this.lastThrowedBottle >= 1000;
     }
 
     interval10ms(globalIntervalCounter){
@@ -126,6 +131,7 @@ export class Character extends MovableObject {
         this.bottleCount--;
         this.throwObject = true;
         this.world.bottleBar.setPercentage(this.bottleCount *10);
+        this.lastThrowedBottle = new Date().getTime();
     }
 
     checkEnemyCollision(enemies){        

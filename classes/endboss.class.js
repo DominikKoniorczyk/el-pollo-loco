@@ -54,6 +54,14 @@ export class Endboss extends MovableObject {
         return this.checkDistanceToPlayer <= 500 && this.x <= (this.worldTiles * 720) - 600;
     }
 
+    checkPlayerIsBehind(){
+        if(this.world.character.x > this.x){
+            this.canMove = true;
+            this.left = false;
+            this.move();
+        }
+    }
+
     checkAttackStatePlayerDistance(){
         if(!this.checkCanChase() && this.sequence.attack){
             this.setCanMove(false, false);
@@ -102,6 +110,7 @@ export class Endboss extends MovableObject {
         this.world.healthBarEndboss.setNewPositionInViewport(this.x + this.statBarOffset.left, this.y + this.statBarOffset.top);
         this.world.healthBarEndboss.setPercentage(this.health);
         this.startSequence();
+        this.checkPlayerIsBehind();
         this.move();
         this.checkHealthState();
         this.checkAttackStatePlayerDistance();

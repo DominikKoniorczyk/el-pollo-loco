@@ -147,8 +147,8 @@ export class World {
         this.character.checkBottleCollision(this.level.bottles);
     }
 
-    checkThrowObjects(){
-        if(this.keyboard.THROW && this.characterCanMove && !this.character.throwObject && this.character.bottleCount != 0 && !this.character.checkIsDead()){
+    checkThrowObjects(){        
+        if(this.keyboard.THROW && this.characterCanMove && this.character.checkCanThrow()){
             const newBottle = new ThrowableObject(this, this.character.x + 100, this.character.y + 100, this.character);
             this.throwableObjects.push(newBottle);
             this.lastThrowObjectTime = new Date().getTime();
