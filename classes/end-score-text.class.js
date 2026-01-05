@@ -10,6 +10,9 @@ export class EndScoreText {
         this.draw();
     }
 
+    /**
+     * Draws the highscore and current score centered on the canvas.
+     */
     draw(){
         this.ctx.font = "24px 'HennyPenny', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif";
         this.ctx.fillText("Highscore:", (720/2) - (this.returnTextLenght("Highscore") / 2), 40);
@@ -18,6 +21,11 @@ export class EndScoreText {
         this.ctx.fillText(this.score, (720/2) - (this.returnTextLenght(this.score) / 2), 160);
     }
 
+    /**
+     * Returns the pixel width of a given text using the current canvas context.
+     * @param {string} text - The text to measure.
+     * @returns {number} Width of the text in pixels.
+     */
     returnTextLenght(text){
         return this.ctx.measureText(text).width;
     }
