@@ -3,11 +3,19 @@ import { closeFullscreen, isInFullscreen, openFullscreen, toggleSoundSymbol } fr
 
 export let muted = false;
 
+/**
+ * Registers global window functions for audio and fullscreen controls.
+ * `toggleAudio` and `toggleFullScreen` are attached to the window object.
+ */
 export function addFunctionListnerControlls(){
     window.toggleAudio = () => toggleAudio();
     window.toggleFullScreen = () => fullScreenToggle();
 }
 
+/**
+ * Loads the saved audio setting from localStorage.
+ * Updates mute state and UI icon if audio was previously muted.
+ */
 export function loadAudioSetting(){
     if(JSON.parse(localStorage.getItem("Audio"))) {
         toggleSoundSymbol();
@@ -16,6 +24,10 @@ export function loadAudioSetting(){
     }
 }
 
+/**
+ * Toggles audio mute state.
+ * Updates the UI icon, mutes/unmutes all sounds, and saves the setting.
+ */
 function toggleAudio(){
     toggleSoundSymbol();
     muted = !muted;
@@ -23,6 +35,10 @@ function toggleAudio(){
     localStorage.setItem("Audio", JSON.stringify(muted));
 }
 
+/**
+ * Toggles fullscreen mode.
+ * Enters fullscreen if not active, or exits if currently in fullscreen.
+ */
 function fullScreenToggle(){
     isInFullscreen() ? closeFullscreen() : openFullscreen();    
 }
