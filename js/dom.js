@@ -14,6 +14,10 @@ let mobileButtons = null;
 let isFullscreen = false;
 let turnPhoneScreen = false;
 
+/**
+ * Initializes references to key DOM elements and sets up buttons for the game interface.
+ * @param {Document} document - The HTML document containing the elements to reference.
+ */
 export function initData(document){
     mainMenuRef = document.getElementById("mainMenu");
     difficultyRef = document.getElementById("difficultyLevel");
@@ -26,6 +30,10 @@ export function initData(document){
     getButtons(document);
 }
 
+/**
+ * Retrieves references to key DOM elements for audio control and UI.
+ * @param {Document} document - The DOM document to query elements from.
+ */
 function getButtons(document){
     volumeOnRef = document.getElementById("audioOn");
     volumeOffRef = document.getElementById("audioOff");
@@ -33,44 +41,74 @@ function getButtons(document){
     mobileButtons = document.getElementById("mobileControlls");
 }
 
+/**
+ * Toggles the visibility of the main menu by adding/removing the "d_none" class.
+ */
 export function mainMenuToggle(){
     mainMenuRef.classList.toggle("d_none");    
 }
 
+/**
+ * Toggles the visibility of the difficulty selection by adding/removing the "d_none" class.
+ */
 export function difficultyToggle(){
     difficultyRef.classList.toggle("d_none");
 } 
 
+/**
+ * Toggles the visibility of the level selection by adding/removing the "d_none" class.
+ */
 export function selectLevelToggle(){
     selectLevelRef.classList.toggle("d_none");
 } 
 
+/**
+ * Toggles the visibility of the "How to Play" section by adding/removing the "d_none" class.
+ */
 export function howToPlayToggle(){
     howToPlayRef.classList.toggle("d_none");
 } 
 
+/**
+ * Toggles the visibility of the impressum section by adding/removing the "d_none" class.
+ */
 export function impressumToggle(){
     impressumRef.classList.toggle("d_none");
 } 
 
+/**
+ * Toggles the visibility of the "You Lose" screen.
+ */
 export function youLoseToggle(){
     youLoseRef.classList.toggle("d_none");
 } 
 
+/**
+ * Toggles the visibility of the "You Win" screen.
+ */
 export function youWinToggle(){
     youWinRef.classList.toggle("d_none");
 } 
 
+/**
+ * Hides both the "You Win" and "You Lose" screens.
+ */
 export function removeEndscreen(){
     youLoseRef.classList.add("d_none");
     youWinRef.classList.add("d_none");
 }
 
+/**
+ * Toggles between the volume on and off symbols.
+ */
 export function toggleSoundSymbol(){
     volumeOnRef.classList.toggle("d_none");
     volumeOffRef.classList.toggle("d_none");
 }
 
+/**
+ * Requests fullscreen mode for the main screen element.
+ */
 export function openFullscreen() {
   if (mainScreenRef.requestFullscreen) {
     mainScreenRef.requestFullscreen();
@@ -82,6 +120,9 @@ export function openFullscreen() {
   isFullscreen = true;
 }
 
+/**
+ * Exits fullscreen mode if currently active.
+ */
 export function closeFullscreen() {
   if (window.document.exitFullscreen) {
     window.document.exitFullscreen();
@@ -93,10 +134,18 @@ export function closeFullscreen() {
   isFullscreen = false;
 }
 
+/**
+ * Checks if the application is currently in fullscreen mode.
+ * @returns {boolean} True if fullscreen is active, otherwise false.
+ */
 export function isInFullscreen(){
     return isFullscreen;
 }
 
+/**
+ * Detects if the device is mobile and toggles mobile-specific UI elements.
+ * Also disables the context menu on mobile devices.
+ */
 export function checkMobile(){
     if(window.innerWidth < 1000){
       mobileButtons.classList.toggle("d_none");
@@ -104,6 +153,10 @@ export function checkMobile(){
     }
 }
 
+/**
+ * Checks if the device is in portrait mode and shows a prompt to rotate the screen.
+ * Hides the prompt if the device is in landscape mode.
+ */
 export function checkIsInLandscape(){
     if(window.innerWidth < window.innerHeight) turnPhoneScreen.classList.remove("d_none");
     else turnPhoneScreen.classList.add("d_none");  
