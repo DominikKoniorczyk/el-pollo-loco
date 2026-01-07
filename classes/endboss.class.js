@@ -27,7 +27,7 @@ export class Endboss extends MovableObject {
         this.height = size.height;
         this.width = size.width;
         this.difficultyLevel = level.difficultyLevel;
-        this.damagePerAttack = 20 * level.difficultyLevel;
+        this.damagePerAttack = 20 * (level.difficultyLevel == 1 ? 1 : level.difficultyLevel == 2 ? 4 : 6);
         this.speed = 6 * level.difficultyLevel;
         this.addAudio();
         this.initEndboss();

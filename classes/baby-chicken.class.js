@@ -12,7 +12,7 @@ export class BabyChicken extends Chicken{
 
     constructor(world_tiles, level, img, pos){   
         super(world_tiles, level, img); 
-        this.damagePerAttack = 5 * level.difficultyLevel;
+        this.damagePerAttack = 5 * (level.difficultyLevel == 1 ? 1 : level.difficultyLevel == 2 ? 4 : 6);
         this.level = level;
         if(pos.absolute){
             this.x = pos.x;
