@@ -20,7 +20,7 @@ let levelIndex = 0;
 let points = 0;
 const doc = window.document;
 const levels = [level1, level2, level3];
-const sounds = [new Audio("./assets/audio/music/456969__funwithsound__success-resolution-video-game-fanfare-sound-effect-with-drum-roll.mp3"), new Audio("./assets/audio/music/362204__taranp__horn_fail_wahwah_3.wav")]
+const sounds = [new Audio("./assets/audio/music/456969__funwithsound__success-resolution-video-game-fanfare-sound-effect-with-drum-roll.mp3"), new Audio("./assets/audio/music/362204__taranp__horn_fail_wahwah_3.mp3")]
 
 window.addEventListener('load', initGame);
 
