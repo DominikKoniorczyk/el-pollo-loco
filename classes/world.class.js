@@ -55,7 +55,7 @@ export class World {
         this.level.initLevel();
         for(let i = 0; i < this.level.worldTiles; i++){
             this.addDynamicClouds(i);
-            this.addDynamicBackgrounds(i);
+            this.level.addDynamicBackgrounds(i);
         }
     }
 
@@ -82,24 +82,6 @@ export class World {
         this.throwableObjects.forEach(to => {
             to.interval60FPS();
         });
-    }
-
-    /**
-     * Adds layered background objects for the given world tile index, alternating textures for variety.
-     * @param {number} actualIndex - Index of the world tile for which backgrounds are added.
-     */
-    addDynamicBackgrounds(actualIndex){        
-        if(actualIndex % 2 == 0){
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * this.canvas.width));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[0], actualIndex * this.canvas.width));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[0], actualIndex * this.canvas.width));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[0], actualIndex * this.canvas.width));
-        } else {
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.air, actualIndex * this.canvas.width));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_three[1], actualIndex * this.canvas.width));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_two[1], actualIndex * this.canvas.width));
-            this.level.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds.layer_one[1], actualIndex * this.canvas.width));
-        } 
     }
 
     /**
