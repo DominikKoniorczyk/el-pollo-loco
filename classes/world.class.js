@@ -1,8 +1,6 @@
 import { Character } from "./character.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { ImageHub } from "./imagehub.class.js";
-import { Cloud } from "./cloud.class.js";
-import { BackgroundObject } from "./background-object.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Endboss } from "./endboss.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
@@ -34,8 +32,8 @@ export class World {
         this.level.canvas = this.canvas;
         this.timerText = new TimerText(this, this.ctx);
         this.scoreText = new ScoreText(this, this.ctx);
-        this.draw();
         this.initWorld();
+        this.draw();
         this.setWorld();
         this.checkCollisions();
     }
@@ -53,6 +51,7 @@ export class World {
      */
     initWorld(){
         this.level.initLevel();
+        this.level.addAir();
         for(let i = 0; i < this.level.worldTiles; i++){
             this.level.addDynamicClouds(i);
             this.level.addDynamicBackgrounds(i);
@@ -90,6 +89,7 @@ export class World {
     draw(){ 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
+        this.addToViewport(this.level.air);
         this.addObjectsToViewport(this.level.backgroundObjects);
         this.addObjectsToViewport(this.level.clouds);
         this.addToViewport(this.character);

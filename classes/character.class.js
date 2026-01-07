@@ -47,6 +47,7 @@ export class Character extends MovableObject {
             this.jump();
         }
         this.world.camera_x = -this.x + 100;
+        this.world.level.air.x = this.x - 100;
         this.checkHeight();
     }
 

@@ -7,6 +7,7 @@ import { BabyChicken } from "./baby-chicken.class.js";
 import { gameOver } from "../js/game.js";
 import { SoundHub } from "./soundhub.class.js";
 import { BackgroundObject } from "./background-object.class.js";
+import { Cloud } from "./cloud.class.js";
 
 export class Level {
     enemies = [];
@@ -30,6 +31,7 @@ export class Level {
     startGameTime = 0;
     music = new Audio("./assets/audio/music/819267__johnmode__160bpm-retro-game-square-wave-song-mysterious-exploration.mp3");
     lvl = 1;
+    air;
 
     constructor(amounts, world_tiles, endbossSize, time, lvl){
         this.endbossSize = endbossSize;
@@ -120,19 +122,22 @@ export class Level {
      * Adds layered background objects for the given world tile index, alternating textures for variety.
      * @param {number} actualIndex - Index of the world tile for which backgrounds are added.
      */
-    addDynamicBackgrounds(actualIndex){        
+    addDynamicBackgrounds(actualIndex){      
         if(actualIndex % 2 == 0){
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].air, actualIndex * this.canvas.width));
             this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].layer_three[0], actualIndex * this.canvas.width));
             this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].layer_two[0], actualIndex * this.canvas.width));
             this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].layer_one[0], actualIndex * this.canvas.width));
         } else {
-            this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].air, actualIndex * this.canvas.width));
+            // this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].air, actualIndex * this.canvas.width));
             this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].layer_three[1], actualIndex * this.canvas.width));
             this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].layer_two[1], actualIndex * this.canvas.width));
             this.backgroundObjects.push(new BackgroundObject(ImageHub.backgrounds[this.lvl].layer_one[1], actualIndex * this.canvas.width));
         } 
-    }     
+    }   
+    
+    addAir(){
+        this.air = new BackgroundObject(ImageHub.backgrounds[this.lvl].air, 20);  
+    }
     
     /**
      * Adds clouds to the level dynamically based on the world tile index, alternating textures.
@@ -140,8 +145,8 @@ export class Level {
      */
     addDynamicClouds(actualIndex){
         if(actualIndex % 2 == 0)
-            this.clouds.push(new Cloud(ImageHub.backgrounds[this.lvl].clouds[1], actualIndex * this.canvas.width, this.level.worldTiles));
-        else this.clouds.push(new Cloud(ImageHub.backgrounds[this.lvl].clouds[0], actualIndex * this.canvas.width, this.level.worldTiles));
+            this.clouds.push(new Cloud(ImageHub.backgrounds[this.lvl].clouds[1], actualIndex * this.canvas.width, this.worldTiles));
+        else this.clouds.push(new Cloud(ImageHub.backgrounds[this.lvl].clouds[0], actualIndex * this.canvas.width, this.worldTiles));
     }   
 
     /**

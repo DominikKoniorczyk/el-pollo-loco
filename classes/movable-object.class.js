@@ -19,6 +19,7 @@ export class MovableObject extends DrawableObject {
     hurtSound;
     hurtSounds = ['./assets/audio/chicken/chickenDead.mp3', './assets/audio/chicken/chickenDead2.mp3'];
     killScorePoints = 250;
+    otherDirection = false;
 
     /**
      * Called every frame at 60 FPS; updates position and applies gravity.
