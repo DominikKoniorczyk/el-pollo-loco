@@ -67,7 +67,7 @@ export class Character extends MovableObject {
      * Returns true if bottles are available, character is alive, and cooldown passed.
      */
     checkCanThrow(){
-        return !this.throwObject && this.bottleCount != 0 && !this.checkIsDead() && new Date().getTime() - this.lastThrowedBottle >= 1000;
+        return !this.throwObject && this.bottleCount != 0 && !this.checkIsDead() && new Date().getTime() - this.lastThrowedBottle >= 500;
     }
 
     /**
