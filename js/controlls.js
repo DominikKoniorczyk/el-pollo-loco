@@ -24,6 +24,13 @@ export function loadAudioSetting(){
     }
 }
 
+export function preventSpaceClick(){
+    window.document.addEventListener("keydown", e => {
+    if ((e.code === "Space" || e.key === " ") && document.activeElement.tagName === "BUTTON") {
+        e.preventDefault();
+    }});
+}
+
 /**
  * Toggles audio mute state.
  * Updates the UI icon, mutes/unmutes all sounds, and saves the setting.

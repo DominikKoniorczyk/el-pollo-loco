@@ -6,7 +6,7 @@ import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
 import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape, setNextLevelButtonInvisble, setNextLevelButtonVisble } from './dom.js';
-import { addFunctionListnerControlls, loadAudioSetting } from './controlls.js';
+import { addFunctionListnerControlls, loadAudioSetting, preventSpaceClick } from './controlls.js';
 import { EndScoreText } from '../classes/end-score-text.class.js';
 
 let canvasRev;
@@ -29,6 +29,7 @@ window.addEventListener('load', initGame);
  * data, intervals, and audio settings.
  */
 function initGame(){
+    preventSpaceClick();
     addFunctionListner();
     canvasRev = document.getElementById("canvas");  
     ctx = canvasRev.getContext('2d');

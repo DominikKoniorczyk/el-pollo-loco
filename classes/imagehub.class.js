@@ -234,7 +234,7 @@ export class ImageHub {
         './assets/img/8_coin/coin_2.png'
     ];   
     static endScreens = {
-        gameOver: './assets/img/You won, you lost/Game Over.png',
+        gameOver: './assets/img/You won, you lost/Game over A.png',
         winGame: './assets/img/You won, you lost/You win B.png',
     };
     static startScreen = './assets/img/9_intro_outro_screens/start/startscreen_1.png';

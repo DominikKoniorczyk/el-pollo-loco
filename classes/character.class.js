@@ -20,6 +20,7 @@ export class Character extends MovableObject {
     ];
     score = 0;
     lastThrowedBottle = 0;
+    runSoundPlaying = false;
 
     constructor(){
         super();
@@ -97,9 +98,9 @@ export class Character extends MovableObject {
         if((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isInAir() && !this.world.keyboard.SPACE && !this.checkIsDead() && this.canMove){
             this.playAnimation(ImageHub.character.walk);
             this.timeSinceLastMove = 0;
-            SoundHub.playOne(this.sounds[2]);
+            this.playRunSound(true);
         } else {
-            SoundHub.stopOne(this.sounds[2]);
+            this.playRunSound(false);
         }
     }
 
@@ -128,6 +129,9 @@ export class Character extends MovableObject {
             this.playAnimation(ImageHub.character.jump);
             this.timeSinceLastMove = 0;        
             SoundHub.playOne(this.sounds[3]);
+        }
+        else {
+            SoundHub.stopAndResetOne(this.sounds[3]);
         }
     }
 
@@ -247,10 +251,25 @@ export class Character extends MovableObject {
      * @param {number} damage - Amount of damage to apply.
      */
     applyDamage(damage){
-        if(new Date().getTime() - this.timeSinceLastDamage > 1000){
+        if(!this.isInAir() && new Date().getTime() - this.timeSinceLastDamage > 1000){
             super.applyDamage(damage);
             this.world.healthBar.setPercentage(this.health);
             this.timeSinceLastDamage = new Date().getTime();
+        }
+    }
+
+    stopMoveSound(){
+        SoundHub.stopOne(this.sounds[2]);
+    }
+
+    playRunSound(run){
+        if(run && !this.runSoundPlaying) {
+            this.runSoundPlaying = true;
+            SoundHub.playOne(this.sounds[2]);
+        }
+        else if(!run && this.runSoundPlaying) {
+            SoundHub.stopOne(this.sounds[2]);
+            this.runSoundPlaying = false;
         }
     }
 }

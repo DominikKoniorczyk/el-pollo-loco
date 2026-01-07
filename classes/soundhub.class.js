@@ -26,8 +26,8 @@ export class SoundHub {
     static stopAll() {
         SoundHub.allSounds.forEach(sound => {
             if(sound.readyState == 4) {
-                sound.pause();
-            }
+                sound.pause();             
+            }            
         });
         SoundHub.allSounds = [];
     }
@@ -38,6 +38,15 @@ export class SoundHub {
      */
     static stopOne(sound) {
         sound.pause();
+    }
+
+    /**
+     * Pauses and reset a single sound.
+     * @param {HTMLAudioElement} sound - The audio element to stop.
+     */
+    static stopAndResetOne(sound) {
+        sound.pause();
+        sound.currentTime = 0;
     }
 
     /**

@@ -74,7 +74,8 @@ export class MovableObject extends DrawableObject {
             this.img = this.imageCache[path];
             this.onceImageIndex++;
         } else if(shouldEndGame){
-            gameOver(true);           
+            gameOver(true);  
+            this.world.character.stopMoveSound();         
         }
     }
 
