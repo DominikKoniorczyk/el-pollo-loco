@@ -6,6 +6,7 @@ export class MainMenu {
     ctx;
     keyboard;
     buttons = [];
+    img;
 
     constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
@@ -27,7 +28,7 @@ export class MainMenu {
      */
     draw(){ 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.addToViewport({src: ImageHub.startScreen, x: 0, y: 0, width: 720, height: 480})
+        this.addToViewport({src: ImageHub.startScreen, x: 0, y: 0, width: 720, height: 480});
     }
 
     /**
