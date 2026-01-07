@@ -54,7 +54,7 @@ export class World {
     initWorld(){
         this.level.initLevel();
         for(let i = 0; i < this.level.worldTiles; i++){
-            this.addDynamicClouds(i);
+            this.level.addDynamicClouds(i);
             this.level.addDynamicBackgrounds(i);
         }
     }
@@ -82,16 +82,6 @@ export class World {
         this.throwableObjects.forEach(to => {
             to.interval60FPS();
         });
-    }
-
-    /**
-     * Adds clouds to the level dynamically based on the world tile index, alternating textures.
-     * @param {number} actualIndex - Index of the world tile for which clouds are added.
-     */
-    addDynamicClouds(actualIndex){
-        if(actualIndex % 2 == 0)
-            this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[1], actualIndex * this.canvas.width, this.level.worldTiles));
-        else this.level.clouds.push(new Cloud(ImageHub.backgrounds.clouds[0], actualIndex * this.canvas.width, this.level.worldTiles));
     }
  
     /**
