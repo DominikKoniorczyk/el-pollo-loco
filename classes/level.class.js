@@ -135,6 +135,9 @@ export class Level {
         } 
     }   
     
+    /**
+     * Adds the air background object to the level.
+     */
     addAir(){
         this.air = new BackgroundObject(ImageHub.backgrounds[this.lvl].air, 20);  
     }

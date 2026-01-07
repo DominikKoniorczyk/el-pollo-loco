@@ -190,10 +190,6 @@ function nextLevel(){
     if(levelIndex < 2){
         levelIndex ++;
         tryAgain();
-        setNextLevelButtonVisble();
-    }
-    else {
-        setNextLevelButtonInvisble();
     }
 }
 
@@ -246,6 +242,7 @@ function openImpressum(){
 
 /**
  * Displays a win or lose overlay and updates the highscore if the game is won.
+ * Toggles the next level button visibility based on the current level.
  * @param {boolean} won - True if the player won, false otherwise.
  */
 function openOverlayOnGameOver(won){
@@ -253,6 +250,12 @@ function openOverlayOnGameOver(won){
         youWinToggle();
         if(localStorage.getItem('Highscore') === null || JSON.parse(localStorage.getItem('Highscore')) < points){
             localStorage.setItem('Highscore', JSON.stringify(points))
+        }
+        if(levelIndex < 2){
+            setNextLevelButtonVisble();
+        }
+        else {
+            setNextLevelButtonInvisble();
         }
     }
     else youLoseToggle();
