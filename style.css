@@ -76,7 +76,7 @@ button {
 
 .main_screen{
     position: relative;   
-    width: clamp(658px, 100vw , 720px); 
+    width: clamp(658px, 100% , 720px); 
     height: clamp(320px, 100vh, 480px);
 }
 
@@ -236,8 +236,17 @@ button {
 }
 
 @media (max-width: 1000px) {
+    .main_screen{
+        width: clamp(100%, 100% , 720px); 
+    }
+}
+
+@media (max-width: 800px) {
     h1{
         display: none;
+    }
+    .main_screen{
+        width: clamp(100%, 100% , 720px); 
     }
 }
 

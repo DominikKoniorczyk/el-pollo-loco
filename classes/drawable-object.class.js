@@ -6,6 +6,7 @@ export class DrawableObject {
     img;
     imageCache = {};
     currentImageIndex = 0;
+    currentJumpImageIndex = 0;
     otherDirection = false;
     offset = { top: 0, bottom: 0, left: 0, right: 0 };
     minPositionX = 400;
@@ -14,6 +15,8 @@ export class DrawableObject {
     timeSinceLastDamage = 0;
     realCollisionFram = {x: 0, y: 0, w: 0, h: 0};
     level;
+    jumpOnePlayed = false;
+    fallingOnePlayed = false;
     
     /**
      * Loads a single image from the given path and assigns it to the object.

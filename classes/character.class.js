@@ -126,12 +126,13 @@ export class Character extends MovableObject {
      */
     jumpAnimation(){
         if(this.isInAir() || this.speedY > 0 && !this.checkIsDead()){
-            this.playAnimation(ImageHub.character.jump);
+            this.playJumpAnimation(ImageHub.character.jump);
             this.timeSinceLastMove = 0;        
             SoundHub.playOne(this.sounds[3]);
         }
         else {
             SoundHub.stopAndResetOne(this.sounds[3]);
+            this.jumpOnePlayed = false;
         }
     }
 
@@ -257,11 +258,39 @@ export class Character extends MovableObject {
             this.timeSinceLastDamage = new Date().getTime();
         }
     }
+    
+    /**
+     * Updates the object's current jump image to the next in the animation sequence.
+     * @param {string[]} images - Array of image paths used for the animation.
+     */
+    playJumpAnimation(images){
+        const i = this.currentJumpImageIndex % images.length;
+        let path;
+        if(!this.jumpOnePlayed && this.speedY > 0){
+            path = images[!this.jumpOnePlayed && this.speedY > 0 ? 3 : i];
+            this.jumpOnePlayed = this.jumpOnePlayed ? true : i > 3;
+            this.fallingOnePlayed = false;
+        }
+        else {
+            path = images[!this.fallingOnePlayed && this.speedY < 0 ? 7 : i];
+            this.jumpOnePlayed = false;
+            this.fallingOnePlayed = this.fallingOnePlayed ? true : i > 7;
+        }
+        
+        this.img = this.imageCache[path];
+    }
 
+    /**
+     * Stops the running sound effect.
+     */
     stopMoveSound(){
         SoundHub.stopOne(this.sounds[2]);
     }
 
+    /**
+     * Plays or stops the running sound based on movement state.
+     * @param {boolean} run - True if the character is running, false otherwise.
+     */
     playRunSound(run){
         if(run && !this.runSoundPlaying) {
             this.runSoundPlaying = true;
