@@ -18,7 +18,8 @@ let endScreenLose = null;
 let difficultyLevel = 1;
 let levelIndex = 0;
 let points = 0;
-let mobile = false;
+export let mobile = false;
+export let gameIsRunning = false;
 const doc = window.document;
 const levels = [level1, level2, level3];
 const sounds = [new Audio("./assets/audio/music/456969__funwithsound__success-resolution-video-game-fanfare-sound-effect-with-drum-roll.mp3"), new Audio("./assets/audio/music/362204__taranp__horn_fail_wahwah_3.mp3")]
@@ -68,7 +69,6 @@ function reinitGame(){
     mainContRef.classList.remove("d_none");
     loseContRef.classList.add("d_none");
     winContRef.classList.add("d_none");
-    mobile ? enableMobileButtons() : disableMobileButtons();
 }
 
 /**
@@ -109,6 +109,7 @@ function gameTick60FPS(){
  * @param {boolean} won - Indicates if the player has won the game.
  */
 export function gameOver(won){
+    gameIsRunning = false;
     disableMobileButtons();
     Keyboard.removeKeyboardListener();
     IntervalHub.clearAllIntervals();
@@ -161,6 +162,8 @@ function setDifficultyLevel(difficulty){
 function startLevel(levelToStart){
     levelIndex = levelToStart;
     checkMobile();
+    mobile ? enableMobileButtons() : disableMobileButtons();
+    gameIsRunning = true;
     const levelCont = doc.getElementById('selectLevel');
     IntervalHub.clearAllIntervals();
     levels[levelToStart].updateDifficulty(difficultyLevel);
@@ -263,4 +266,9 @@ function openOverlayOnGameOver(won){
         }
     }
     else youLoseToggle();
+}
+
+
+export function toggleMobile(){
+    mobile = !mobile;
 }

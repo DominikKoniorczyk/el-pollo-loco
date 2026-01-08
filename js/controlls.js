@@ -1,5 +1,6 @@
 import { SoundHub } from "../classes/soundhub.class.js";
-import { closeFullscreen, isInFullscreen, openFullscreen, toggleSoundSymbol } from "./dom.js";
+import { closeFullscreen, disableMobileButtons, enableMobileButtons, isInFullscreen, openFullscreen, toggleSoundSymbol } from "./dom.js";
+import { gameIsRunning, mobile, toggleMobile } from "./game.js";
 
 export let muted = false;
 
@@ -10,6 +11,7 @@ export let muted = false;
 export function addFunctionListnerControlls(){
     window.toggleAudio = () => toggleAudio();
     window.toggleFullScreen = () => fullScreenToggle();
+    window.toggleMobileControlls = () => toggleMobileControlls();
 }
 
 /**
@@ -48,4 +50,13 @@ function toggleAudio(){
  */
 function fullScreenToggle(){
     isInFullscreen() ? closeFullscreen() : openFullscreen();    
+}
+
+function toggleMobileControlls(){
+    toggleMobile();
+    if(mobile && gameIsRunning){
+        enableMobileButtons();
+    } else {
+        disableMobileButtons();
+    }
 }
