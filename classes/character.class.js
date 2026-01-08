@@ -45,7 +45,8 @@ export class Character extends MovableObject {
                 this.moveLeft();
             }
         if(this.world.keyboard.SPACE && !this.isInAir() && !this.checkIsDead() && this.canMove){
-            this.jump();
+            this.jump();            
+            SoundHub.stopAndResetOne(this.sounds[3]);
         }
         this.world.camera_x = -this.x + 100;
         this.world.level.air.x = this.x - 100;
@@ -131,8 +132,7 @@ export class Character extends MovableObject {
             SoundHub.playOne(this.sounds[3]);
         }
         else {
-            SoundHub.stopAndResetOne(this.sounds[3]);
-            this.jumpOnePlayed = false;
+            this.jumpOnePlayed = false;            
         }
     }
 
@@ -275,8 +275,7 @@ export class Character extends MovableObject {
             path = images[!this.fallingOnePlayed && this.speedY < 0 ? 7 : i];
             this.jumpOnePlayed = false;
             this.fallingOnePlayed = this.fallingOnePlayed ? true : i > 7;
-        }
-        
+        }        
         this.img = this.imageCache[path];
     }
 

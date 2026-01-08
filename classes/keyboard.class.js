@@ -40,7 +40,7 @@ export class Keyboard {
     }
 
     /**
-     * Removes the global keyboard event listeners.
+     * Removes the global keyboard event listeners. And resets all control flags to false.
      */
     static removeKeyboardListener(){
         window.removeEventListener("keydown", Keyboard.onKeyDown);

@@ -5,7 +5,7 @@ import { level1, level2, level3 } from '../levels/level1.js';
 import { ImageHub } from '../classes/imagehub.class.js';
 import { SoundHub } from '../classes/soundhub.class.js';
 import { MainMenu } from '../classes/main-menu.class.js';
-import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape, setNextLevelButtonInvisble, setNextLevelButtonVisble } from './dom.js';
+import { initData, mainMenuToggle, difficultyToggle, selectLevelToggle, howToPlayToggle, impressumToggle, youWinToggle, youLoseToggle, removeEndscreen, checkMobile, checkIsInLandscape, setNextLevelButtonInvisble, setNextLevelButtonVisble, enableMobileButtons, disableMobileButtons } from './dom.js';
 import { addFunctionListnerControlls, loadAudioSetting, preventSpaceClick } from './controlls.js';
 import { EndScoreText } from '../classes/end-score-text.class.js';
 
@@ -18,6 +18,7 @@ let endScreenLose = null;
 let difficultyLevel = 1;
 let levelIndex = 0;
 let points = 0;
+let mobile = false;
 const doc = window.document;
 const levels = [level1, level2, level3];
 const sounds = [new Audio("./assets/audio/music/456969__funwithsound__success-resolution-video-game-fanfare-sound-effect-with-drum-roll.mp3"), new Audio("./assets/audio/music/362204__taranp__horn_fail_wahwah_3.mp3")]
@@ -67,6 +68,7 @@ function reinitGame(){
     mainContRef.classList.remove("d_none");
     loseContRef.classList.add("d_none");
     winContRef.classList.add("d_none");
+    mobile ? enableMobileButtons() : disableMobileButtons();
 }
 
 /**
@@ -107,7 +109,8 @@ function gameTick60FPS(){
  * @param {boolean} won - Indicates if the player has won the game.
  */
 export function gameOver(won){
-    checkMobile();
+    disableMobileButtons();
+    Keyboard.removeKeyboardListener();
     IntervalHub.clearAllIntervals();
     Keyboard.removeKeyboardListener();
     world.level.clearWorld();

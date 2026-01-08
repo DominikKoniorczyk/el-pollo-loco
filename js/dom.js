@@ -150,9 +150,23 @@ export function isInFullscreen(){
  */
 export function checkMobile(){
     if(window.innerWidth < 1000){
-      mobileButtons.classList.toggle("d_none");
+      enableMobileButtons();
       window.document.addEventListener('contextmenu', e => e.preventDefault());
     }
+}
+
+/**
+ * Enables the mobile control buttons by removing the "d_none" class.
+ */
+export function enableMobileButtons(){
+    mobileButtons.classList.remove("d_none");
+}
+
+/**
+ * Disables the mobile control buttons by adding the "d_none" class.
+ */
+export function disableMobileButtons(){
+    mobileButtons.classList.add("d_none");
 }
 
 /**
