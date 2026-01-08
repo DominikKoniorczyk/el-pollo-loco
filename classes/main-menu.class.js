@@ -11,7 +11,9 @@ export class MainMenu {
     constructor(_canvas, _keyboard, _level){
         this.ctx = _canvas.getContext('2d');
         this.canvas = _canvas;
-        this.keyboard = _keyboard;
+        this.keyboard = _keyboard;                
+        this.img = new Image();
+        this.img.src = ImageHub.startScreen;
         this.draw();        
         IntervalHub.startInterval(this.interval60FPS, 1000 / 60);
     }
@@ -28,7 +30,7 @@ export class MainMenu {
      */
     draw(){ 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.addToViewport({src: ImageHub.startScreen, x: 0, y: 0, width: 720, height: 480});
+        this.addToViewport({src: ImageHub.startScreen, x: 0, y: 0, width: this.canvas.width, height: this.canvas.height});
     }
 
     /**
@@ -41,8 +43,6 @@ export class MainMenu {
      * @param {number} object.height - Height of the image.
      */
     addToViewport(object){
-        const img = new Image();
-        img.src = object.src;
-        this.ctx.drawImage(img, object.x, object.y, object.width, object.height);
+        this.ctx.drawImage(this.img, object.x, object.y, object.width, object.height);
     }
 }

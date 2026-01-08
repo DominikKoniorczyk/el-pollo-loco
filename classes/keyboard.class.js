@@ -45,6 +45,10 @@ export class Keyboard {
     static removeKeyboardListener(){
         window.removeEventListener("keydown", Keyboard.onKeyDown);
         window.removeEventListener("keyup", Keyboard.onKeyUp);
+        Keyboard.RIGHT = false;
+        Keyboard.LEFT = false;
+        Keyboard.SPACE = false;
+        Keyboard.THROW = false;        
     }
 
     /**
