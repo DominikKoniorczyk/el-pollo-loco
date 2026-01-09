@@ -239,6 +239,12 @@ button {
     .main_screen{
         width: clamp(100%, 100% , 720px); 
     }
+    h1 {
+        display: none;
+    }
+    canvas {
+        border-radius: 0;
+    }
 }
 
 @media (max-height: 500px){
@@ -248,9 +254,6 @@ button {
 }
 
 @media (max-width: 800px) {
-    h1{
-        font-size: 24px;
-    }
     .main_screen{
         width: clamp(100%, 100% , 720px); 
     }

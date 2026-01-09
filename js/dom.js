@@ -150,7 +150,7 @@ export function isInFullscreen(){
  */
 export function checkMobile(){
     if(window.innerWidth < 1000){
-      enableMobileButtons();
+      mobileButtons.classList.remove("d_none");
       window.document.addEventListener('contextmenu', e => e.preventDefault());
     }
 }

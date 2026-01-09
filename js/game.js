@@ -161,8 +161,8 @@ function setDifficultyLevel(difficulty){
  */
 function startLevel(levelToStart){
     levelIndex = levelToStart;
-    checkMobile();
     mobile ? enableMobileButtons() : disableMobileButtons();
+    checkMobile();
     gameIsRunning = true;
     const levelCont = doc.getElementById('selectLevel');
     IntervalHub.clearAllIntervals();
