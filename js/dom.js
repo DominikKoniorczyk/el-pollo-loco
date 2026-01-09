@@ -20,16 +20,16 @@ let nextLevelButton = null;
  * @param {Document} document - The HTML document containing the elements to reference.
  */
 export function initData(document){
-    mainMenuRef = document.getElementById("mainMenu");
-    difficultyRef = document.getElementById("difficultyLevel");
-    selectLevelRef = document.getElementById("selectLevel");
-    howToPlayRef = document.getElementById("howToPlay");
-    impressumRef = document.getElementById("impressum");
-    youLoseRef = document.getElementById("youLose");
-    youWinRef = document.getElementById("youWin");
-    turnPhoneScreen = document.getElementById("turnPhone");
-    nextLevelButton = document.getElementById("nextLevelButton");
-    getButtons(document);
+  mainMenuRef = document.getElementById("mainMenu");
+  difficultyRef = document.getElementById("difficultyLevel");
+  selectLevelRef = document.getElementById("selectLevel");
+  howToPlayRef = document.getElementById("howToPlay");
+  impressumRef = document.getElementById("impressum");
+  youLoseRef = document.getElementById("youLose");
+  youWinRef = document.getElementById("youWin");
+  turnPhoneScreen = document.getElementById("turnPhone");
+  nextLevelButton = document.getElementById("nextLevelButton");
+  getButtons(document);
 }
 
 /**
@@ -37,75 +37,75 @@ export function initData(document){
  * @param {Document} document - The DOM document to query elements from.
  */
 function getButtons(document){
-    volumeOnRef = document.getElementById("audioOn");
-    volumeOffRef = document.getElementById("audioOff");
-    mainScreenRef = document.getElementById("mainScreen");
-    mobileButtons = document.getElementById("mobileControlls");
+  volumeOnRef = document.getElementById("audioOn");
+  volumeOffRef = document.getElementById("audioOff");
+  mainScreenRef = document.getElementById("mainScreen");
+  mobileButtons = document.getElementById("mobileControlls");
 }
 
 /**
  * Toggles the visibility of the main menu by adding/removing the "d_none" class.
  */
 export function mainMenuToggle(){
-    mainMenuRef.classList.toggle("d_none");    
+  mainMenuRef.classList.toggle("d_none");    
 }
 
 /**
  * Toggles the visibility of the difficulty selection by adding/removing the "d_none" class.
  */
 export function difficultyToggle(){
-    difficultyRef.classList.toggle("d_none");
+  difficultyRef.classList.toggle("d_none");
 } 
 
 /**
  * Toggles the visibility of the level selection by adding/removing the "d_none" class.
  */
 export function selectLevelToggle(){
-    selectLevelRef.classList.toggle("d_none");
+  selectLevelRef.classList.toggle("d_none");
 } 
 
 /**
  * Toggles the visibility of the "How to Play" section by adding/removing the "d_none" class.
  */
 export function howToPlayToggle(){
-    howToPlayRef.classList.toggle("d_none");
+  howToPlayRef.classList.toggle("d_none");
 } 
 
 /**
  * Toggles the visibility of the impressum section by adding/removing the "d_none" class.
  */
 export function impressumToggle(){
-    impressumRef.classList.toggle("d_none");
+  impressumRef.classList.toggle("d_none");
 } 
 
 /**
  * Toggles the visibility of the "You Lose" screen.
  */
 export function youLoseToggle(){
-    youLoseRef.classList.toggle("d_none");
+  youLoseRef.classList.toggle("d_none");
 } 
 
 /**
  * Toggles the visibility of the "You Win" screen.
  */
 export function youWinToggle(){
-    youWinRef.classList.toggle("d_none");
+  youWinRef.classList.toggle("d_none");
 } 
 
 /**
  * Hides both the "You Win" and "You Lose" screens.
  */
 export function removeEndscreen(){
-    youLoseRef.classList.add("d_none");
-    youWinRef.classList.add("d_none");
+  youLoseRef.classList.add("d_none");
+  youWinRef.classList.add("d_none");
 }
 
 /**
  * Toggles between the volume on and off symbols.
  */
 export function toggleSoundSymbol(){
-    volumeOnRef.classList.toggle("d_none");
-    volumeOffRef.classList.toggle("d_none");
+  volumeOnRef.classList.toggle("d_none");
+  volumeOffRef.classList.toggle("d_none");
 }
 
 /**
@@ -141,7 +141,7 @@ export function closeFullscreen() {
  * @returns {boolean} True if fullscreen is active, otherwise false.
  */
 export function isInFullscreen(){
-    return isFullscreen;
+  return isFullscreen;
 }
 
 /**
@@ -149,24 +149,24 @@ export function isInFullscreen(){
  * Also disables the context menu on mobile devices.
  */
 export function checkMobile(){
-    if(window.innerWidth < 1000){
-      mobileButtons.classList.remove("d_none");
-      window.document.addEventListener('contextmenu', e => e.preventDefault());
-    }
+  if(window.innerWidth < 1000){
+    mobileButtons.classList.remove("d_none");
+    window.document.addEventListener('contextmenu', e => e.preventDefault());
+  }
 }
 
 /**
  * Enables the mobile control buttons by removing the "d_none" class.
  */
 export function enableMobileButtons(){
-    mobileButtons.classList.remove("d_none");
+  mobileButtons.classList.remove("d_none");
 }
 
 /**
  * Disables the mobile control buttons by adding the "d_none" class.
  */
 export function disableMobileButtons(){
-    mobileButtons.classList.add("d_none");
+  mobileButtons.classList.add("d_none");
 }
 
 /**
@@ -174,8 +174,8 @@ export function disableMobileButtons(){
  * Hides the prompt if the device is in landscape mode.
  */
 export function checkIsInLandscape(){
-    if(window.innerWidth < window.innerHeight) turnPhoneScreen.classList.remove("d_none");
-    else turnPhoneScreen.classList.add("d_none");  
+  if(window.innerWidth < window.innerHeight) turnPhoneScreen.classList.remove("d_none");
+  else turnPhoneScreen.classList.add("d_none");  
 }
 
 /**
