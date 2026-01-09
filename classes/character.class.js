@@ -197,7 +197,8 @@ export class Character extends MovableObject {
         enemies.forEach(enemy => {
             if(this.isColliding(enemy) && !enemy.isDead){
                 if(!(this.isInAir() && this.speedY < 0)){
-                    this.applyDamage(enemy.damagePerAttack);                    
+                    this.applyDamage(enemy.damagePerAttack);  
+                    SoundHub.stopAndResetOne(this.sounds[1]);                  
                 } else if(!this.checkIsDead()) {
                     enemy.applyDamage(10, this);
                     this.speedY = this.jump_height / 2;                

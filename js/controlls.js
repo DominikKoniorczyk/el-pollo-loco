@@ -1,6 +1,6 @@
 import { SoundHub } from "../classes/soundhub.class.js";
 import { closeFullscreen, disableMobileButtons, enableMobileButtons, isInFullscreen, openFullscreen, toggleSoundSymbol } from "./dom.js";
-import { gameIsRunning, mobile, toggleMobile } from "./game.js";
+import { gameIsRunning, mobile, toggleMobile, playMusic } from "./game.js";
 
 export let muted = false;
 
@@ -42,6 +42,7 @@ function toggleAudio(){
     muted = !muted;
     SoundHub.muteAll();
     localStorage.setItem("Audio", JSON.stringify(muted));
+    if(!muted) playMusic();
 }
 
 /**

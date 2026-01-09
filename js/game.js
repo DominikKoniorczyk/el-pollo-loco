@@ -268,7 +268,12 @@ function openOverlayOnGameOver(won){
     else youLoseToggle();
 }
 
-
+/** Toggles the mobile mode. */
 export function toggleMobile(){
     mobile = !mobile;
+}
+
+/** Starts music when unmuting audio. */
+export function playMusic(){
+    world.level.playMusic();
 }

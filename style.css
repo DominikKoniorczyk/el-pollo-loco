@@ -135,8 +135,8 @@ button {
 }
 
 .how_to_play{
-    width: 650px;
-    height: 400px;
+    width: clamp(400px, 80% , 600px);
+    height: clamp(200px, 80dvh, 400px);
     overflow: auto;
 }
 
@@ -163,7 +163,7 @@ button {
 }
 
 .controlls{
-    width: 30%;
+    width: 60%;
     gap: 8px;
 }
 
@@ -171,9 +171,19 @@ button {
     text-align: left;
 }
 
+.controlls_row{
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    .keyboardkey{
+        width: 20%;
+    }
+}
+
 .fullscreen {
-    width: 650px;
-    height: 400px;
+    width: clamp(400px, 80% , 650px);
+    height: clamp(200px, 80dvh, 400px);
     overflow: auto;
     gap: 0;
 }
@@ -198,6 +208,7 @@ button {
 
     .controll_buttons{
         display: flex;
+        justify-content: space-between;
         gap: 16px;
 
         button{
