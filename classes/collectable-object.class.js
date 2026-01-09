@@ -1,6 +1,11 @@
 import { DrawableObject } from "./drawable-object.class.js";
 import { SoundHub } from "./soundhub.class.js";
 
+/**
+ * Creats a new collectable object.
+ * @extends DrawableObject
+ * @class
+ */
 export class CollectableObject extends DrawableObject{
     width = 100;
     height = 100;

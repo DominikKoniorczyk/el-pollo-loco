@@ -3,6 +3,11 @@ import { ImageHub } from "./imagehub.class.js";
 import { SoundHub } from "./soundhub.class.js";
 import { gameOver } from "../js/game.js";
 
+/**
+ * Creats a new character.
+ * @extends MovableObject
+ * @class
+ */
 export class Character extends MovableObject {
     width = 122;
     height = 240;

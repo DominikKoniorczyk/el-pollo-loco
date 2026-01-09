@@ -2,6 +2,11 @@ import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { SoundHub } from "./soundhub.class.js";
 
+/**
+ * Creats a new throwable object.
+ * @extends MovableObject
+ * @class
+ */
 export class ThrowableObject extends MovableObject {
     width = 50;
     height = 60;

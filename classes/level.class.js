@@ -9,6 +9,10 @@ import { SoundHub } from "./soundhub.class.js";
 import { BackgroundObject } from "./background-object.class.js";
 import { Cloud } from "./cloud.class.js";
 
+/**
+ * Creats a new level.
+ * @class
+ */
 export class Level {
     enemies = [];
     clouds = [];

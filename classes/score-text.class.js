@@ -1,5 +1,9 @@
 import { TimerText } from "./timer-text.class.js";
 
+/**
+ * Creats a new score text.
+ * @class
+ */
 export class ScoreText extends TimerText {
     character;
 

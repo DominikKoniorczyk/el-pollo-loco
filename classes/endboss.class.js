@@ -2,6 +2,11 @@ import { ImageHub } from "./imagehub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { SoundHub } from "./soundhub.class.js";
 
+/**
+ * Creats a new endboss.
+ * @extends MovableObject
+ * @class
+ */
 export class Endboss extends MovableObject {
     height = 400;
     width = 343;

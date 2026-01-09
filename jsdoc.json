@@ -1,0 +1,9 @@
+{
+    "source": {
+        "include": ["./js",
+                    "./classes"]
+    },
+    "opts": {
+        "destination": "./out"
+    }
+}

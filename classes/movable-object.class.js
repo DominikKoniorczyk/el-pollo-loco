@@ -1,6 +1,11 @@
 import { gameOver } from "../js/game.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
+/**
+ * Creats a new movable object.
+ * @extends DrawableObject
+ * @class
+ */
 export class MovableObject extends DrawableObject {
     speed = 0.15;
     world;

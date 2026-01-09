@@ -7,6 +7,10 @@ import { ThrowableObject } from "./throwable-object.class.js";
 import { TimerText } from "./timer-text.class.js";
 import { ScoreText } from "./score-text.class.js";
 
+/**
+ * Creats a new world.
+ * @class
+ */
 export class World {
     character = new Character();
     level;

@@ -2,6 +2,11 @@ import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { SoundHub } from "./soundhub.class.js";
 
+/**
+ * Creats a new chicken enemy.
+ * @extends MovableObject
+ * @class
+ */
 export class Chicken extends MovableObject {
     width = 60;
     height = 60;

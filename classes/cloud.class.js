@@ -1,5 +1,10 @@
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * Creats a new cloud.
+ * @extends MovableObject
+ * @class
+ */
 export class Cloud extends MovableObject {
     y = 0;
     width = 720;

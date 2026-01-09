@@ -2,6 +2,11 @@ import { CollectableObject } from "./collectable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { SoundHub } from "./soundhub.class.js";
 
+/**
+ * Creats a new coin.
+ * @extends CollectableObject
+ * @class
+ */
 export class Coin extends CollectableObject {
     minHeight = 360;
     maxHeight = 60;

@@ -1,3 +1,7 @@
+/**
+ * Creats a new drawable object.
+ * @class
+ */
 export class DrawableObject {
     x = 120;
     y = 275;

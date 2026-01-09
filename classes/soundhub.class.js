@@ -1,3 +1,7 @@
+/**
+ * Creats a new sound hub.
+ * @class
+ */
 export class SoundHub {
     static volume = 0.2; 
     static muted = false; 

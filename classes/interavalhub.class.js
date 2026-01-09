@@ -1,3 +1,7 @@
+/**
+ * Creats a new IntervalHub.
+ * @class
+ */
 export class IntervalHub {
 
     static allIntervals = [];

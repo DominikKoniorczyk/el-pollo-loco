@@ -1,3 +1,7 @@
+/**
+ * Creats a new keyboard.
+ * @class
+ */
 export class Keyboard {
     RIGHT = false;
     LEFT = false;

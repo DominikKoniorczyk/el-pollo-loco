@@ -1,5 +1,10 @@
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * Creats a new background object.
+ * @extends MovableObject
+ * @class
+ */
 export class BackgroundObject extends MovableObject {
     width = 720;
     height = 480;

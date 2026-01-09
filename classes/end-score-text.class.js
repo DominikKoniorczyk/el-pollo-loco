@@ -1,3 +1,7 @@
+/**
+ * Creats a new end score text.
+ * @class
+ */
 export class EndScoreText {
     score = 0;
     highscore = 0;

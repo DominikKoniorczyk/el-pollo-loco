@@ -1,3 +1,7 @@
+/**
+ * Creats a new timer text.
+ * @class
+ */
 export class TimerText{
     world;
     ctx;

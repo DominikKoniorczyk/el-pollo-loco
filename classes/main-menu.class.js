@@ -1,6 +1,10 @@
 import { ImageHub } from "./imagehub.class.js";
 import { IntervalHub } from "./interavalhub.class.js";
 
+/**
+ * Creats a new main menu.
+ * @class
+ */
 export class MainMenu {
     canvas;
     ctx;

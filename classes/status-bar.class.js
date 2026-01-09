@@ -1,5 +1,10 @@
 import { DrawableObject } from "./drawable-object.class.js";
 
+/**
+ * Creats a new status bar.
+ * @exports DrawableObject
+ * @class
+ */
 export class StatusBar extends DrawableObject{
     percentage = 100;
     width = 150;

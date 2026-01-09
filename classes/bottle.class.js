@@ -1,6 +1,11 @@
 import { CollectableObject } from "./collectable-object.class.js";
 import { ImageHub } from "./imagehub.class.js";
 
+/**
+ * Creats a new collectable object.
+ * @extends CollectableObject
+ * @class
+ */
 export class Bottle extends CollectableObject {
   offset = { top: 10, bottom: 5, left: 20, right: 5 };
   y = 365;

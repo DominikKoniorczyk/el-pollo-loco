@@ -2,6 +2,11 @@ import { Chicken } from "./chicken.class.js";
 import { ImageHub } from "./imagehub.class.js";
 import { SoundHub } from "./soundhub.class.js";
 
+/**
+ * Creats a new chick. 
+ * @extends Chicken.
+ * @class
+ */
 export class BabyChicken extends Chicken{
     width = 40;
     height = 40;

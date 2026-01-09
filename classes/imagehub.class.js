@@ -1,3 +1,7 @@
+/**
+ * Creats a new ImageHub.
+ * @class
+ */
 export class ImageHub {
     static character = {
         idle: [
