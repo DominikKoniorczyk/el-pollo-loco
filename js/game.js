@@ -275,5 +275,5 @@ export function toggleMobile(){
 
 /** Starts music when unmuting audio. */
 export function playMusic(){
-    world.level.playMusic();
+    if(world instanceof World) world.level.playMusic();
 }
