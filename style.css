@@ -259,6 +259,12 @@ button {
     }
 }
 
+@media (max-height: 380px){  
+    .endscreen{
+        margin-top: 230px;
+    }
+}
+
 .d_none {
     display: none;
 }
